@@ -1,4 +1,7 @@
 dotfiles
 ========
 
-dotfiles
+Configuration files
+
+- .vimrc
+- .bashrc
