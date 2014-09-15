@@ -18,5 +18,6 @@ set cindent
 set tabstop=2
 set number
 set showmatch
+set incsearch
 
 nmap <TAB> :tabnext<cr>
