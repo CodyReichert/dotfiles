@@ -1,0 +1,16 @@
+directory: /media/cody/ASPEN/music/tagged/
+library: /media/cody/ASPEN/music/data/musiclibrary.blb
+
+plugins: fetchart web
+
+import:
+  copy: yes
+  quiet_fallback: skip
+  log: /media/cody/ASPEN/music/data/imported-beets.log
+
+web:
+  host: 192.168.1.112
+  port: 1234
+
+fetchart:
+  google_search: true
