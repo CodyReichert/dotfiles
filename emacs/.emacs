@@ -4,7 +4,7 @@
 (push '("melpa" . "http://melpa.milkbox.net/packages/")
         package-archives )
 
-;; chrome reload browser (<C-x> <C-r>)
+;; chrome reload browser (<C-x><C-r>)
 (defun chrome-reload() (interactive)
   (shell-command "chromix with localhost reloadWithoutCache"))
 (define-key global-map "\C-x\C-r" 'chrome-reload)
@@ -24,10 +24,6 @@
 (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build) ;; build
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(haskell-font-lock-symbols t)
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
@@ -45,7 +41,10 @@
 
 (eval-after-load 'less-css-mode ;; for lucius files
   '(define-key css-mode-map [f5] 'haskell-process-reload-devel-main))
-
+  
+(eval-after-load 'js            ;; for julius files
+  '(define-key js-mode-map [f5] 'haskell-process-reload-devel-main))
+  
 ;; highlight parentheses in all buffers
 (define-globalized-minor-mode global-highlight-parentheses-mode
   highlight-parentheses-mode
@@ -84,3 +83,10 @@ scroll-step 1)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
+
+;; activate modes for file extenions
+(add-to-list 'auto-mode-alist '("\\.lucius\\'" . less-css-mode)) ;; less-mode lucius files
+(add-to-list 'auto-mode-alist '("\\.julius\\'" . js-mode))       ;; javascript-mode julius files
+
+;; autocomplete everywhere
+(global-auto-complete-mode t)
