@@ -114,5 +114,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Custom aliases
+alias emacs='emacs -nw'
+
 PATH=~/.cabal/bin:$PATH
 PATH=/opt/ghc/7.8.2/bin:$PATH
+PATH=~/.scripts:$PATH
