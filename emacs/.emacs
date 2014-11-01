@@ -6,8 +6,19 @@
 
 ;; chrome reload browser (<C-x><C-r>)
 (defun chrome-reload() (interactive)
-  (shell-command "chromix with localhost reloadWithoutCache"))
+  (shell-command "chromix with localhost reloadWithoutCache")
+  (shell-command "chromix with file reloadWithoutCache"))
 (define-key global-map "\C-x\C-r" 'chrome-reload)
+
+(defun latex-compile(x)
+  (interactive "File: ")
+  (setq filename (concat x))
+  (setq command "pdflatex ")
+  (setq texCompile (concat command filename))
+  (shell-command texCompile)
+  (shell-command "chromix with file reloadWithoutCache")
+  (message "success"))
+(define-key global-map "\C-c\C-w" 'latex-compile)
 
 ;; tabs -> spaces
 (setq-default indent-tabs-mode nil)
