@@ -1,0 +1,9 @@
+* Dotfiles
+
+** Configuration files
+
+   + .bashrc [[https://savannah.gnu.org/git/?group=bash][Bourne-Again-SHell]]
+   + .beets/config.yml [[http://beets.radbox.org/][beets: the music geeks organizer]]
+   + .emacs [[https://www.gnu.org/software/emacs/][GNU Emacs]]
+   + terminator/config [[https://launchpad.net/terminator][Terminator terminal emulator]]
+   + .vimrc [[http://www.vim.org/][Vim]]
