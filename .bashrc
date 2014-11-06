@@ -114,6 +114,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+set -o vi
+
 # Custom aliases
 alias emacs='emacs -nw'
 
