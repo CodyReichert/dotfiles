@@ -1,8 +1,23 @@
-(require 'package)
-(push '("marmalade" . "http://marmalade-repo.org/packages/")
-        package-archives )
-(push '("melpa" . "http://melpa.milkbox.net/packages/")
-        package-archives )
+;; initialize packages and repositories
+(setq package-list '(tabulated-list auto-complete coffee-mode expand-region
+                                    evil-leader evil-numbers evil-org evil flycheck dash 
+                                    ghci-completion goto-chg hamlet-mode haskell-mode org
+                                    highlight-parentheses js2-mode js3-mode json-mode json-reformat
+                                    json-snatcher latex-extra auctex less-css-mode lisp-editing magit
+                                    git-rebase-mode git-commit-mode markdown-mode nodejs-repl pkg-info epl
+                                    popup s smooth-scroll tangotango-theme undo-tree yaml-mode))
+(setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("elpa" . "http://tromey.com/elpa/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 ;; chrome reload browser (<C-x><C-r>)
 (defun chrome-reload() (interactive)
@@ -27,7 +42,6 @@
 (setq-default indent-tabs-mode nil)
 
 ;; evil mode
-(package-initialize)
 (evil-mode 1)
 
 ;; haskell
@@ -49,6 +63,7 @@
 (setq haskell-interactive-popup-errors 'nil)
 
 (setq haskell-process-type 'cabal-repl)
+(setq haskell-process-use 'cabal-repl)
 
 ;; bind f5 to reload DevelMain
 (define-key haskell-mode-map [f5] 'haskell-process-reload-devel-main)
@@ -138,3 +153,6 @@ scroll-step 1)
 (evil-define-key 'normal magit-diff-mode-map
     "j" 'magit-goto-next-section
     "k" 'magit-goto-previous-section)
+
+;; expand region
+(global-set-key (kbd "C-=") 'er/expand-region)
