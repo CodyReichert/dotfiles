@@ -1,17 +1,21 @@
 [global_config]
-  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  geometry_hinting = False
   suppress_multiple_term_dialog = True
   borderless = True
 [keybindings]
 [profiles]
   [[default]]
+    scrollbar_position = hidden
+    show_titlebar   = False
     use_system_font = False
     font = Inconsolata Medium 10
+    scrollback_lines = 1500
     background_image = None
+    foreground_color = "#839496"
+    background_color = "#002b36"
 [layouts]
   [[default]]
     [[[child1]]]
-      profile = default
       type = Terminal
       parent = window0
     [[[window0]]]
