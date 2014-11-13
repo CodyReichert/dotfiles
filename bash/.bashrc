@@ -116,6 +116,11 @@ fi
 
 set -o vi
 
+if [ "$PS1" ];
+then
+  complete -cf sudo
+fi
+
 # Custom aliases
 alias emacs='emacs -nw'
 alias emcas='emacs -nw'
