@@ -12,7 +12,6 @@ artist=$(cmus-remote -Q | sed -n 's/tag artist \(.*\)/\1/p');
 if [[ $status == "status paused" ]];
 then
     echo "$artist - $title (paused) " > /home/cody/.scripts/nowplaying
-    cat /home/cody/.scripts/nowplaying
     exit
 
 elif [[ $status == "status stopped" ]];
