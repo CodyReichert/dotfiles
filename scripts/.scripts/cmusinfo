@@ -16,7 +16,7 @@ then
 
 elif [[ $status == "status stopped" ]];
 then
-    echo " " > /home/cody/.scripts/nowplaying
+    echo "" > /home/cody/.scripts/nowplaying
     exit
 elif [[ $status == "status playing" ]];
 then
