@@ -21,15 +21,16 @@ then
     number=$RANDOM
     let "number %= $total"
 
-    #echo "Generating thumbnail"
-    #ffmpeg -i "$1" -deinterlace -an -ss $number -t 00:00:01 -r 1 -y -vcodec mjpeg -f mjpeg "$directory/$filename.jpg" 2>&1
-    #echo "Converting $filename to ogv"
-    #ffmpeg -i "$1" -acodec libvorbis -ac 2 -ab 96k -ar 44100 -b 345k "$directory/$filename.ogv"
-    #echo "Finished ogv"
+    echo "Generating thumbnail"
+    ffmpeg -i "$1" -deinterlace -an -ss $number -t 00:00:01 -r 1 -y -vcodec mjpeg -f mjpeg "$directory/$filename.jpg" 2>&1
 
-    #echo "Converting $filename to webm"
-    #ffmpeg -i "$1" -acodec libvorbis -ac 2 -ab 96k -ar 44100 -b 345k "$directory/$filename.webm"
-    #echo "Finished webm"
+    echo "Converting $filename to ogv"
+    ffmpeg -i "$1" -acodec libvorbis -ac 2 -ab 96k -ar 44100 -b 345k "$directory/$filename.ogv"
+    echo "Finished ogv"
+
+    echo "Converting $filename to webm"
+    ffmpeg -i "$1" -acodec libvorbis -ac 2 -ab 96k -ar 44100 -b 345k "$directory/$filename.webm"
+    echo "Finished webm"
 
     echo "Converting $filename to h264"
     ffmpeg -i "$1" -acodec libfaac -ab 96k -vcodec libx264 -level 21 -refs 2 -b 345k -bt 345k -threads 0 "$directory/output.mp4"
