@@ -1,27 +1,28 @@
-#!/bin/sh env
+#!/bin/bash
 
-# if cmus is off don't show anything
-if [ "$(cmus-remote -Q)" == "" ]
+#cmus status
+status=$(cmus-remote -Q | grep "status")
+
+# song info
+title=$(cmus-remote -Q | sed -n 's/tag title \(.*\)/\1/p');
+title=$(echo $title | sed 's/\"/\\\"/g');
+artist=$(cmus-remote -Q | sed -n 's/tag artist \(.*\)/\1/p');
+
+# output text depending on status
+if [[ $status == "status paused" ]];
 then
-    echo -e "nowplaying.text=\"\"" | /usr/bin/awesome-client;
-    continue
+    echo "$artist - $title (paused) " > /home/cody/.scripts/nowplaying
+    cat /home/cody/.scripts/nowplaying
+    exit
+
+elif [[ $status == "status stopped" ]];
+then
+    echo " " > /home/cody/.scripts/nowplaying
+    exit
+elif [[ $status == "status playing" ]];
+then
+    echo "$artist - $title " > /home/cody/.scripts/nowplaying
+    exit
 else
-
-# cmus is playing if this is true
-# playing=$(cmus-remote -Q | grep 'playing');
-
-# default to playing status then changed if paused
-# status="playing"
-# 
-# if [ "$playing" == "" ]
-# then
-#     status="paused"
-# fi
-
-title=$(cmus-remote -Q | sed -n 's/tag title \(.*\)/\1/p'); # get song title
-title=$(echo $title | sed 's/\"/\\\"/g'); # escape title
-artist=$(cmus-remote -Q | sed -n 's/tag artist \(.*\)/\1/p'); # get playing artist
-echo "$artist - $title " > /home/cody/.scripts/nowplaying
-# ^ write this to a file and read it with your WM periodically
-
+    echo ""
 fi
