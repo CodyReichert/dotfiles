@@ -1,0 +1,69 @@
+###########################
+# xbindkeys configuration #
+###########################
+#
+# Version: 0.1.3
+#
+# If you edit this, do not forget to uncomment any lines that you change.
+# The pound(#) symbol may be used anywhere for comments.
+#
+# A list of keys is in /usr/include/X11/keysym.h and in
+# /usr/include/X11/keysymdef.h 
+# The XK_ is not needed. 
+#
+# List of modifier (on my keyboard): 
+#   Control, Shift, Mod1 (Alt), Mod2 (NumLock), 
+#   Mod3 (CapsLock), Mod4, Mod5 (Scroll). 
+#
+# Another way to specifie a key is to use 'xev' and set the 
+# keycode with c:nnn or the modifier with m:nnn where nnn is 
+# the keycode or the state returned by xev 
+#
+# This file is created by xbindkey_config 
+# The structure is : 
+# # Remark 
+# "command" 
+# m:xxx + c:xxx 
+# Shift+... 
+
+
+
+
+#keystate_numlock = enable
+#keystate_scrolllock = enable
+#keystate_capslock = enable
+
+
+
+#volUp
+"amixer -q set Master playback 1%+"
+    m:0x10 + c:123
+    Mod2 + XF86AudioRaiseVolume 
+
+#volDown
+"amixer -q set Master playback 1%-"
+    m:0x10 + c:122
+    Mod2 + XF86AudioLowerVolume 
+
+#cmus play/pause
+"cmus-remote -u"
+    m:0x10 + c:127
+    Mod2 + Pause 
+
+#cmus stop
+"cmus-remote -s"
+    m:0x11 + c:127
+    Shift+Mod2 + Pause 
+
+#cmus next
+"cmus-remote -n"
+    m:0x10 + c:75
+    Mod2 + F9 
+
+#cmus previous
+"cmus-remote -r"
+    m:0x0 + c:74
+    F8 
+
+#
+# End of xbindkeys configuration
