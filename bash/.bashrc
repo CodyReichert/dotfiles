@@ -120,6 +120,8 @@ set -o vi
 alias emacs='emacs -nw'
 alias emcas='emacs -nw'
 
+alias tree='tree -a -I ".git"'
+
 PATH=~/.cabal/bin:$PATH
 PATH=/opt/ghc/7.8.2/bin:$PATH
 PATH=~/.scripts:$PATH
