@@ -1,0 +1,27 @@
+#!/bin/sh env
+
+# if cmus is off don't show anything
+if [ "$(cmus-remote -Q)" == "" ]
+then
+    echo -e "nowplaying.text=\"\"" | /usr/bin/awesome-client;
+    continue
+else
+
+# cmus is playing if this is true
+# playing=$(cmus-remote -Q | grep 'playing');
+
+# default to playing status then changed if paused
+# status="playing"
+# 
+# if [ "$playing" == "" ]
+# then
+#     status="paused"
+# fi
+
+title=$(cmus-remote -Q | sed -n 's/tag title \(.*\)/\1/p'); # get song title
+title=$(echo $title | sed 's/\"/\\\"/g'); # escape title
+artist=$(cmus-remote -Q | sed -n 's/tag artist \(.*\)/\1/p'); # get playing artist
+echo "$artist - $title " > /home/cody/.scripts/nowplaying
+# ^ write this to a file and read it with your WM periodically
+
+fi
