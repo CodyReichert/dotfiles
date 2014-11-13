@@ -1,0 +1,6 @@
+[user]
+	email = cody@reichertbrothers.com
+	name = Cody Reichert
+[core]
+        editor="emacs -nw"
+        excludesfile=~/.gitignore_global
