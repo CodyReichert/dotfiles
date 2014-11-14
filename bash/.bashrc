@@ -121,10 +121,13 @@ then
   complete -cf sudo
 fi
 
+# Emacs client
+export ALTERNATE_EDITOR=""
+alias e='emacsclient -t'
+
 # Custom aliases
 alias emacs='emacs -nw'
 alias emcas='emacs -nw'
-
 alias tree='tree -I ".git"'
 
 PATH=~/.cabal/bin:$PATH
