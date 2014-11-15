@@ -1,0 +1,6 @@
+# inputmode.rc
+#
+# These settings take effect on all
+# programs that use the readline library.
+
+set editing-mode vi
