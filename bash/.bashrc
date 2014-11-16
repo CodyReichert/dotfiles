@@ -126,8 +126,13 @@ export ALTERNATE_EDITOR=""
 alias e='emacsclient -t'
 
 # Custom aliases
+  # emacs
 alias emacs='emacs -nw'
 alias emcas='emacs -nw'
+  # pacman
+alias pacman='sudo pacman'
+alias pacdep='sudo pacman -Si'
+  # other
 alias tree='tree -I ".git"'
 
 PATH=~/.cabal/bin:$PATH
