@@ -10,7 +10,7 @@
 #
 # keystate_numlock = enable
 # keystate_scrolllock = enable
-# keystate_capslock = enable
+# keystate_capslock = disable
 
 # volUp
 "amixer -q set Master playback 1%+"
@@ -22,24 +22,24 @@
     m:0x10 + c:122
     Mod2 + XF86AudioLowerVolume 
 
-# cmus play/pause
-"cmus-remote -u"
+# ncmpcpp play/pause
+"ncmpcpp toggle"
     m:0x10 + c:127
     Mod2 + Pause 
 
-# cmus stop
-"cmus-remote -s"
+# ncmpcpp stop
+"ncmpcpp stop"
     m:0x11 + c:127
     Shift+Mod2 + Pause 
 
-# cmus next
-"cmus-remote -n"
+# ncmpcpp next
+"ncmpcpp next"
     m:0x10 + c:75
     Mod2 + F9 
 
-# cmus previous
-"cmus-remote -r"
+# ncmpcpp previous
+"ncmpcpp prev"
     m:0x0 + c:74
-    F8 
+    Mod2 + F8
 
 # End of xbindkeys configuration
