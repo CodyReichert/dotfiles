@@ -125,6 +125,8 @@ fi
 export ALTERNATE_EDITOR=""
 alias e='emacsclient -t'
 
+export EDITOR="e"
+
 # Custom aliases
   # emacs
 alias emacs='emacs -nw'
@@ -135,6 +137,6 @@ alias pacdep='sudo pacman -Si'
   # other
 alias tree='tree -I ".git"'
 
-PATH=~/.cabal/bin:$PATH
-PATH=/opt/ghc/7.8.2/bin:$PATH
+PATH=/home/cody/.cabal/bin:$PATH
+PATH=/opt/ghc/7.8.3/bin:$PATH
 PATH=~/.scripts:$PATH
