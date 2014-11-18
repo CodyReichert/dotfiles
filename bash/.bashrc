@@ -134,6 +134,10 @@ alias emcas='emacs -nw'
   # pacman
 alias pacman='sudo pacman'
 alias pacdep='sudo pacman -Si'
+  # git
+alias gpr='git pull --rebase'
+alias stashsave='git stash save'
+alias stashpop='git stash pop'
   # other
 alias tree='tree -I ".git"'
 
