@@ -121,7 +121,7 @@ scroll-step 1)
    (octave . t)
    (sqlite . t)
    (perl . t)
-   ))
+))
 
 (setq org-log-done t)
 
@@ -136,6 +136,8 @@ scroll-step 1)
 
 ;; autocomplete everywhere
 (global-auto-complete-mode t)
+(auto-complete-mode 1)
+(global-auto-complete-mode 1)
 
 ;; magit
 (define-key global-map [f6] 'magit-status)
