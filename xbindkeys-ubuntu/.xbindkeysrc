@@ -42,4 +42,9 @@
     m:0x0 + c:74
     Mod2 + F8
 
+# pop up clerk to browse library
+"terminator -e ncmpcpp"
+    m:0x0 + c:148
+    XF86Calculator
+
 # End of xbindkeys configuration
