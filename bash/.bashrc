@@ -128,6 +128,9 @@ alias e='emacsclient -t'
 export EDITOR="e"
 
 # Custom aliases
+  # apt-get
+alias aptsearch='sudo apt-cache search'
+alias aptget='sudo apt-get install'
   # emacs
 alias emacs='emacs -nw'
 alias emcas='emacs -nw'
