@@ -13,12 +13,12 @@
 # keystate_capslock = disable
 
 # volUp
-"amixer -q set Master playback 1%+"
+"amixer -q set Master playback 2%+"
     m:0x10 + c:123
     Mod2 + XF86AudioRaiseVolume 
 
 # volDown
-"amixer -q set Master playback 1%-"
+"amixer -q set Master playback 2%-"
     m:0x10 + c:122
     Mod2 + XF86AudioLowerVolume 
 
@@ -46,5 +46,15 @@
 "terminator -e ncmpcpp"
     m:0x0 + c:148
     XF86Calculator
+
+# clerk shuffle songs
+"clerk -rs; removeMpdDuplicates"
+    m:0x11 + c:75
+    Shift+Mod2 + F9
+
+# clerk shuffle albums
+"clerk -ra"
+    m:0x11 + c:74
+    Shift+Mod2 + F8
 
 # End of xbindkeys configuration
