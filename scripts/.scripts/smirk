@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# smirk - a simple mpc wrapper for creating shuffled playlists.
+
+playRandomAlbum () {
+  mpc clear;
+  mpc search album "$(mpc list album | shuf -n 1)" | mpc add;
+  mpc play
+}
+
+playRandomTracks () {
+  mpc clear
+  for i in `seq 1 75`;
+  do
+      mpc listall | shuf -n 1 | mpc add; mpc play
+  done
+}
+
+if [[ "$1" == "album" ]]; then
+    playRandomAlbum
+elif [[ "$1" == "tracks" ]]; then
+    playRandomTracks
+fi
