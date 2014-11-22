@@ -143,6 +143,7 @@ alias stashsave='git stash save'
 alias stashpop='git stash pop'
   # other
 alias tree='tree -I ".git"'
+alias chromium='chromium-browser'
 
 PATH=/home/cody/.cabal/bin:$PATH
 PATH=/opt/ghc/7.8.3/bin:$PATH
