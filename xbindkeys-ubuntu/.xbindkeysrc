@@ -22,39 +22,39 @@
     m:0x10 + c:122
     Mod2 + XF86AudioLowerVolume 
 
-# ncmpcpp play/pause
-"ncmpcpp toggle"
+# mpc play/pause
+"mpc toggle"
     m:0x10 + c:127
     Mod2 + Pause 
 
-# ncmpcpp stop
-"ncmpcpp stop"
+# mpc stop
+"mpc stop"
     m:0x11 + c:127
     Shift+Mod2 + Pause 
 
-# ncmpcpp next
-"ncmpcpp next"
+# mpc next
+"mpc next"
     m:0x10 + c:75
     Mod2 + F9 
 
-# ncmpcpp previous
-"ncmpcpp prev"
+# mpc previous
+"mpc prev"
     m:0x0 + c:74
     Mod2 + F8
 
-# pop up clerk to browse library
-"terminator -e ncmpcpp"
-    m:0x0 + c:148
-    XF86Calculator
-
-# clerk shuffle songs
-"clerk -rs; removeMpdDuplicates"
+# smirk shuffle songs
+"smirk tracks"
     m:0x11 + c:75
     Shift+Mod2 + F9
 
-# clerk shuffle albums
-"clerk -ra"
+# smirk shuffle albums
+"smirk album"
     m:0x11 + c:74
     Shift+Mod2 + F8
+
+# pop up ncmpcpp to browse library
+"terminator -e ncmpcpp"
+    m:0x0 + c:148
+    XF86Calculator
 
 # End of xbindkeys configuration
