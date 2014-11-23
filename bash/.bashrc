@@ -58,10 +58,10 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1="\u:\W\[$(tput setaf 1)\] λ \[$(tput sgr0)\]"
+    PS1="\u:\w\[$(tput setaf 1)\]\$(__git_ps1)\nλ \[$(tput sgr0)\]"
 else
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1="\u:\W\[$(tput setaf 1)\] λ \[$(tput sgr0)\]"
+    PS1="\u:\w\[$(tput setaf 1)\]\$(__git_ps1)\nλ \[$(tput sgr0)\]"
 fi
 
 # If this is an xterm set the title to user@host:dir
