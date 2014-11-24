@@ -52,6 +52,12 @@
     m:0x11 + c:74
     Shift+Mod2 + F8
 
+# smirk shuffle genre
+# (hardcoded to folk right now) 
+"smirk folk"
+    m:0x11 + c:73
+    Shift+Mod2 + F7
+
 # pop up ncmpcpp to browse library
 "terminator -e ncmpcpp"
     m:0x0 + c:148
