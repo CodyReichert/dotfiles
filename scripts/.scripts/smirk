@@ -8,6 +8,12 @@ playRandomAlbum () {
   mpc play
 }
 
+playRandomGenre() {
+  mpc clear;
+  mpc search genre folk | shuf | mpc add;
+  mpc play;
+}
+
 playRandomTracks () {
   mpc clear
   for i in `seq 1 75`;
@@ -20,4 +26,6 @@ if [[ "$1" == "album" ]]; then
     playRandomAlbum
 elif [[ "$1" == "tracks" ]]; then
     playRandomTracks
+elif [[ "$1" == "folk" ]]; then
+    playRandomGenre
 fi
