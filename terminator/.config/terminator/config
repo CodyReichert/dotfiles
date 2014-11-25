@@ -1,18 +1,20 @@
 [global_config]
   geometry_hinting = False
   suppress_multiple_term_dialog = True
+  inactive_color_offset = 0.93
   borderless = True
 [keybindings]
 [profiles]
   [[default]]
+    cursor_color = "#d3d0c8"
+    foreground_color = "#d3d0c8"
+    background_color = "#313131"
+    palette = "#2d2d2d:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#d3d0c8:#747369:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#f2f0ec"
+    background_darkness = 0.92
     scrollbar_position = hidden
-    show_titlebar   = False
+    show_titlebar = False
     use_system_font = False
     font = Inconsolata Medium 10
-    scrollback_lines = 1500
-    background_image = None
-    foreground_color = "#839496"
-    background_color = "#002b36"
 [layouts]
   [[default]]
     [[[child1]]]
