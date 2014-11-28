@@ -1,0 +1,3 @@
+[submodule "awesomewm/lain"]
+	path = awesomewm/lain
+	url = git://github.com/copycat-killer/lain.git
