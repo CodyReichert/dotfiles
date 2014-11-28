@@ -15,15 +15,6 @@
     show_titlebar = False
     use_system_font = False
     font = Inconsolata Medium 10
-<<<<<<< Updated upstream
-=======
-    scrollback_lines = 1500
-    background_image = None
-    cursor_color = "#d3d0c8"
-    foreground_color = "#d3d0c8"
-    background_color = "#2d2d2d"
-    palette = "#2d2d2d:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#d3d0c8:#747369:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#f2f0ec"
->>>>>>> Stashed changes
 [layouts]
   [[default]]
     [[[child1]]]
