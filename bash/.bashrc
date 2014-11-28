@@ -114,6 +114,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+source /usr/share/git/completion/git-prompt.sh
+
 set -o vi
 
 if [ "$PS1" ];
