@@ -126,7 +126,7 @@ mailicon = wibox.widget.imagebox(beautiful.widget_mail)
 mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(mail) end)))
 
 function mailcount()
-   os.execute("python " .. os.getenv("HOME") .. "/.scripts/checkMail")
+   os.execute("python2.7 " .. os.getenv("HOME") .. "/.scripts/checkMail")
    local mailfile = io.open(os.getenv("HOME") .. "/.scripts/mailcount")
    local l = nil
    if mailfile ~= nil then
@@ -139,7 +139,7 @@ function mailcount()
 end
 
 -- create mailwidget textbox
-mailwidget_text = wibox.widget.textbox( "" )
+mailwidget_text = wibox.widget.textbox( mailcount() )
 mailwidget_text.timer = timer{timeout=300}
 mailwidget = wibox.widget.background(mailwidget_text, "#313131")
 -- update mail widget textbox
