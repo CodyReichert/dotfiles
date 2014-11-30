@@ -1,5 +1,5 @@
 ;; initialize packages and repositories
-(setq package-list '(tabulated-list auto-complete coffee-mode expand-region
+(setq package-list '(tabulated-list auto-complete coffee-mode expand-region smart-mode-line
                                     evil-leader evil-numbers evil-org evil flycheck dash 
                                     ghci-completion goto-chg hamlet-mode haskell-mode org
                                     highlight-parentheses js2-mode js3-mode json-mode json-reformat
@@ -54,8 +54,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(haskell-font-lock-symbols t)
  '(haskell-stylish-on-save (not t))
+ '(menu-bar-mode nil)
  '(safe-local-variable-values (quote ((hamlet/basic-offset . 4) (haskell-process-use-ghci . t) (haskell-indent-spaces . 4)))))
 
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
@@ -159,7 +161,7 @@ scroll-step 1)
 ;; expand region
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-;; mode line and menu bar
+;; menu bar
 (menu-bar-mode -1)
 
 ;; use setq-default to set it for /all/ modes
@@ -209,13 +211,23 @@ scroll-step 1)
                              'help-echo "Buffer is read-only"))))  
     "] "
 
-    ;; add the time, with the date and the emacs uptime in the tooltip
+    ;; add the time
     '(:eval (propertize (format-time-string "%H:%M")
               'help-echo
               (concat (format-time-string "%c; ")
                       (emacs-uptime "Uptime:%hh"))))
     " --"
-    ;; i don't want to see minor-modes; but if you want, uncomment this:
+    ;; uncomment next line for minor modes in mode-line
     ;; minor-mode-alist  ;; list of minor modes
     "%-" ;; fill with '-'
 ))
+
+(sml/setup)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(set-face-background 'mode-line "black")
