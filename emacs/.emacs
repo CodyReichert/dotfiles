@@ -162,10 +162,16 @@ scroll-step 1)
     "j" 'magit-goto-next-section
     "k" 'magit-goto-previous-section)
 
+(eval-after-load 'magit
+     (set-face-attribute 'magit-item-highlight
+                         nil
+                         :background "#505050"
+                         :foreground "white"))
+
 ;; expand region
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-;; menu bar
+;; disable menu bar
 (menu-bar-mode -1)
 
 ;; use setq-default to set it for /all/ modes
@@ -227,11 +233,11 @@ scroll-step 1)
 ))
 
 (sml/setup)
+(set-face-background 'mode-line "black")
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
-
-(set-face-background 'mode-line "black")
+)
