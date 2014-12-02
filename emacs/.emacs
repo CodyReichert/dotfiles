@@ -76,8 +76,11 @@
 (eval-after-load 'less-css-mode ;; for lucius files
   '(define-key css-mode-map [f5] 'haskell-process-reload-devel-main))
   
+;; (eval-after-load 'js            ;; for julius files
+;;   '(define-key js2-mode-map [f5] 'haskell-process-reload-devel-main))
+
 (eval-after-load 'js            ;; for julius files
-  '(define-key js-mode-map [f5] 'haskell-process-reload-devel-main))
+  '(define-key js2-mode-map [f5] 'haskell-process-reload-devel-main))
   
 ;; highlight parentheses in all buffers
 (define-globalized-minor-mode global-highlight-parentheses-mode
@@ -134,7 +137,8 @@ scroll-step 1)
 
 ;; activate modes for file extenions
 (add-to-list 'auto-mode-alist '("\\.lucius\\'" . less-css-mode)) ;; less-mode lucius files
-(add-to-list 'auto-mode-alist '("\\.julius\\'" . js-mode))       ;; javascript-mode julius files
+;; (add-to-list 'auto-mode-alist '("\\.julius\\'" . js-mode))       ;; js-mode julius files
+(add-to-list 'auto-mode-alist '("\\.julius\\'" . js2-mode))       ;; js2-mode julius files
 
 ;; autocomplete everywhere
 (global-auto-complete-mode t)
