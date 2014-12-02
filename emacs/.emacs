@@ -162,11 +162,16 @@ scroll-step 1)
     "j" 'magit-goto-next-section
     "k" 'magit-goto-previous-section)
 
+;; change magit diff colors
 (eval-after-load 'magit
-     (set-face-attribute 'magit-item-highlight
-                         nil
-                         :background "#505050"
-                         :foreground "white"))
+  '(progn
+     (set-face-foreground 'magit-diff-add "green3")
+     (set-face-foreground 'magit-diff-del "red3")
+     (set-face-attribute  'magit-diff-foreground "white")
+     (set-face-attribute  'magit-diff-background "black")
+     (when (not window-system)
+       (set-face-background 'magit-item-highlight "black")
+       (set-face-foreground 'magit-item-highlight "white"))))
 
 ;; expand region
 (global-set-key (kbd "C-=") 'er/expand-region)
