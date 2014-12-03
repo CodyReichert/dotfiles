@@ -89,6 +89,7 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias l1='ls -1'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -143,6 +144,7 @@ alias pacdep='sudo pacman -Si'
 alias gpr='git pull --rebase'
 alias stashsave='git stash save'
 alias stashpop='git stash pop'
+alias sgpr='stashsave && gpr origin master && stashpop'
   # other
 alias tree='tree -I ".git"'
 alias chromium='chromium-browser'
