@@ -79,7 +79,7 @@
 ;; (eval-after-load 'js            ;; for julius files
 ;;   '(define-key js2-mode-map [f5] 'haskell-process-reload-devel-main))
 
-(eval-after-load 'js            ;; for julius files
+(eval-after-load 'js2-mode            ;; for julius files
   '(define-key js2-mode-map [f5] 'haskell-process-reload-devel-main))
   
 ;; highlight parentheses in all buffers
