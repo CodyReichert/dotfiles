@@ -1,3 +1,7 @@
 [submodule "awesome/.config/awesome/lain"]
 	path = awesome/.config/awesome/lain
 	url = git://github.com/copycat-killer/lain.git
+
+[submodule "vimperator/.vimperator/colors"]
+	path = vimperator/.vimperator/colors
+	url = https://github.com/vimpr/vimperator-colors 
