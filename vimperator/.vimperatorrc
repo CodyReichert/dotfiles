@@ -1,2 +1,13 @@
+"" Vimperator Configuration
+""
+
+"" global settings
+""
 set editor="emacs"
 set hintchars="hjklasdfgyuiopqwertnmzxcvb"
+
+"" custom colors using a color scheme from `~/.vimperator/colors/`
+""
+colorscheme darkness
+highlight Hint     background-color:rgba(0,0,0,0.9);color:#f6f6f6;font-weight:bold;font-size:12px;padding:1px;
+highlight HintElem background-color:#f6f6f6;color:#333;
