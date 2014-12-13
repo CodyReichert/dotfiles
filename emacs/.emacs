@@ -240,9 +240,14 @@ scroll-step 1)
 (sml/setup)
 (set-face-background 'mode-line "black")
 
+
+
+;; smex
+(global-set-key (kbd "M-x") 'smex)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
