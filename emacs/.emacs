@@ -107,6 +107,15 @@ scroll-step 1)
         '(("TODO" . org-warning) ("IN-PROGRESS" . "yellow") ("SCHEDULED" . "white")
          ("WAITING" . "cyan") ("DONE" . "green")))
 
+
+(setq org-tag-faces
+        '(("FEATURE"  . (:foreground "green"))
+          ("BUG"  . (:foreground "#ffffff" :background "#C00000" :underline t))
+          ("DOCUMENTATION"  . (:foreground "gray"))
+          ("RESEARCH"  . (:foreground "gray"))
+          ("TEMPLATE"  . (:foreground "orange"))
+          ("REFACTOR"  . (:foreground "red"))))
+
 (require 'org-list)
 (add-to-list 'org-checkbox-statistics-hook (function
 					     ndk/checkbox-list-complete))
