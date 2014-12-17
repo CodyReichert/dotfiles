@@ -1,7 +1,13 @@
-;; initialize packages and repositories
+;;; .emacs - Cody Reichert
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Packages and Repositories
+;; On startup, initialize packages and repositories. Check for all of the
+;; packages listed and if they don't exist, install them.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq package-list '(tabulated-list auto-complete coffee-mode expand-region smart-mode-line
-                                    evil-leader evil-numbers evil-org evil flycheck dash 
-                                    ghci-completion goto-chg hamlet-mode haskell-mode org
+                                    evil-leader evil-numbers evil-org evil flycheck dash php-mode
+                                    ghci-completion goto-chg haskell-mode org moz shakespeare-mode
                                     highlight-parentheses js2-mode js3-mode json-mode json-reformat
                                     json-snatcher latex-extra auctex less-css-mode lisp-editing magit
                                     git-rebase-mode git-commit-mode markdown-mode nodejs-repl pkg-info epl
@@ -19,69 +25,20 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-;; chrome reload browser (<C-x><C-r>)
-(defun chrome-reload() (interactive)
-  (shell-command "chromix with localhost reloadWithoutCache")
-  (shell-command "chromix with file reloadWithoutCache"))
-(define-key global-map "\C-x\C-r" 'chrome-reload)
 
-(defun latex-compile(x)
-  (interactive "File: ")
-  (setq filename (concat x))
-  (setq command "pdflatex ")
-  (setq texCompile (concat command filename))
-  (shell-command texCompile)
-  (shell-command "chromix with file reloadWithoutCache")
-  (message "success"))
-(define-key global-map "\C-c\C-w" 'latex-compile)
 
-(eval-after-load 'tex-mode
-  '(define-key tex-mode-map [f5] 'latex-compile))
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Settings and Initializations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; tabs -> spaces
 (setq-default indent-tabs-mode nil)
 
 ;; evil mode
 (evil-mode 1)
 
-;; haskell
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;; disable menu bar
+(menu-bar-mode -1)
 
-(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build) ;; build
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
- '(haskell-font-lock-symbols t)
- '(haskell-stylish-on-save (not t))
- '(menu-bar-mode nil)
- '(safe-local-variable-values (quote ((hamlet/basic-offset . 4) (haskell-process-use-ghci . t) (haskell-indent-spaces . 4)))))
-
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-
-(setq haskell-interactive-popup-errors 'nil)
-
-(setq haskell-process-type 'cabal-repl)
-(setq haskell-process-use 'cabal-repl)
-
-;; bind f5 to reload DevelMain
-(define-key haskell-mode-map [f5] 'haskell-process-reload-devel-main)
-
-(eval-after-load 'hamlet-mode
-  '(define-key hamlet-mode-map [f5] 'haskell-process-reload-devel-main))
-
-(eval-after-load 'less-css-mode ;; for lucius files
-  '(define-key css-mode-map [f5] 'haskell-process-reload-devel-main))
-  
-;; (eval-after-load 'js            ;; for julius files
-;;   '(define-key js2-mode-map [f5] 'haskell-process-reload-devel-main))
-
-(eval-after-load 'js2-mode            ;; for julius files
-  '(define-key js2-mode-map [f5] 'haskell-process-reload-devel-main))
-  
 ;; highlight parentheses in all buffers
 (define-globalized-minor-mode global-highlight-parentheses-mode
   highlight-parentheses-mode
@@ -94,11 +51,22 @@
 scroll-conservatively 9999
 scroll-step 1)
 
-;; org-mode settings
-(require 'org)
+;; smex
+(global-set-key (kbd "M-x") 'smex)
 
+;; ido
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path "~/.emacs.d/plugins/evil-org-mode")
 (require 'evil-org)
+(require 'org)
 
 (setq org-todo-keywords
         '((sequence "TODO" "IN-PROGRESS" "SCHEDULED" "WAITING" "DONE")))
@@ -106,7 +74,6 @@ scroll-step 1)
 (setq org-todo-keyword-faces
         '(("TODO" . org-warning) ("IN-PROGRESS" . "yellow") ("SCHEDULED" . "white")
          ("WAITING" . "cyan") ("DONE" . "green")))
-
 
 (setq org-tag-faces
         '(("FEATURE"  . (:foreground "green"))
@@ -139,24 +106,44 @@ scroll-step 1)
 
 (setq org-log-done t)
 
-;; ido
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
 
-;; activate modes for file extenions
-(add-to-list 'auto-mode-alist '("\\.lucius\\'" . less-css-mode)) ;; less-mode lucius files
-;; (add-to-list 'auto-mode-alist '("\\.julius\\'" . js-mode))       ;; js-mode julius files
-(add-to-list 'auto-mode-alist '("\\.julius\\'" . js2-mode))       ;; js2-mode julius files
 
-;; autocomplete everywhere
-(global-auto-complete-mode t)
-(auto-complete-mode 1)
-(global-auto-complete-mode 1)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Language Specific Setup
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; magit
+;;;;;;;;;;;;;
+;; Haskell ;;
+;;;;;;;;;;;;;
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+
+(setq haskell-interactive-popup-errors 'nil)
+
+(setq haskell-process-type 'cabal-repl)
+
+(setq haskell-process-use 'cabal-repl)
+
+(define-key haskell-mode-map [f5] 'haskell-process-reload-devel-main)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Shakespeare Templates ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(eval-after-load 'shakespeare-mode
+  '(define-key shakespeare-mode-map [f7] 'haskell-process-cabal-build))
+
+(eval-after-load 'shakespeare-mode
+  '(define-key shakespeare-mode-map [f5] 'haskell-process-reload-devel-main))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Magit
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-key global-map [f6] 'magit-status)
-
 (evil-set-initial-state 'magit-mode 'normal)
 (evil-set-initial-state 'magit-status-mode 'normal)
 (evil-set-initial-state 'magit-diff-mode 'normal)
@@ -182,12 +169,47 @@ scroll-step 1)
        (set-face-background 'magit-item-highlight "black")
        (set-face-foreground 'magit-item-highlight "white"))))
 
-;; expand region
-(global-set-key (kbd "C-=") 'er/expand-region)
 
-;; disable menu bar
-(menu-bar-mode -1)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Web Browser
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Chromium reload browser (<C-x C-r>)
+(defun chrome-reload() (interactive)
+  (shell-command "chromix with localhost reloadWithoutCache")
+  (shell-command "chromix with file reloadWithoutCache"))
+(define-key global-map "\C-x\C-r" 'chrome-reload)
+
+;;; Moz Reload on Save
+;; run M-x moz-reload-on-save-mode to switch moz-reload on/off in the
+;; current buffer.
+;; When active, saving the buffer triggers Firefox to reload its current page.
+(require 'moz)
+(define-minor-mode moz-reload-on-save-mode
+  "Moz Reload On Save Minor Mode"
+  nil " Reload" nil
+  (if moz-reload-on-save-mode
+      ;; Edit hook buffer-locally.
+      (add-hook 'after-save-hook 'moz-firefox-reload nil t)
+    (remove-hook 'after-save-hook 'moz-firefox-reload t)))
+
+(defun moz-firefox-reload ()
+  (comint-send-string (inferior-moz-process) "BrowserReload();"))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto-Complete-Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-auto-complete-mode t)
+(auto-complete-mode 1)
+(global-auto-complete-mode 1)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Smart Mode Line
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; use setq-default to set it for /all/ modes
 (setq mode-line-format
   (list
@@ -245,15 +267,44 @@ scroll-step 1)
     ;; minor-mode-alist  ;; list of minor modes
     "%-" ;; fill with '-'
 ))
-
 (sml/setup)
 (set-face-background 'mode-line "black")
 
 
 
-;; smex
-(global-set-key (kbd "M-x") 'smex)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Other Functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Compile TeX files to pdf and reload chromium to view changes
+;;; <C-c C-w>
+(defun latex-compile(x)
+  (interactive "File: ")
+  (setq filename (concat x))
+  (setq command "pdflatex ")
+  (setq texCompile (concat command filename))
+  (shell-command texCompile)
+  (shell-command "chromix with file reloadWithoutCache")
+  (message "success"))
+(define-key global-map "\C-c\C-w" 'latex-compile)
 
+(eval-after-load 'tex-mode
+  '(define-key tex-mode-map [f5] 'latex-compile))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Custom
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(haskell-font-lock-symbols t)
+ '(haskell-stylish-on-save (not t))
+ '(menu-bar-mode nil)
+ '(safe-local-variable-values (quote ((hamlet/basic-offset . 4) (haskell-process-use-ghci . t) (haskell-indent-spaces . 4)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
