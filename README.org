@@ -1,34 +1,25 @@
 * Dotfiles
   A repository of my personal configuration files. You can install
-  these using [[http://www.gnu.org/software/stow/][stow]]. Example: `stow bash` will sym link the files in
-  the `bash/` directory to the correct place in `$HOME`.
+  these using [[http://www.gnu.org/software/stow/][stow]].
+
+  Example: =stow bash= will sym link the files in
+  the =bash/= directory to the correct place in =$HOME=.
 
 ** Links
 
    [[http://awesome.naquadah.org/][awesome window manager]]
-
    [[https://savannah.gnu.org/git/?group=bash][Bourne-Again-SHell]]
-   
    [[http://beets.radbox.org/][beets: the music geeks organizer]]
-
-   [[http://git-scm.com/][git]]
-
-   [[http://github.com/dotfiles/inputrc][inputrc]] (config for bash readline)
-   
-   [[http://www.musicpd.org/][mpd]] (music player daemon)
-
-   [[http://ncmpcpp.rybczak.net/][ncmpcpp]]
-
    [[https://www.gnu.org/software/emacs/][GNU Emacs]]
-
+   [[http://git-scm.com/][git]]
+   [[http://hisham.hm/htop/][htop]]
+   [[http://github.com/dotfiles/inputrc][inputrc]] (config for bash readline)
+   [[http://www.musicpd.org/][mpd]] (music player daemon)
+   [[http://ncmpcpp.rybczak.net/][ncmpcpp]]
    [[http://github.com/CodyReichert/dotfiles/scripts][Scripts]] (personal bash scripts for various tasks)
-   
    [[https://launchpad.net/terminator][Terminator terminal emulator]]
-   
    [[http://www.vim.org/][Vim]]
-   
    [[http://www.vimperator.org/vimperator][Vimperator]]
-   
    [[http://www.nongnu.org/xbindkeys/xbindkeys.html][XBindKeys]]
 
 
