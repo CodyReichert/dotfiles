@@ -5,13 +5,45 @@
 ;; On startup, initialize packages and repositories. Check for all of the
 ;; packages listed and if they don't exist, install them.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq package-list '(tabulated-list auto-complete coffee-mode expand-region smart-mode-line
-                                    evil-leader evil-numbers evil-org evil flycheck dash php-mode
-                                    ghci-completion goto-chg haskell-mode org moz shakespeare-mode
-                                    highlight-parentheses js2-mode js3-mode json-mode json-reformat
-                                    json-snatcher latex-extra auctex less-css-mode lisp-editing magit
-                                    git-rebase-mode git-commit-mode markdown-mode nodejs-repl pkg-info epl
-                                    popup s smooth-scroll tangotango-theme undo-tree yaml-mode))
+(setq package-list '(tabulated-list auctex
+                                    auto-complete
+                                    coffee-mode
+                                    dash
+                                    epl
+                                    evil
+                                    evil-leader
+                                    evil-numbers
+                                    evil-org
+                                    expand-region
+                                    flycheck
+                                    git-commit-mode
+                                    git-rebase-mode
+                                    ghci-completion
+                                    goto-chg
+                                    haskell-mode
+                                    highlight-parentheses
+                                    js2-mode
+                                    json-mode
+                                    json-reformat
+                                    json-snatcher
+                                    latex-extra
+                                    less-css-mode
+                                    lisp-editing
+                                    magit
+                                    markdown-mode
+                                    moz
+                                    nodejs-repl
+                                    org
+                                    php-mode
+                                    pkg-info
+                                    popup
+                                    s
+                                    shakespeare-mode
+                                    smart-mode-line
+                                    smex
+                                    smooth-scroll
+                                    undo-tree
+                                    yaml-mode))
 (setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")
                          ("elpa" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
