@@ -139,7 +139,7 @@ function mailcount()
 end
 
 -- create mailwidget textbox
-mailwidget_text = wibox.widget.textbox( mailcount() )
+mailwidget_text = wibox.widget.textbox( " " )
 mailwidget_text.timer = timer{timeout=300}
 mailwidget = wibox.widget.background(mailwidget_text, "#313131")
 -- update mail widget textbox
