@@ -121,8 +121,11 @@ scroll-step 1)
         '((sequence "TODO" "IN-PROGRESS" "SCHEDULED" "WAITING" "DONE")))
 
 (setq org-todo-keyword-faces
-        '(("TODO" . org-warning) ("IN-PROGRESS" . "yellow") ("SCHEDULED" . "white")
-         ("WAITING" . "cyan") ("DONE" . "green")))
+        '(("TODO" . org-warning)
+          ("IN-PROGRESS" . "yellow")
+          ("SCHEDULED" . "white")
+          ("WAITING" . "cyan")
+          ("DONE" . "green")))
 
 (setq org-tag-faces
         '(("FEATURE"  . (:foreground "green"))
