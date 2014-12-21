@@ -8,9 +8,15 @@ playRandomAlbum () {
   mpc play
 }
 
-playRandomGenre() {
+playRandomGenre () {
   mpc clear;
   mpc search genre $1 | shuf | mpc add;
+  mpc play;
+}
+
+shuffleArtist () {
+  mpc clear;
+  mpc search artist "$1" | shuf | mpc add;
   mpc play;
 }
 
@@ -28,4 +34,6 @@ elif [[ "$1" == "tracks" ]]; then
     playRandomTracks
 elif [[ "$1" == "genre" ]]; then
     playRandomGenre "$2"
+elif [[ "$1" == "artist" ]]; then
+    shuffleArtist "$2"
 fi
