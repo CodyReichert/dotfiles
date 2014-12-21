@@ -586,18 +586,26 @@ globalkeys = awful.util.table.join(
     -- awful.key({ modkey }, "s", function () awful.util.spawn(gui_editor) end),
     -- awful.key({ modkey }, "g", function () awful.util.spawn(graphics) end),
 
-    -- Custom Keys
+    -- Smirk Keys
     awful.key({ modkey, "Control" }, "t", function() os.execute("bash ~/.scripts/smirk tracks") end),
     awful.key({ modkey, "Control" }, "a", function() os.execute("bash ~/.scripts/smirk album") end),
 
-    -- Prompt
-    awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
     awful.key({ modkey, "Control" }, "g", function ()
           awful.prompt.run({ prompt = "Shuffle Genre: " },
              mypromptbox[mouse.screen].widget, function(text)
                 os.execute("bash ~/.scripts/smirk genre " .. text)
           end)
     end),
+
+    awful.key({ modkey, "Control" }, "f", function ()
+          awful.prompt.run({ prompt = "Shuffle Arist: " },
+             mypromptbox[mouse.screen].widget, function(text)
+                os.execute("bash ~/.scripts/smirk artist '" .. text .. "'")
+          end)
+    end),
+
+    -- Prompt
+    awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
