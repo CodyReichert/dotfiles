@@ -10,7 +10,7 @@ playRandomAlbum () {
 
 playRandomGenre () {
   mpc clear;
-  mpc search genre $1 | shuf | mpc add;
+  mpc search genre "$1" | shuf | mpc add;
   mpc play;
 }
 

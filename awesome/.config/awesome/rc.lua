@@ -593,7 +593,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "g", function ()
           awful.prompt.run({ prompt = "Shuffle Genre: " },
              mypromptbox[mouse.screen].widget, function(text)
-                os.execute("bash ~/.scripts/smirk genre " .. text)
+                os.execute("bash ~/.scripts/smirk genre '" .. text .. "'")
           end)
     end),
 
