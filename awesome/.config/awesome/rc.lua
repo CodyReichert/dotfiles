@@ -175,12 +175,28 @@ mailwidget = lain.widgets.imap({
 })
 --]]
 
+-- MEM
+memicon = wibox.widget.imagebox(beautiful.mem)
+memwidget = lain.widgets.mem({
+    settings = function()
+        widget:set_text(" " .. mem_now.used / 1000 .. "GB ")
+    end
+})
+
+-- CPU
+cpuicon = wibox.widget.imagebox(beautiful.cpu)
+cpuwidget = wibox.widget.background(lain.widgets.cpu({
+    settings = function()
+        widget:set_text(" " .. cpu_now.usage .. "% ")
+    end
+}), "#111111")
+
 -- MPD
 mpdicon = wibox.widget.imagebox(beautiful.play)
 mpdwidget = lain.widgets.mpd({
     settings = function()
         if mpd_now.state == "play" then
-            title = mpd_now.title
+           title = mpd_now.title
             artist  = " - " .. mpd_now.artist  .. markup("#333333", " |<span font='Tamsyn 3'> </span>")
             mpdicon:set_image(beautiful.play)
         elseif mpd_now.state == "pause" then
@@ -246,7 +262,6 @@ diskmargin = wibox.layout.margin(diskbar, 2, 7)
 diskmargin:set_top(6)
 diskmargin:set_bottom(6)
 fshomeupd = lain.widgets.fs({
-    partition = "/home",
     settings  = function()
         if fs_now.used < 90 then
             diskbar:set_color(beautiful.fg_normal)
@@ -367,7 +382,7 @@ for s = 1, screen.count() do
     left_layout:add(mylayoutbox[s])
     left_layout:add(bar_spr)
     left_layout:add(mytaglist[s])
-    left_layout:add(spr)
+    left_layout:add(bar_spr)
     left_layout:add(mypromptbox[s])
 
     -- Widgets that are aligned to the right
@@ -378,6 +393,12 @@ for s = 1, screen.count() do
     right_layout:add(mpdwidget)
     right_layout:add(mailicon)
     right_layout:add(mailwidget)
+    right_layout:add(bar_spr)
+    right_layout:add(memicon)
+    right_layout:add(memwidget)
+    right_layout:add(bar_spr)
+    right_layout:add(cpuicon)
+    right_layout:add(cpuwidget)
     right_layout:add(bar_spr)
     right_layout:add(baticon)
     right_layout:add(batwidget)
@@ -501,6 +522,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
     awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
+    awful.key({ "Shift" }, "F12", function () awful.util.spawn("xscreensaver-command -lock") end), -- screen-lock
 
     -- Dropdown terminal
     awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
