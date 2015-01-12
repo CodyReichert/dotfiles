@@ -70,9 +70,9 @@ editor     = os.getenv("EDITOR") or "emacs -nw" or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- user defined
-browser    = "dwb"
-browser2   = "iron"
-gui_editor = "gvim"
+browser    = "firefox"
+browser2   = "chromium-browser"
+gui_editor = "emacs"
 graphics   = "gimp"
 
 -- lain
@@ -96,8 +96,8 @@ local layouts = {
 
 -- {{{ Tags
 tags = {
-    names = { "start", "2", "3", "4", "5" },
-    layout = { layouts[1], layouts[2], layouts[3], layouts[4], layouts[5] }
+   names = { "start", "2", "3", "4", "5" },
+   layout = { layouts[1], layouts[2], layouts[3], layouts[4], layouts[5] }
 }
 for s = 1, screen.count() do
    tags[s] = awful.tag(tags.names, s, tags.layout)
@@ -133,8 +133,8 @@ orglendar.files = { os.getenv("HOME") .. "/workspace/notes/NOTES.org",
 orglendar.register(mytextclock)
 
 function mailcount()
-     os.execute("python2.7 " .. os.getenv("HOME") .. "/.scripts/checkMail")
-     local mailfile = io.open(os.getenv("HOME") .. "/.scripts/mailcount")
+   os.execute("python2.7 " .. os.getenv("HOME") .. "/.scripts/checkMail")
+   local mailfile = io.open(os.getenv("HOME") .. "/.scripts/mailcount")
    local l = nil
    if mailfile ~= nil then
       l = mailfile:read()
