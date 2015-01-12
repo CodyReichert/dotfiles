@@ -54,6 +54,8 @@ theme.pause                                     = theme.dir .. "/icons/pause.png
 
 theme.mail                                      = theme.dir .. "/icons/mail_on.png"
 theme.mail_new                                  = theme.dir .. "/icons/mail.png"
+theme.mem                                       = theme.dir .. "/icons/mem.png"
+theme.cpu                                       = theme.dir .. "/icons/cpu.png"
 
 theme.layout_tile                               = theme.dir .. "/icons/tile.png"
 theme.layout_tileleft                           = theme.dir .. "/icons/tileleft.png"
