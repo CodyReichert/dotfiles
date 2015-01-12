@@ -1,12 +1,12 @@
-directory: ~/music/tagged/
-library: ~/music/data/musiclibrary.blb
+directory: /media/cody/ASPEN/music/tagged
+library: /media/cody/ASPEN/music/data/musiclibrary.blb
 
-plugins: fetchart web
+plugins: fetchart web mpdstats
 
 import:
   copy: yes
   quiet_fallback: skip
-  log: ~/music/data/imported-beets.log
+  log: /media/cody/ASPEN/music/data/imported-beets.log
 
 web:
   host: 192.168.1.101
@@ -14,3 +14,6 @@ web:
 
 fetchart:
   google_search: true
+
+mpdstats:
+  music_directory: /media/cody/ASPEN/music/tagged/
