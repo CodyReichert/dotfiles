@@ -6,18 +6,19 @@
 --]]
 
 -- {{{ Required libraries
-local gears     = require("gears")
-local awful     = require("awful")
-awful.rules     = require("awful.rules")
-                  require("awful.autofocus")
-local wibox     = require("wibox")
-local beautiful = require("beautiful")
-local naughty   = require("naughty")
-local drop      = require("scratchdrop")
-local lain      = require("lain")
-local eminent   = require("eminent")
+local gears      = require("gears")
+local awful      = require("awful")
+awful.rules      = require("awful.rules")
+                   require("awful.autofocus")
+local wibox      = require("wibox")
+local beautiful  = require("beautiful")
+local naughty    = require("naughty")
+local drop       = require("scratchdrop")
+local lain       = require("lain")
+local eminent    = require("eminent")
 local cyclefocus = require("cyclefocus")
 local orglendar  = require('orglendar')
+local awesompd   = require("awesompd/awesompd")
 -- }}}
 
 -- {{{ Error handling
@@ -146,11 +147,11 @@ function mailcount()
 end
 
 mailicon = wibox.widget.imagebox(beautiful.mail)
-mailwidget_text = wibox.widget.textbox( mailcount() )
+mailwidget_text = wibox.widget.textbox( " ")
 mailwidget_text.timer = timer{timeout=300}
 mailwidget = wibox.widget.background(mailwidget_text, black) 
 mailwidget_text.timer:connect_signal("timeout", function ()
-    mailwidget_text:set_text ( mailcount() )
+    mailwidget_text:set_text ( mailcount() .. " " )
 end)
 mailwidget_text.timer:start()
 
@@ -192,24 +193,52 @@ cpuwidget = wibox.widget.background(lain.widgets.cpu({
 }), "#111111")
 
 -- MPD
+musicwidget = awesompd:create()
+musicwidget.font = "Inconsolata 9"
+musicwidget.scrolling = false
+musicwidget.output_size = 30 -- Set the size of widget in symbols
+musicwidget.update_interval = 1 -- Set the update interval in seconds
+musicwidget.path_to_icons = "/home/cody/.config/awesome/awesompd/icons"
+musicwidget.jamendo_format = awesompd.FORMAT_MP3
+musicwidget.show_album_cover = true
+musicwidget.album_cover_size = 50 -- size for cover art in notification
+musicwidget.mpd_config = "/home/cody/.mpd/mpd.conf"
+musicwidget.browser = "firefox"
+musicwidget.ldecorator = " "
+musicwidget.rdecorator = " "
+musicwidget.servers = {
+   { server = "localhost", port = 6600 }
+}
+-- Set the interactive buttons for the widget
+musicwidget:register_buttons({ { "", awesompd.MOUSE_LEFT, musicwidget:command_playpause() },
+      { "Control", awesompd.MOUSE_SCROLL_UP, musicwidget:command_prev_track() },
+      { "Control", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_next_track() },
+      { "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
+      { "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
+      { "", awesompd.MOUSE_RIGHT, musicwidget:command_show_menu() },
+      { "", "XF86AudioLowerVolume", musicwidget:command_volume_down() },
+      { "", "XF86AudioRaiseVolume", musicwidget:command_volume_up() },
+      { modkey, "Pause", musicwidget:command_playpause() } })
+musicwidget:run()
+
 mpdicon = wibox.widget.imagebox(beautiful.play)
 mpdwidget = lain.widgets.mpd({
     settings = function()
         if mpd_now.state == "play" then
-           title = mpd_now.title
-            artist  = " - " .. mpd_now.artist  .. markup("#333333", " |<span font='Tamsyn 3'> </span>")
+            -- title = mpd_now.title
+            -- artist  = " - " .. mpd_now.artist  .. markup("#333333", " |<span font='Tamsyn 3'> </span>")
             mpdicon:set_image(beautiful.play)
         elseif mpd_now.state == "pause" then
-            title = mpd_now.title
-            artist  = " - " .. mpd_now.artist  .. markup("#333333", " |<span font='Tamsyn 3'> </span>")
+            -- title = mpd_now.title
+            -- artist  = " - " .. mpd_now.artist  .. markup("#333333", " |<span font='Tamsyn 3'> </span>")
             mpdicon:set_image(beautiful.pause)
         else
-            title  = ""
-            artist = ""
+            -- title  = ""
+            -- artist = ""
             mpdicon:set_image()
         end
 
-        widget:set_markup(markup(blue, title) .. artist)
+        -- widget:set_markup(markup(blue, title) .. artist)
     end
 })
 
@@ -389,8 +418,10 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(small_spr)
-    right_layout:add(mpdicon)
     right_layout:add(mpdwidget)
+    right_layout:add(mpdicon)
+    right_layout:add(musicwidget.widget)
+    right_layout:add(bar_spr)
     right_layout:add(mailicon)
     right_layout:add(mailwidget)
     right_layout:add(bar_spr)
