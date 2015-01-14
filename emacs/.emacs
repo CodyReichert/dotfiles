@@ -137,7 +137,7 @@ scroll-step 1)
 
 (require 'org-list)
 (add-to-list 'org-checkbox-statistics-hook (function
-					     ndk/checkbox-list-complete))
+                                             ndk/checkbox-list-complete))
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -273,7 +273,7 @@ scroll-step 1)
     ;; line and column
     "(" ;; '%02' to set to 2 chars at least; prevents flickering
       (propertize "%02l" 'face 'font-lock-type-face) ","
-      (propertize "%02c" 'face 'font-lock-type-face) 
+      (propertize "%02c" 'face 'font-lock-type-face)
     ") "
 
     ;; relative position, size of file
@@ -307,7 +307,7 @@ scroll-step 1)
     '(:eval (when buffer-read-only
               (concat ","  (propertize "RO"
                              'face 'font-lock-type-face
-                             'help-echo "Buffer is read-only"))))  
+                             'help-echo "Buffer is read-only"))))
     "] "
 
     ;; add the time
@@ -321,7 +321,8 @@ scroll-step 1)
     "%-" ;; fill with '-'
 ))
 (sml/setup)
-(set-face-background 'mode-line "black")
+(set-face-background 'modeline-inactive nil)
+(set-face-background 'mode-line nil)
 
 
 
@@ -342,4 +343,3 @@ scroll-step 1)
 
 (eval-after-load 'tex-mode
   '(define-key tex-mode-map [f5] 'latex-compile))
-
