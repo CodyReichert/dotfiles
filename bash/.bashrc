@@ -88,7 +88,7 @@ fi
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+# alias l='ls -CF'
 alias l1='ls -1'
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -115,14 +115,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-source /usr/share/git/completion/git-prompt.sh
-
-set -o vi
-
 if [ "$PS1" ];
 then
   complete -cf sudo
 fi
+
+set -o vi
 
 # Emacs client
 export ALTERNATE_EDITOR=""
@@ -148,6 +146,11 @@ alias sgpr='stashsave && gpr origin master && stashpop'
   # other
 alias tree='tree -I ".git"'
 alias chromium='chromium-browser'
+alias untar='tar -zxvf'
+
+# scripts
+source /usr/share/git/completion/git-prompt.sh
+source $HOME/.local/bin/bashmarks.sh
 
 PATH=/home/cody/.cabal/bin:$PATH
 PATH=/opt/ghc/7.8.3/bin:$PATH
