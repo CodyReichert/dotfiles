@@ -8,3 +8,6 @@
 [submodule "awesome/.config/awesome/awesompd"]
 	path = awesome/.config/awesome/awesompd
 	url = https://github.com/alexander-yakushev/awesompd
+[submodule "vimperator/.vimperator/plugin/smoozy"]
+	path = vimperator/.vimperator/plugin/smoozy
+	url = git://github.com/yuttie/smoozy.js
