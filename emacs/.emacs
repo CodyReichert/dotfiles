@@ -182,7 +182,7 @@ scroll-step 1)
 
 (setq haskell-process-use 'cabal-repl)
 
-;; (define-key haskell-mode-map [f5] 'haskell-process-reload-devel-main)
+(define-key haskell-mode-map [f5] 'haskell-process-reload-devel-main)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Shakespeare Templates ;;
@@ -190,8 +190,8 @@ scroll-step 1)
 (eval-after-load 'shakespeare-mode
   '(define-key shakespeare-mode-map [f7] 'haskell-process-cabal-build))
 
-;; (eval-after-load 'shakespeare-mode
-;;   '(define-key shakespeare-mode-map [f5] 'haskell-process-reload-devel-main))
+(eval-after-load 'shakespeare-mode
+  '(define-key shakespeare-mode-map [f5] 'haskell-process-reload-devel-main))
 
 
 
@@ -254,7 +254,7 @@ scroll-step 1)
   (comint-send-string (inferior-moz-process) "BrowserReload();"))
 
 
-(global-set-key [f5] 'moz-firefox-reload)
+;; (global-set-key [f5] 'moz-firefox-reload)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto-Complete-Mode
