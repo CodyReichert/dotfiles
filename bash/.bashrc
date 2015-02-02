@@ -147,6 +147,7 @@ alias sgpr='stashsave && gpr origin master && stashpop'
 alias tree='tree -I ".git"'
 alias chromium='chromium-browser'
 alias untar='tar -zxvf'
+alias myxrandr='xrandr --output VGA1 --auto --right-of HDMI2'
 
 # scripts
 source /usr/share/git/completion/git-prompt.sh
