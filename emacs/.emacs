@@ -348,3 +348,10 @@ scroll-step 1)
 
 (eval-after-load 'tex-mode
   '(define-key tex-mode-map [f5] 'latex-compile))
+
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
