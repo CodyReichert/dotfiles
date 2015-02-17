@@ -35,6 +35,7 @@
                                     nodejs-repl
                                     org
                                     php-mode
+                                    phpunit
                                     pkg-info
                                     popup
                                     s
@@ -355,3 +356,5 @@ scroll-step 1)
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+(define-key php-mode-map [f7] 'phpunit-current-project)
