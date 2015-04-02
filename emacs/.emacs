@@ -44,6 +44,7 @@
                                     smex
                                     smooth-scroll
                                     undo-tree
+                                    web-mode
                                     yaml-mode))
 (setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")
                          ("elpa" . "http://tromey.com/elpa/")
@@ -167,6 +168,8 @@ scroll-step 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Language Specific Setup
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
 ;;;;;;;;;;;;;
 ;; Haskell ;;
@@ -358,3 +361,27 @@ scroll-step 1)
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 (define-key php-mode-map [f7] 'phpunit-current-project)
+
+(defun xah-escape-quotes ()
+    "Replace 「\"」 by 「\\\"」 in current line or text selection.
+That is, add 1 backslash in front of double quote (Unicode codepoint 34).
+See also: `xah-unescape-quotes'
+
+Version 2015-01-24
+URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
+"
+    (interactive)
+    (let (p1 p2)
+      (if (use-region-p)
+          (progn (setq p1 (region-beginning))
+                 (setq p2 (region-end)))
+        (progn (setq p1 (line-beginning-position))
+               (setq p2 (line-end-position))))
+      (save-excursion
+        (save-restriction
+          (narrow-to-region p1 p2)
+          (goto-char (point-min))
+          (while (search-forward "\"" nil t)
+                      (replace-match "\\\"" 'FIXEDCASE 'LITERAL))))))
+
+(define-key global-map "\C-c\C-y" 'xah-escape-quotes)
