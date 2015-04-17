@@ -360,8 +360,6 @@ scroll-step 1)
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
-(define-key php-mode-map [f7] 'phpunit-current-project)
-
 (defun xah-escape-quotes ()
     "Replace 「\"」 by 「\\\"」 in current line or text selection.
 That is, add 1 backslash in front of double quote (Unicode codepoint 34).
