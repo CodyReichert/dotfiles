@@ -125,10 +125,11 @@ set -o vi
 # Emacs client
 export ALTERNATE_EDITOR=""
 alias e='emacsclient -t'
-
 export EDITOR="e"
 
+
 # Custom aliases
+
   # apt-get
 alias aptsearch='sudo apt-cache search'
 alias aptget='sudo apt-get install'
@@ -148,6 +149,7 @@ alias tree='tree -I ".git"'
 alias chromium='chromium-browser'
 alias untar='tar -zxvf'
 alias myxrandr='xrandr --output VGA1 --auto --right-of HDMI2'
+alias pgdevdb='bash /home/cody/.scripts/pgdevdb'
 
 # scripts
 source /usr/share/git/completion/git-prompt.sh
@@ -155,4 +157,7 @@ source $HOME/.local/bin/bashmarks.sh
 
 PATH=/home/cody/.cabal/bin:$PATH
 PATH=/opt/ghc/7.8.3/bin:$PATH
-PATH=~/.scripts:$PATH
+PATH=~/.scripts/:$PATH
+PATH=$PATH:/home/cody/.gem/ruby/2.2.0/bin
+PATH=/home/cody/.bin/ghc-7.8.4/bin:$PATH
+
