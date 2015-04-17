@@ -43,9 +43,11 @@
                                     smart-mode-line
                                     smex
                                     smooth-scroll
+                                    switch-window
                                     undo-tree
                                     web-mode
                                     yaml-mode))
+
 (setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")
                          ("elpa" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
@@ -113,6 +115,8 @@ scroll-step 1)
  ;; If there is more than one, they won't work right.
  )
 
+
+(global-set-key (kbd "C-x o") 'switch-window)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
