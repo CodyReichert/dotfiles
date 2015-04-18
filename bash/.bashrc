@@ -144,12 +144,15 @@ alias gpr='git pull --rebase'
 alias stashsave='git stash save'
 alias stashpop='git stash pop'
 alias sgpr='stashsave && gpr origin master && stashpop'
+  # cabal
+alias cabaldeps='cabal sandbox init; cabal install --only-dep -j'
   # other
 alias tree='tree -I ".git"'
 alias chromium='chromium-browser'
 alias untar='tar -zxvf'
 alias myxrandr='xrandr --output VGA1 --auto --right-of HDMI2'
 alias pgdevdb='bash /home/cody/.scripts/pgdevdb'
+alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
 
 # scripts
 source /usr/share/git/completion/git-prompt.sh
