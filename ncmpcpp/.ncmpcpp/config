@@ -37,8 +37,6 @@ visualizer_type = "spectrum" (spectrum/wave)
 
 visualizer_look = "λλ"
 
-visualizer_type = "spectrum" (spectrum/wave)
-
 ##### Various Visual Settings #####
 playlist_display_mode = "columns"
 
