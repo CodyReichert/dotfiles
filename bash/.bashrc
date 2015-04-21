@@ -150,7 +150,7 @@ alias cabaldeps='cabal sandbox init; cabal install --only-dep -j'
 alias tree='tree -I ".git"'
 alias chromium='chromium-browser'
 alias untar='tar -zxvf'
-alias myxrandr='xrandr --output VGA1 --auto --right-of HDMI2'
+alias myxrandr='xrandr --output VGA-0 --auto --right-of HDMI-1'
 alias pgdevdb='bash /home/cody/.scripts/pgdevdb'
 alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
 
@@ -158,9 +158,10 @@ alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
 source /usr/share/git/completion/git-prompt.sh
 source $HOME/.local/bin/bashmarks.sh
 
-PATH=/home/cody/.cabal/bin:$PATH
+PATH=$HOME/.cabal/bin:$PATH
 PATH=/opt/ghc/7.8.3/bin:$PATH
-PATH=~/.scripts/:$PATH
+PATH=$HOME/.scripts/:$PATH
 PATH=$PATH:/home/cody/.gem/ruby/2.2.0/bin
-PATH=/home/cody/.bin/ghc-7.8.4/bin:$PATH
+PATH=$PATH:$HOME/.node/bin
+PATH=$HOME/.bin/ghc-7.8.4/bin:$PATH
 
