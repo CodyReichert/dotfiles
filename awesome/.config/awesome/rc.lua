@@ -190,7 +190,7 @@ cpuwidget = wibox.widget.background(lain.widgets.cpu({
     settings = function()
         widget:set_text(" " .. cpu_now.usage .. "% ")
     end
-}), "#111111")
+}), "#171717")
 
 -- MPD
 musicwidget = awesompd:create()
