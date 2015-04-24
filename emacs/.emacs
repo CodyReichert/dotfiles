@@ -354,9 +354,13 @@ scroll-step 1)
   (message "success"))
 (define-key global-map "\C-c\C-w" 'latex-compile)
 
+
+;; recompile tex files with f5
 (eval-after-load 'tex-mode
   '(define-key tex-mode-map [f5] 'latex-compile))
 
+
+;; color in compilation buffer
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
   (toggle-read-only)
@@ -364,6 +368,8 @@ scroll-step 1)
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+
+;; highlight region and escapte quotes
 (defun xah-escape-quotes ()
     "Replace 「\"」 by 「\\\"」 in current line or text selection.
 That is, add 1 backslash in front of double quote (Unicode codepoint 34).
@@ -387,3 +393,11 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
                       (replace-match "\\\"" 'FIXEDCASE 'LITERAL))))))
 
 (define-key global-map "\C-c\C-y" 'xah-escape-quotes)
+
+
+;; open file as sudo with tramp
+(defun sudo-find-file (file-name)
+  "Like find file, but opens the file as root."
+  (interactive "FSudo Find File: ")
+  (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
+        (find-file tramp-file-name)))
