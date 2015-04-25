@@ -5,14 +5,14 @@
 ###########################################
 
 ##### ncmpcpp settings
-ncmpcpp_directory = "$HOME/.ncmpcpp"
+ncmpcpp_directory = "/home/cody/.ncmpcpp"
 
 ##### connection settings #####
 mpd_host = "0.0.0.0"
 
 mpd_port = "6600"
 
-mpd_music_dir = "$HOME/music/tagged"
+mpd_music_dir = "/media/cody/ASPEN/music/tagged"
 
 mpd_connection_timeout = "5"
 
@@ -36,6 +36,8 @@ visualizer_sync_interval = "30"
 visualizer_type = "spectrum" (spectrum/wave)
 
 visualizer_look = "λλ"
+
+# visualizer_type = "spectrum" (spectrum/wave)
 
 ##### Various Visual Settings #####
 playlist_display_mode = "columns"
