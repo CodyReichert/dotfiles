@@ -46,7 +46,9 @@
                                     switch-window
                                     undo-tree
                                     web-mode
-                                    yaml-mode))
+                                    yaml-mode
+                                    ztree
+                                    ))
 
 (setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")
                          ("elpa" . "http://tromey.com/elpa/")
@@ -103,11 +105,17 @@ scroll-step 1)
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(haskell-font-lock-symbols t)
  '(haskell-stylish-on-save (not t))
  '(menu-bar-mode nil)
- '(safe-local-variable-values (quote ((hamlet/basic-offset . 4) (haskell-process-use-ghci . t) (haskell-indent-spaces . 4)))))
+ '(safe-local-variable-values
+   (quote
+    ((hamlet/basic-offset . 4)
+     (haskell-process-use-ghci . t)
+     (haskell-indent-spaces . 4)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -178,6 +186,7 @@ scroll-step 1)
 ;;;;;;;;;;;;;
 ;; Haskell ;;
 ;;;;;;;;;;;;;
+(require 'haskell-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
