@@ -2,3 +2,4 @@ scripts/.scripts/.mailauth
 scripts/.scripts/mailcount
 scripts/.scripts/pgdevdb
 scripts/.scripts/mydevdb
+.\#.*
