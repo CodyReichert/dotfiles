@@ -63,6 +63,7 @@ alias untar='tar -zxvf'
 alias myxrandr='xrandr --output VGA-0 --auto --right-of HDMI-1'
 alias pgdevdb='bash /home/cody/.scripts/pgdevdb'
 alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
+alias aspen='mount /dev/sdc1'
 
 source $HOME/.local/bin/bashmarks.sh
 
