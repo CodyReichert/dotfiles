@@ -1,7 +1,7 @@
 directory: /media/cody/ASPEN/music/tagged
 library: /media/cody/ASPEN/music/data/musiclibrary.blb
 
-plugins: fetchart web mpdstats
+plugins: fetchart web mpdstats smartplaylist mpdupdate lastgenre duplicates random suggest
 
 import:
   copy: yes
@@ -15,5 +15,19 @@ web:
 fetchart:
   google_search: true
 
-mpdstats:
+mpd:
   music_directory: /media/cody/ASPEN/music/tagged/
+  time_threshold: 150
+
+smartplaylist:
+  relative_to: /media/cody/ASPEN/music/tagged
+  playlist_dir: ~/.mpd/playlists
+  playlists:
+    - name: Bluegrass.m3u
+      query: ['genre:"bluegrass"', 'genre:"folk"']
+
+lastgenre:
+  auto: true
+  count: 3
+  min_weight: 25
+  source: "track"
