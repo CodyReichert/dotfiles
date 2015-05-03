@@ -64,6 +64,7 @@
     (package-install package)))
 
 
+(add-to-list 'load-path "~/.emacs.d/scripts")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Settings and Initializations
@@ -82,6 +83,7 @@
   highlight-parentheses-mode
   (lambda ()
     (highlight-parentheses-mode t)))
+
 (global-highlight-parentheses-mode t)
 
 ;; smooth scrolling
@@ -410,3 +412,7 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
   (interactive "FSudo Find File: ")
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
         (find-file tramp-file-name)))
+
+
+(autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
+(compilation-always-kill-mode 1)
