@@ -1,4 +1,10 @@
 # Path to your oh-my-zsh installation.
+
+if [ ! -d "/home/cody/.oh-my-zsh" ]; then
+    curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+    mv /home/cody/.zshrc.pre-oh-my-zsh /home/cody/.zshrc
+fi
+
 export ZSH=/home/cody/.oh-my-zsh
 ZSH_THEME="steeef"
 plugins=(git zshmarks cabal python systemd)
