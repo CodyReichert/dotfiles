@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/home/cody/.oh-my-zsh
 ZSH_THEME="steeef"
-plugins=(git zshmarks)
+plugins=(git zshmarks cabal python systemd)
 
 source $ZSH/oh-my-zsh.sh
 
