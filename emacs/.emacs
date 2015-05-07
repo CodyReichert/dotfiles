@@ -38,6 +38,7 @@
                                     phpunit
                                     pkg-info
                                     popup
+                                    recompile-on-save
                                     s
                                     shakespeare-mode
                                     smart-mode-line
