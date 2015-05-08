@@ -39,9 +39,9 @@ alias la='ls -A'
 # alias l='ls -CF'
 alias l1='ls -1'
 
+export EDITOR="emacs -nw"
 export ALTERNATE_EDITOR="emacs -nw"
 alias e='emacsclient -t'
-export EDITOR="e"
 
   # emacs
 alias emacs='emacs -nw'
