@@ -25,6 +25,8 @@ smartplaylist:
   playlists:
     - name: Bluegrass.m3u
       query: ['genre:"bluegrass"', 'genre:"folk"']
+    - name: Indie.m3u
+      query: ['genre:"indie"', 'genre:"indie rock"', 'genre:"indie folk"', 'genre:"indie pop"']
 
 lastgenre:
   auto: true
