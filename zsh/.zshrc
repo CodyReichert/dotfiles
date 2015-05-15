@@ -11,6 +11,8 @@ plugins=(git zshmarks cabal python systemd)
 
 source $ZSH/oh-my-zsh.sh
 
+setopt no_share_history
+
 # ENABLE_CORRECTION="true"
 # COMPLETION_WAITING_DOTS="true"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
