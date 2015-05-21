@@ -73,3 +73,6 @@ PATH=$HOME/.scripts/:$PATH
 PATH=$PATH:/home/cody/.gem/ruby/2.2.0/bin
 PATH=$PATH:$HOME/.node/bin
 PATH=$HOME/.bin/ghc-7.8.4/bin:$PATH
+
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
