@@ -26,6 +26,7 @@
                                     json-mode
                                     json-reformat
                                     json-snatcher
+                                    jsx-mode
                                     latex-extra
                                     less-css-mode
                                     lisp-editing
@@ -243,6 +244,10 @@ scroll-step 1)
 (eval-after-load 'shakespeare-mode
   '(define-key shakespeare-mode-map [f5] 'haskell-process-reload-devel-main))
 
+
+;;;;;;;;;;;;;;;;
+;; JavaScript ;;
+;;;;;;;;;;;;;;;;
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
