@@ -245,10 +245,33 @@ scroll-step 1)
   '(define-key shakespeare-mode-map [f5] 'haskell-process-reload-devel-main))
 
 
-;;;;;;;;;;;;;;;;
-;; JavaScript ;;
-;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;      JavaScript       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode)) ;;web-mode for jsx-files
 
+(require 'flycheck)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(javascript-jshint)))
+
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+
+(setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                          '(json-jsonlist)))
+
+(defun web-mode-indent-hook ()
+  "Hooks for Web mode. Adjust indents"
+  (setq web-mode-markup-indent-offset 4)
+  (setq web-mode-css-indent-offset 4)
+  (setq web-mode-code-indent-offset 4))
+(add-hook 'web-mode-hook  'web-mode-indent-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Magit
