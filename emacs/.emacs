@@ -473,3 +473,18 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
 
 (autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
 (compilation-always-kill-mode 1)
+
+
+
+;; yasnippet
+(require 'yasnippet)
+(require 'react-snippets)
+(yas-reload-all)
+(add-hook 'web-mode-hook #'yas-minor-mode)
+
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+;; Set Yasnippet's key binding to shift+tab
+(define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
+
+;;; .emacs ends here
