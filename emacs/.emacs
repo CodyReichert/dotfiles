@@ -436,6 +436,8 @@ scroll-step 1)
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+(setq compilation-scroll-output t)
+
 
 ;; highlight region and escapte quotes
 (defun xah-escape-quotes ()
@@ -473,7 +475,6 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
 
 (autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
 (compilation-always-kill-mode 1)
-
 
 
 ;; yasnippet
