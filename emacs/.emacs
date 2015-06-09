@@ -67,6 +67,7 @@
 
 
 (add-to-list 'load-path "~/.emacs.d/scripts")
+(add-to-list 'load-path "~/.emacs.d/es6-snippets")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Settings and Initializations
@@ -480,12 +481,12 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
 ;; yasnippet
 (require 'yasnippet)
 (require 'react-snippets)
-(yas-reload-all)
-(add-hook 'web-mode-hook #'yas-minor-mode)
+(require 'es6-snippets)
 
+(yas-global-mode 1)
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
-;; Set Yasnippet's key binding to shift+tab
 (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
+
 
 ;;; .emacs ends here

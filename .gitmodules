@@ -11,3 +11,6 @@
 [submodule "vimperator/.vimperator/plugin/smoozy"]
 	path = vimperator/.vimperator/plugin/smoozy
 	url = git://github.com/yuttie/smoozy.js
+[submodule "emacs/.emacs.d/es6-snippets"]
+	path = emacs/.emacs.d/es6-snippets
+	url = git@github.com:CodyReichert/es6-snippets
