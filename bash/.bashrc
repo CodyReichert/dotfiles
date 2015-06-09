@@ -49,6 +49,8 @@ alias emcas='emacs -nw'
   # pacman
 alias pacman='sudo pacman'
 alias pacdep='sudo pacman -Si'
+
+alias packer='apacman'
   # git
 alias gpr='git pull --rebase'
 alias stashsave='git stash save'
