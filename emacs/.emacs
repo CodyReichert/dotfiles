@@ -249,7 +249,7 @@ scroll-step 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;      JavaScript       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode)) ;;web-mode for jsx-files
+(add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode)) ;;web-mode for js/jsx
 
 (require 'flycheck)
 
