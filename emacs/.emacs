@@ -9,6 +9,7 @@
                                     auto-complete
                                     coffee-mode
                                     dash
+                                    emmet-mode
                                     epl
                                     evil
                                     evil-leader
@@ -247,11 +248,11 @@ scroll-step 1)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;      JavaScript       ;;
+;; JavaScript / Web Mode ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode)) ;;web-mode for js/jsx
-
 (require 'flycheck)
+
+(add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode)) ;;web-mode for js/jsx
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -270,7 +271,10 @@ scroll-step 1)
   (setq web-mode-markup-indent-offset 4)
   (setq web-mode-css-indent-offset 4)
   (setq web-mode-code-indent-offset 4))
+
 (add-hook 'web-mode-hook  'web-mode-indent-hook)
+(add-hook 'web-mode-hook  'emmet-mode)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Magit
