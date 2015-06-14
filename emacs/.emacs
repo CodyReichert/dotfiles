@@ -28,6 +28,7 @@
                                     json-reformat
                                     json-snatcher
                                     jsx-mode
+                                    key-chord
                                     latex-extra
                                     less-css-mode
                                     lisp-editing
@@ -78,6 +79,10 @@
 
 ;; evil mode
 (evil-mode 1)
+
+(require 'key-chord)
+(key-chord-mode 1)
+(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
 ;; disable menu bar
 (menu-bar-mode -1)
