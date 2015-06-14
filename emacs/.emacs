@@ -130,7 +130,12 @@ scroll-step 1)
  )
 
 
+;; switch-window mode
 (global-set-key (kbd "C-x o") 'switch-window)
+
+
+;; expand-region mode
+(global-set-key (kbd "C-c C-v") 'er/expand-region)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
