@@ -75,7 +75,7 @@
     background_image = None
     use_system_font = False
     show_titlebar = False
-    font = Inconsolata Medium 10
+    font = Roboto Mono 10
   [[Smyck]]
     background_color = "#1b1b1b"
     foreground_color = "#f7f7f7"
