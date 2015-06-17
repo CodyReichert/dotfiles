@@ -7,6 +7,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq package-list '(tabulated-list auctex
                                     auto-complete
+                                    circe
                                     coffee-mode
                                     dash
                                     emmet-mode
@@ -41,6 +42,7 @@
                                     phpunit
                                     pkg-info
                                     popup
+                                    projectile
                                     recompile-on-save
                                     s
                                     shakespeare-mode
@@ -97,8 +99,8 @@
 
 ;; smooth scrolling
 (setq scroll-margin 5
-scroll-conservatively 9999
-scroll-step 1)
+      scroll-conservatively 9999
+      scroll-step 1)
 
 ;; smex
 (global-set-key (kbd "M-x") 'smex)
@@ -518,6 +520,60 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
 (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
+
+
+;; Projectile
+(projectile-global-mode)
+(global-set-key (kbd "C-c T")       'projectile-regenerate-tags)
+(global-set-key (kbd "C-c t")       'projectile-test-project)
+(global-set-key (kbd "C-c g")       'projectile-grep)
+(global-set-key (kbd "C-c i")       'projectile-ibuffer)
+(global-set-key (kbd "C-x C-d")     'projectile-switch-project)
+(global-set-key [f5]                'projectile-compile-project)
+
+
+(defun maybe-projectile-find-file ()
+  (interactive)
+  (call-interactively
+   (if (projectile-project-p)
+       'projectile-find-file
+     'ido-find-file)))
+
+(global-set-key (kbd "C-x C-f") 'maybe-projectile-find-file)
+
+(global-set-key (kbd "C-x f") 'ido-find-file)
+
+(global-set-key (kbd "C-c C-r") 'rename-buffer)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                   Circe (IRC Client)                      ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(load-file "~/.emacs.d/.private.el")
+(setq circe-network-options
+      '(("Freenode"
+         :nick "CodyReichert"
+         :channels ("#emacs" "#archlinux" "#haskell" "#reactjs")
+         :nickserv-password ,circe-pass)))
+
+(defun irc ()
+  "Connect to IRC with circe"
+  (interactive)
+  (circe "Freenode"))
+
+
+(load-file "~/.emacs.d/circe-notifications/circe-notifications.el")
+(autoload 'enable-circe-notifications "circe-notifications" nil t)
+
+(eval-after-load "circe-notifications"
+  '(setq circe-notifications-watch-nicks
+         '("CodyReichert")
+         circe-notifications-backend "notify-send"))
+
+(setq circe-notifications-check-window-focus t)
+
+(add-hook 'circe-server-connected-hook 'enable-circe-notifications)
 
 
 ;;; .emacs ends here

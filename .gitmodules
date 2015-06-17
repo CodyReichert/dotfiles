@@ -14,3 +14,6 @@
 [submodule "emacs/.emacs.d/es6-snippets"]
 	path = emacs/.emacs.d/es6-snippets
 	url = git@github.com:CodyReichert/es6-snippets
+[submodule "emacs/.emacs.d/circe-notifications"]
+	path = emacs/.emacs.d/circe-notifications
+	url = git@github.com:codyreichert/circe-notifications
