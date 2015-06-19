@@ -68,13 +68,13 @@ modkey     = "Mod4"
 altkey     = "Mod1"
 terminal   = "terminator" or "xterm"
 editor     = os.getenv("EDITOR") or "emacs -nw" or "vim"
-editor_cmd = terminal .. " -e " .. editor
 
 -- user defined
 browser    = "firefox"
 browser2   = "chromium-browser"
-gui_editor = "emacs"
+gui_editor = "emacs -f eshell"
 graphics   = "gimp"
+emacs_daemon = "emacsclient -c"
 
 -- lain
 lain.layout.termfair.nmaster   = 3
@@ -128,10 +128,9 @@ green  = "#8FEB8F"
 mytextclock = awful.widget.textclock("<span font='Tamsyn 5'> </span>%H:%M ")
 
 -- Calendar
--- lain.widgets.calendar:attach(mytextclock)
-orglendar.files = { os.getenv("HOME") .. "/workspace/notes/NOTES.org",
-                    os.getenv("HOME") .. "/workspace/rborg/RBNOTES.org" }
-orglendar.register(mytextclock)
+lain.widgets.calendar:attach(mytextclock)
+-- orglendar.files = { "/home/cody/docs/org/TODO.org" }
+-- orglendar.register(mytextclock)
 
 function mailcount()
    os.execute("python2.7 " .. os.getenv("HOME") .. "/.scripts/checkMail")
@@ -330,7 +329,8 @@ volumewidget = wibox.widget.background(volmargin)
 volumewidget:set_bgimage(beautiful.widget_bg)
 
 -- Weather
-yawn = lain.widgets.yawn(123456)
+weathericon = wibox.widget.imagebox(beautiful.weather)
+yawn = lain.widgets.yawn(2424766, { u="f"})
 
 -- Separators
 spr = wibox.widget.textbox(' ')
@@ -441,6 +441,10 @@ for s = 1, screen.count() do
     right_layout:add(volumewidget)
     right_layout:add(bar_spr)
     right_layout:add(mytextclock)
+    right_layout:add(bar_spr)
+    right_layout:add(yawn.icon)
+    right_layout:add(yawn.widget)
+    right_layout:add(bar_spr)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -551,6 +555,9 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey            }, "p",      function () awful.util.spawn(gui_editor) end),
+    awful.key({ modkey, "Control" }, "p",      function () awful.util.spawn(emacs_daemon) end),
+
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
     awful.key({ modkey, "Shift"   }, "q",      awesome.quit),
     awful.key({ "Shift" }, "F12", function () awful.util.spawn("xscreensaver-command -lock") end), -- screen-lock
@@ -561,7 +568,7 @@ globalkeys = awful.util.table.join(
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
     awful.key({ altkey,           }, "h",      function () fshomeupd.show(7) end),
-    awful.key({ altkey,           }, "w",      function () yawn.show(7) end),
+    awful.key({ modkey, "Control" }, "w",      function () yawn.show(7) end),
 
     -- ALSA volume control
     awful.key({ altkey }, "Up",
@@ -620,6 +627,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "t", function() os.execute("bash ~/.scripts/smirk tracks") end),
     awful.key({ modkey, "Control" }, "a", function() os.execute("bash ~/.scripts/smirk album") end),
 
+
     awful.key({ modkey, "Control" }, "g", function ()
           awful.prompt.run({ prompt = "Shuffle Genre: " },
              mypromptbox[mouse.screen].widget, function(text)
@@ -650,7 +658,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+    -- awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
