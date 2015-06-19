@@ -39,13 +39,11 @@ alias la='ls -A'
 # alias l='ls -CF'
 alias l1='ls -1'
 
-export EDITOR="emacs -nw"
-export ALTERNATE_EDITOR="emacs -nw"
-alias e='emacsclient -t'
+export EDITOR="emacs"
+export ALTERNATE_EDITOR=""
+alias e='emacsclient -c'
 
-  # emacs
-alias emacs='emacs -nw'
-alias emcas='emacs -nw'
+
   # pacman
 alias pacman='sudo pacman'
 alias pacdep='sudo pacman -Si'
