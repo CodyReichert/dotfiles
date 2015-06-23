@@ -361,7 +361,6 @@
 (require 'auto-complete-config)
 (global-auto-complete-mode t)
 
-
 (setq ac-auto-show-menu t)
 
 (set-default 'ac-sources
@@ -440,6 +439,8 @@
     ;; minor-mode-alist  ;; list of minor modes
     "%-" ;; fill with '-'
 ))
+
+(setq sml/theme nil)
 (sml/setup)
 (set-face-background 'modeline-inactive nil)
 (set-face-background 'mode-line nil)
@@ -447,11 +448,10 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Other Functions
+;;                          Utility Functions                                ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Compile TeX files to pdf and reload chromium to view changes
-;;; <C-c C-w>
 (defun latex-compile(x)
+  "Compile TeX files to pdf and reload chromium to view changes"
   (interactive "File: ")
   (setq filename (concat x))
   (setq command "pdflatex ")
@@ -459,34 +459,30 @@
   (shell-command texCompile)
   (shell-command "chromix with file reloadWithoutCache")
   (message "success"))
+
 (define-key global-map "\C-c\C-w" 'latex-compile)
 
-
-;; recompile tex files with f5
 (eval-after-load 'tex-mode
   '(define-key tex-mode-map [f5] 'latex-compile))
 
 
-;; color in compilation buffer
-(require 'ansi-color)
-(defun colorize-compilation-buffer ()
-  (toggle-read-only)
-  (ansi-color-apply-on-region (point-min) (point-max))
-  (toggle-read-only))
-(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+(defun npm-command (command)
+  "start run a script from an npm package.json (it works, but needs some work)"
+  (interactive
+   (let* ((default-directory (locate-dominating-file default-directory "package.json"))
+          (command (concat "npm run "))
+          (compilation-buffer-name-function (lambda (mode) (concat "npm-run-" command))))
+     (list (compilation-read-command command))))
+  (compile command))
 
-(setq compilation-scroll-output t)
 
-
-;; highlight region and escapte quotes
 (defun xah-escape-quotes ()
     "Replace 「\"」 by 「\\\"」 in current line or text selection.
-That is, add 1 backslash in front of double quote (Unicode codepoint 34).
-See also: `xah-unescape-quotes'
-
-Version 2015-01-24
-URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
-"
+     That is, add 1 backslash in front of double quote (Unicode codepoint 34).
+     See also: `xah-unescape-quotes'
+     Version 2015-01-24
+     URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
+    "
     (interactive)
     (let (p1 p2)
       (if (use-region-p)
@@ -512,11 +508,30 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
         (find-file tramp-file-name)))
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                   Compilation Buffer                      ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'ansi-color)
+
+(defun colorize-compilation-buffer ()
+  "Colorize the compilation buffer"
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+(setq compilation-scroll-output t)
+
+
 (autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
 (compilation-always-kill-mode 1)
 
 
-;; yasnippet
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                      Yasnippets                           ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'yasnippet)
 (require 'react-snippets)
 (require 'es6-snippets)
@@ -527,8 +542,12 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
 (define-key yas-minor-mode-map (kbd "<backtab>") 'yas-expand)
 
 
-;; Projectile
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                      Projectile                           ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (projectile-global-mode)
+
 (global-set-key (kbd "C-c T")       'projectile-regenerate-tags)
 (global-set-key (kbd "C-c t")       'projectile-test-project)
 (global-set-key (kbd "C-c g")       'projectile-grep)
@@ -537,24 +556,17 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
 (global-set-key [f5]                'projectile-compile-project)
 
 
-(defun maybe-projectile-find-file ()
+(defun projectile-or-ido-find-file ()
   (interactive)
   (call-interactively
    (if (projectile-project-p)
        'projectile-find-file
      'ido-find-file)))
 
-(global-set-key (kbd "C-x C-f") 'maybe-projectile-find-file)
-
-(global-set-key (kbd "C-x f") 'ido-find-file)
-
-(global-set-key (kbd "C-c C-r") 'rename-buffer)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;                   Circe (IRC Client)                      ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (load-file "~/.emacs.d/.private.el")
 (setq circe-network-options
       '(("Freenode"
@@ -566,7 +578,6 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
   "Connect to IRC with circe"
   (interactive)
   (circe "Freenode"))
-
 
 (load-file "~/.emacs.d/circe-notifications/circe-notifications.el")
 (autoload 'enable-circe-notifications "circe-notifications" nil t)
