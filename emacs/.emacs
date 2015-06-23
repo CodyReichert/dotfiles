@@ -23,12 +23,16 @@
                                     ghci-completion
                                     goto-chg
                                     haskell-mode
+                                    helm
+                                    helm-projectile
                                     highlight-parentheses
+                                    ido-vertical-mode
                                     js2-mode
                                     json-mode
                                     json-reformat
                                     json-snatcher
                                     jsx-mode
+                                    jquery-doc
                                     key-chord
                                     latex-extra
                                     less-css-mode
@@ -38,6 +42,7 @@
                                     moz
                                     nodejs-repl
                                     org
+                                    org-page
                                     php-mode
                                     phpunit
                                     pkg-info
@@ -574,6 +579,74 @@ URL `http://ergoemacs.org/emacs/elisp_escape_quotes.html'
 (setq circe-notifications-check-window-focus t)
 
 (add-hook 'circe-server-connected-hook 'enable-circe-notifications)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                      Org-Page (Blog)                      ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'org-page)
+(setq op/repository-directory "/home/cody/workspace/org/blog")
+(setq op/site-domain "http://codyreichert.github.io")
+(setq op/personal-github-link "https://github.com/CodyReichert")
+(setq op/site-main-title "The One True Blog")
+(setq op/site-sub-title "Emacs, programming, and whatever else comes to mind")
+(setq op/personal-disqus-shortname "theonetrueblog")
+(setq op/theme 'mdo)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;                         eshell                            ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'eshell)
+(require 'em-smart)
+(setq eshell-where-to-jump 'begin)
+(setq eshell-review-quick-commands nil)
+(setq eshell-smart-space-goes-to-end t)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helm
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'helm)
+(require 'helm-config)
+(require 'helm-mpd)
+
+
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p           t
+      helm-move-to-line-cycle-in-source     nil
+      helm-ff-search-library-in-sexp        t
+      helm-scroll-amount                    8
+      helm-ff-file-name-history-use-recentf t)
+
+
+(defun projectile-or-helm-find-file ()
+  (interactive)
+  (call-interactively
+   (if (projectile-project-p)
+       'helm-projectile-find-file
+     'helm-find-files)))
+
+
+(helm-mode 1)
+(helm-projectile-on)
+
+
+(global-set-key (kbd "C-x C-f") 'projectile-or-helm-find-file)
+(global-set-key (kbd "C-x f")   'helm-find-files)
+(global-set-key (kbd "M-x") 'helm-M-x)
 
 
 ;;; .emacs ends here
