@@ -377,12 +377,17 @@
                ;; ac-source-ispell
                ))
 
+(require 'jquery-doc)
+(add-hook 'web-mode-hook 'jquery-doc-setup)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Smart Mode Line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; use setq-default to set it for /all/ modes
+(require 'smart-mode-line)
+
 (setq mode-line-format
   (list
     ;; the buffer name; the file name as a tool tip
