@@ -78,21 +78,33 @@
 (add-to-list 'load-path "~/.emacs.d/scripts")
 (add-to-list 'load-path "~/.emacs.d/es6-snippets")
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Settings and Initializations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; tabs -> spaces
+(set-fringe-mode nil)
+
 (setq-default indent-tabs-mode nil)
 
-;; evil mode
-(evil-mode 1)
+(setq initial-buffer-choice '(lambda () (eshell)))
 
-(require 'key-chord)
-(key-chord-mode 1)
-(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+(setq x-select-enable-clipboard t)
 
-;; disable menu bar
+(global-set-key (kbd "C-x o") 'switch-window)
+
+(global-set-key (kbd "C-c C-v") 'er/expand-region)
+
 (menu-bar-mode -1)
+
+(setq scroll-margin 5
+      scroll-conservatively 9999
+      scroll-step 1)
+
+
+(global-set-key (kbd "C-c C-r") 'rename-buffer)
+
+(setq electric-pair-mode 1)
+
 
 ;; highlight parentheses in all buffers
 (define-globalized-minor-mode global-highlight-parentheses-mode
@@ -193,7 +205,9 @@
    (dot . t)
    (octave . t)
    (sqlite . t)
+   (js . t)
    (perl . t)
+   (haskell . t)
 ))
 
 (setq org-log-done t)
@@ -203,7 +217,7 @@
   "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
   (interactive
    (let ((src-code-types
-          '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++" "css"
+          '("emacs-lisp" "python" "Javascript" "C" "sh" "java" "js" "clojure" "C++" "css"
             "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
             "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
             "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
@@ -228,21 +242,16 @@
 
 
 (setq org-src-fontify-natively t)
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Language Specific Setup
+;;                               haskell-mode                                ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-
-;;;;;;;;;;;;;
-;; Haskell ;;
-;;;;;;;;;;;;;
 (require 'haskell-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+
+;; (eval-after-load 'haskell-mode
+;;   '(define-key haskell-indentation-mode-map (kbd "<backtab>") nil))
 
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 
@@ -252,22 +261,27 @@
 
 (setq haskell-process-use 'cabal-repl)
 
-(define-key haskell-mode-map [f5] 'haskell-process-reload-devel-main)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Shakespeare Templates ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(eval-after-load 'shakespeare-mode
-  '(define-key shakespeare-mode-map [f7] 'haskell-process-cabal-build))
-
-(eval-after-load 'shakespeare-mode
-  '(define-key shakespeare-mode-map [f5] 'haskell-process-reload-devel-main))
+;;(define-key haskell-mode-map [f5] 'haskell-process-reload-devel-main)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; JavaScript / Web Mode ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                            shakespeare-mode                               ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;(eval-after-load 'shakespeare-mode
+;;   '(define-key shakespeare-mode-map [f7] 'haskell-process-cabal-build))
+
+;; (eval-after-load 'shakespeare-mode
+;;   '(define-key shakespeare-mode-map [f5] 'haskell-process-reload-devel-main))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                web-mode                                   ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'flycheck)
+
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode)) ;;web-mode for js/jsx
 
@@ -291,6 +305,7 @@
 
 (add-hook 'web-mode-hook  'web-mode-indent-hook)
 (add-hook 'web-mode-hook  'emmet-mode)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -325,34 +340,36 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Web Browser
+;; Web Browsers
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Chromium reload browser (<C-x C-r>)
-(defun chrome-reload() (interactive)
+(defun chrome-reload()
+  "Reload Chrome/Chromium from emacs. Requires the npm package 'chromix'"
+  (interactive)
   (shell-command "chromix with localhost reloadWithoutCache")
   (shell-command "chromix with file reloadWithoutCache"))
 (define-key global-map "\C-x\C-r" 'chrome-reload)
 
-;;; Moz Reload on Save
-;; run M-x moz-reload-on-save-mode to switch moz-reload on/off in the
-;; current buffer.
-;; When active, saving the buffer triggers Firefox to reload its current page.
+
+;; Firefox reload on save
 (require 'moz)
 (define-minor-mode moz-reload-on-save-mode
-  "Moz Reload On Save Minor Mode"
+  "Moz Reload On Save Minor Mode. When activated in a buffer, firefox will
+   reload on save"
   nil " Reload" nil
   (if moz-reload-on-save-mode
-      ;; Edit hook buffer-locally.
       (add-hook 'after-save-hook 'moz-firefox-reload nil t)
     (remove-hook 'after-save-hook 'moz-firefox-reload t)))
 
-(define-key global-map "\C-x\C-r" 'moz-firefox-reload)
 
 (defun moz-firefox-reload () (interactive)
   (comint-send-string (inferior-moz-process) "BrowserReload();"))
 
 
-;; (global-set-key [f5] 'moz-firefox-reload)
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium")
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto-Complete-Mode
