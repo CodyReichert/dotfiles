@@ -70,7 +70,7 @@ terminal   = "terminator" or "xterm"
 editor     = os.getenv("EDITOR") or "emacs -nw" or "vim"
 
 -- user defined
-browser    = "firefox"
+browser    = "chromium"
 browser2   = "chromium-browser"
 gui_editor = "emacs -f eshell"
 graphics   = "gimp"
