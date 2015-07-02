@@ -20,8 +20,6 @@
                                     evil-org
                                     expand-region
                                     flycheck
-                                    git-commit-mode
-                                    git-rebase-mode
                                     ghci-completion
                                     goto-chg
                                     haskell-mode
