@@ -4,33 +4,26 @@
 ;;; Magit settings
 
 ;;; Code:
-(setq magit-last-seen-setup-instructions "1.4.0")
+(require 'magit)
+
+(setq magit-last-seen-setup-instructions "2.1.0")
 
 (define-key global-map [f6] 'magit-status)
 (evil-set-initial-state 'magit-mode 'normal)
-(evil-set-initial-state 'magit-status-mode 'normal)
-(evil-set-initial-state 'magit-diff-mode 'normal)
 (evil-set-initial-state 'magit-log-mode 'normal)
-(evil-define-key 'normal magit-mode-map
-    "j" 'magit-goto-next-section
-    "k" 'magit-goto-previous-section)
-(evil-define-key 'normal magit-log-mode-map
-    "j" 'magit-goto-next-section
-    "k" 'magit-goto-previous-section)
-(evil-define-key 'normal magit-diff-mode-map
-    "j" 'magit-goto-next-section
-    "k" 'magit-goto-previous-section)
+(evil-set-initial-state 'magit-status-mode 'insert)
+(evil-set-initial-state 'magit-diff-mode 'insert)
 
-;; change magit diff colors
-(eval-after-load 'magit
-  '(progn
-     (set-face-foreground 'magit-diff-add "green3")
-     (set-face-foreground 'magit-diff-del "red3")
-     (set-face-attribute  'magit-diff-foreground "white")
-     (set-face-attribute  'magit-diff-background "black")
-     (when (not window-system)
-       (set-face-background 'magit-item-highlight "black")
-       (set-face-foreground 'magit-item-highlight "white"))))
+
+(add-to-list 'evil-emacs-state-modes 'magit-popup-mode)
+(add-to-list 'evil-emacs-state-modes 'magit-popup-sequence-mode)
+
+
+(setq magit-restore-window-configuration t) ; that's the default actually
+(setq magit-status-buffer-switch-function
+      (lambda (buffer) ; there might already be an Emacs function which does this
+        (pop-to-buffer buffer)
+        (delete-other-windows)))
 
 
 (provide 'init-magit)
