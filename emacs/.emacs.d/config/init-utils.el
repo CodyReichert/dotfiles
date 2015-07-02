@@ -7,12 +7,22 @@
 (require 'moz)
 
 ;;; Chromium reload browser (<C-x C-r>)
-(defun chrome-reload()
+(defun chrome-reload ()
   "Reload Chrome/Chromium from emacs. Requires the npm package 'chromix'"
   (interactive)
-  (shell-command "chromix with localhost reloadWithoutCache")
-  (shell-command "chromix with file reloadWithoutCache"))
+  (shell-command "chromix with \"http://.*.dev\" reloadWithoutCache"))
+  ;; (shell-command "chromix with file reloadWithoutCache"))
+
 (define-key global-map "\C-x\C-r" 'chrome-reload)
+
+;; Chromium reload on save minor mode
+(define-minor-mode chromium-reload-on-save-mode
+  "Chromium Reload on Save minor mode. When activated in a buffer, chromium will
+   reload on buffer save"
+  nil "Chromium Reload" nil
+  (if chromium-reload-on-save-mode
+      (add-hook 'after-save-hook 'chrome-reload nil t)
+    (remove-hook 'after-save-hook 'chrome-reload t)))
 
 
 ;; Firefox reload on save
