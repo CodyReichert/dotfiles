@@ -14,6 +14,12 @@
 
 (setq initial-buffer-choice '(lambda () (eshell)))
 
+(defun no-initial-buffer ()
+  (setq initial-buffer-choice nil))
+
+(add-hook 'find-file-hook 'no-initial-buffer)
+
+
 (setq x-select-enable-clipboard t)
 
 (global-set-key (kbd "C-x o") 'switch-window)
@@ -22,7 +28,7 @@
 
 (menu-bar-mode -1)
 
-(setq scroll-margin 5
+(setq scroll-margin 2
       scroll-conservatively 9999
       scroll-step 1)
 
@@ -54,7 +60,29 @@
 
 (set-scroll-bar-mode nil)
 
-(load-theme 'material t)
+(if (display-graphic-p)
+    (progn
+
+      (load-theme 'material t)
+      
+      (set-face-attribute 'default nil
+                          :inherit nil
+                          :stipple nil
+                          :background "#263238"
+                          :foreground "#ffffff"
+                          :inverse-video nil
+                          :box nil
+                          :strike-through nil
+                          :overline nil
+                          :underline nil
+                          :slant 'normal
+                          :weight 'normal
+                          :height 100
+                          :width 'normal
+                          :foundry "unknown")
+      
+      (set-frame-font "Roboto Mono 10")))
+
 
 (setq face-font-family-alternatives '
     (("Roboto Mono")
