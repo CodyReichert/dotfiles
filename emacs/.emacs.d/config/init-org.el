@@ -13,11 +13,13 @@
 (require 'org-habit)
 (require 'org-contacts)
 
+(add-hook 'org-mode-hook '(lambda () (auto-fill-mode 1)))
+
 (setq org-habit-graph-column 80)
 (setq org-habit-show-habits-only-for-today nil)
 
-(setq org-directory "~/workspace/org")
-(setq org-default-notes-file "~/workspace/org/notes.org")
+(setq org-directory "~/workspace/organizer")
+(setq org-default-notes-file "~/workspace/organizer/notes.org")
 
 (setq org-todo-keywords
         '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w@/!)" "DONE(d@/!)")))
@@ -94,13 +96,13 @@
 (define-key global-map "\C-ca" 'org-agenda)
 
 
-(defvar org-tasks-file   "~/workspace/org/tasks.org")
-(defvar org-buiness-file "~/workspace/org/business.org")
-(defvar org-notes-file   "~/workspace/org/notes.org")
-(defvar org-journal-file "~/workspace/org/journal.org")
-(defvar org-people-file  "~/workspace/org/people.org")
-(defvar org-contacts-file  "~/workspace/org/contacts.org")
-(defvar org-org-file "~/workspace/org/organizer.org") ;;deprecated
+(defvar org-tasks-file   "~/workspace/organizer/tasks.org")
+(defvar org-buiness-file "~/workspace/organizer/business.org")
+(defvar org-notes-file   "~/workspace/organizer/notes.org")
+(defvar org-journal-file "~/workspace/organizer/journal.org")
+(defvar org-people-file  "~/workspace/organizer/people.org")
+(defvar org-contacts-file  "~/workspace/organizer/contacts.org")
+(defvar org-org-file "~/workspace/organizer/organizer.org") ;;deprecated
 
 
 (defvar my/org-basic-task-template "* TODO %^{Task}
@@ -205,8 +207,9 @@
          (file+headline org-notes-file "Ideas")
          "* TODO %^{Task}"
          :immediate-finish t)
-        ("w" "Blog prompt" item
-         (file+headline org-notes-file "Blog Prompts/Ideas"))
+        ("w" "Blog prompt" entry
+         (file+headline org-notes-file "Blog Prompts/Ideas")
+         "* TODO %^{Task}")
 
         ;;
         ;; notes / journal
@@ -233,10 +236,10 @@
       (delq nil
             (mapcar (lambda (x) (and (file-exists-p x) x))
                     '(
-                      "~/workspace/org/people.org"
-                      "~/workspace/org/business.org"
-                      "~/workspace/org/notes.org"
-                      "~/workspace/org/tasks.org"))))
+                      "~/workspace/organizer/people.org"
+                      "~/workspace/organizer/business.org"
+                      "~/workspace/organizer/notes.org"
+                      "~/workspace/organizer/tasks.org"))))
 
 
 (setq org-agenda-sticky nil)
@@ -274,10 +277,10 @@
         ("T" tags-todo "TODO=\"TODO\"-goal-routine-SCHEDULED={.+}")
 
         ("n" tags-todo "Notes"
-         ((org-agenda-files '("~/workspace/org/notes.org"))))
+         ((org-agenda-files '("~/workspace/organizer/notes.org"))))
 
         ("o" todo ""
-         ((org-agenda-files '("~/workspace/org/organizer.org"))))
+         ((org-agenda-files '("~/workspace/organizer/organizer.org"))))
 
         ("c" todo ""
          ((org-agenda-prefix-format "")
