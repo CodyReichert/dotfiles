@@ -46,6 +46,7 @@
                                     php-mode
                                     phpunit
                                     pkg-info
+                                    pkgbuild-mode
                                     popup
                                     projectile
                                     recompile-on-save
