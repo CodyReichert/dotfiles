@@ -17,7 +17,6 @@ local drop       = require("scratchdrop")
 local lain       = require("lain")
 local eminent    = require("eminent")
 local cyclefocus = require("cyclefocus")
-local orglendar  = require('orglendar')
 local awesompd   = require("awesompd/awesompd")
 -- }}}
 
@@ -129,51 +128,6 @@ mytextclock = awful.widget.textclock("<span font='Tamsyn 5'> </span>%H:%M ")
 
 -- Calendar
 lain.widgets.calendar:attach(mytextclock)
--- orglendar.files = { "/home/cody/docs/org/TODO.org" }
--- orglendar.register(mytextclock)
-
-function mailcount()
-   os.execute("python2.7 " .. os.getenv("HOME") .. "/.scripts/checkMail")
-   local mailfile = io.open(os.getenv("HOME") .. "/.scripts/mailcount")
-   local l = nil
-   if mailfile ~= nil then
-      l = mailfile:read()
-   else
-      l = "?"
-   end
-   mailfile:close()
-   return l
-end
-
-mailicon = wibox.widget.imagebox(beautiful.mail)
-mailwidget_text = wibox.widget.textbox( " ")
-mailwidget_text.timer = timer{timeout=300}
-mailwidget = wibox.widget.background(mailwidget_text, black) 
-mailwidget_text.timer:connect_signal("timeout", function ()
-    mailwidget_text:set_text ( mailcount() .. " " )
-end)
-mailwidget_text.timer:start()
-
---[[ Mail IMAP check
--- commented because it needs to be set before use
-mailwidget = lain.widgets.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        mail  = ""
-        count = ""
-
-        if mailcount > 0 then
-            mail = "<span font='Tamsyn 5'> </span>Mail "
-            count = mailcount .. " "
-        end
-
-        widget:set_markup(markup(blue, mail) .. count)
-    end
-})
---]]
 
 -- MEM
 memicon = wibox.widget.imagebox(beautiful.mem)
@@ -421,9 +375,6 @@ for s = 1, screen.count() do
     right_layout:add(mpdwidget)
     right_layout:add(mpdicon)
     right_layout:add(musicwidget.widget)
-    right_layout:add(bar_spr)
-    right_layout:add(mailicon)
-    right_layout:add(mailwidget)
     right_layout:add(bar_spr)
     right_layout:add(memicon)
     right_layout:add(memwidget)
