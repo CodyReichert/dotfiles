@@ -1,0 +1,75 @@
+#+TITLE: Building StumpWM on Arch Linux
+#+AUTHOR: Cody Reichert
+#+EMAIL: codyreichert@gmail.com
+
+* StumpWMk
+
+** Install a Common Lisp distribution
+
+   My recommendation is =sbcl=
+   #+BEGIN_SRC sh
+     $ pacman -S sbcl
+   #+END_SRC
+
+
+** Get QuickLisp
+
+   Download QuickLisp
+   #+BEGIN_SRC sh
+     $ curl -O http://beta.quicklisp.com/quicklisp.lisp
+     $ sbcl --load quicklisp.lisp
+   #+END_SRC
+
+   Setup QuickLisp 
+   #+BEGIN_SRC lisp
+     ;; Setup quicklisp
+     (quicklisp-quickstart:install)
+     (ql:add-to-init-file) ;; appends quicklisp stuff to ~/.sbcl
+   #+END_SRC
+
+
+   Install StumpWM Dependencies
+   #+BEGIN_SRC lisp
+     (ql:quickload "clx")
+     (ql:quickload "cl-ppcre")
+     (ql:quickload "cl-xembed") ;; optional for embedding images
+   #+END_SRC
+
+
+** Build StumpWM from source
+  
+   Clone 
+   #+BEGIN_SRC sh
+     $ git clone git@github.com:stumpwm/stumpwm
+     # optional contrib, not required to build
+     $ git clone git@github.com:stumpwm/stumpwm-contrib
+   #+END_SRC
+
+
+   Configure
+   #+BEGIN_SRC sh
+     $ autoconf
+     $ ./configure
+
+     # or with a specific lisp
+     $ ./configure --with-lisp=clisp
+     $ ./configure --with-sbcl=/home/sabetts/opt/bin/sbcl
+
+   #+END_SRC
+
+
+   Make/Install
+   #+BEGIN_SRC sh
+     $ make 
+     $ make install
+   #+END_SRC
+
+
+* Emacs/Slime
+
+** Slime Helper
+
+   QuickLisp Slime Helper
+   #+BEGIN_SRC lisp
+     (ql:quickload "quicklisp-slime-helper")
+   #+END_SRC
