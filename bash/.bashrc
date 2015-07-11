@@ -68,7 +68,6 @@ alias aspen='mount /dev/sdc1'
 source $HOME/.local/bin/bashmarks.sh
 
 PATH=$HOME/.cabal/bin:$PATH
-PATH=/opt/ghc/7.8.3/bin:$PATH
 PATH=$HOME/.scripts/:$PATH
 PATH=$PATH:/home/cody/.gem/ruby/2.2.0/bin
 PATH=$PATH:$HOME/.node/bin

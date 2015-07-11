@@ -4,21 +4,26 @@
 ;;; Settings and Initializations
 
 ;;; Code:
+(add-to-list 'load-path "~/.emacs.d/wp-readme-mode")
+
 (require 'highlight-parentheses)
 (require 'switch-window)
 (require 'smooth-scroll)
+(require 'wp-readme)
+
+(setq initial-buffer-choice '(lambda () (eshell)))
+
+;;; slime/lisp/etc
+(setq inferior-lisp-program "sbcl")
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+
+(slime-setup '(slime-fancy slime-mrepl slime-banner slime-tramp
+	       slime-xref-browser slime-highlight-edits
+	       slime-sprof))
 
 (set-fringe-mode nil)
 
 (setq-default indent-tabs-mode nil)
-
-(setq initial-buffer-choice '(lambda () (eshell)))
-
-(defun no-initial-buffer ()
-  (setq initial-buffer-choice nil))
-
-(add-hook 'find-file-hook 'no-initial-buffer)
-
 
 (setq x-select-enable-clipboard t)
 
@@ -28,7 +33,7 @@
 
 (menu-bar-mode -1)
 
-(setq scroll-margin 2
+(setq scroll-margin 3
       scroll-conservatively 9999
       scroll-step 1)
 
@@ -60,29 +65,16 @@
 
 (set-scroll-bar-mode nil)
 
-(if (display-graphic-p)
-    (progn
+(load-theme 'afternoon t)
 
-      (load-theme 'material t)
-      
-      (set-face-attribute 'default nil
-                          :inherit nil
-                          :stipple nil
-                          :background "#263238"
-                          :foreground "#ffffff"
-                          :inverse-video nil
-                          :box nil
-                          :strike-through nil
-                          :overline nil
-                          :underline nil
-                          :slant 'normal
-                          :weight 'normal
-                          :height 100
-                          :width 'normal
-                          :foundry "unknown")
-      
-      (set-frame-font "Roboto Mono 10")))
+(set-frame-font "Roboto Mono 10")
 
+(face-spec-reset-face 'mode-line)
+
+(face-spec-reset-face 'mode-line-inactive)
+
+(set-face-attribute 'mode-line-inactive nil
+                    :foreground "#969896")
 
 (setq face-font-family-alternatives '
     (("Roboto Mono")
@@ -91,24 +83,6 @@
      ("Sans Serif" "helv" "helvetica" "arial" "fixed")
      ("helv" "helvetica" "arial" "fixed")))
 
-
-(set-face-attribute 'default nil
-                     :inherit nil
-                     :stipple nil
-                     :background "#263238"
-                     :foreground "#ffffff"
-                     :inverse-video nil
-                     :box nil
-                     :strike-through nil
-                     :overline nil
-                     :underline nil
-                     :slant 'normal
-                     :weight 'normal
-                     :height 100
-                     :width 'normal
-                     :foundry "unknown")
-
-(set-frame-font "Roboto Mono 10")
 
 (provide 'init-settings)
 ;;; init-settings.el ends here
