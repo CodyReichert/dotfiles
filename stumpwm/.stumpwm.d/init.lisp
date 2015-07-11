@@ -1,6 +1,5 @@
 ;; -*-lisp-*-
 ;; StumpWM - init.lisp
-
 ;; Cody Reichert <codyreichert@gmail.com>
 
 (in-package :stumpwm)
@@ -18,21 +17,34 @@
 (load-module "mem")
 (load-module "mpd")
 
-(setf stumpwm:*ignore-wm-inc-hints* t) ; fixes space around some windows (cough emacs)
+(setf stumpwm:*ignore-wm-inc-hints* t) ; fixes space around some windows
 
 ;; keys
 (set-prefix-key (kbd "C-t"))
 
 (define-key *root-map* (kbd "C-s") "swank")       
-
 (define-key *root-map* (kbd "c") "exec terminator")
-
 (define-key *root-map* (kbd "C-c") "exec chromium")
-
 (define-key *root-map* (kbd "m") "toggle-current-mode-line")
 
-(defcommand launch-chromium () ()
-  (stumpwm:run-shell-command "chromium"))
+(define-key *root-map* (kbd "C-m") 'mpd:*mpd-map*)
+(define-key mpd:*mpd-map* (kbd "C-g") "smirk-shuffle-genre")
+(define-key mpd:*mpd-map* (kbd "C-a") "smirk-shuffle-artist")
+(define-key mpd:*mpd-map* (kbd "C-t") "smirk-shuffle-tracks")
+
+
+(defcommand smirk-shuffle-artist (artist) ((:string "Arist: "))
+  "Shuffle MPD with the given artist."
+  (stumpwm:run-shell-command (concat "smirk artist " artist)))
+
+(defcommand smirk-shuffle-genre (genre) ((:string "Genre: "))
+    "Shuffle MPD with the given genre."
+  (stumpwm:run-shell-command (concat "smirk genre " genre)))
+
+(defcommand smirk-shuffle-tracks () ()
+    "Play a random 250 tracks in MPD."
+  (stumpwm:run-shell-command "smirk tracks"))
+
 
 ;; swank
 (swank-loader:init)
@@ -56,7 +68,6 @@
 ;; MPD
 (mpd:mpd-connect)
 
-(define-key *root-map* (kbd "C-m") 'mpd:*mpd-map*)
 
 (setf mpd:*mpd-modeline-fmt* "%a - %t (%n/%p)")
 
