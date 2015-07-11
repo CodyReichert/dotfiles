@@ -13,7 +13,7 @@
 (setq evil-leader/in-all-states t)
 
 ;;; evil leader (<SPC> - cmd)
-(evil-leader/set-leader "<SPC>")
+(evil-leader/set-leader "SPC")
 
 (evil-leader/set-key "f" 'projectile-or-helm-find-file)
 (evil-leader/set-key "w" 'save-buffer)
