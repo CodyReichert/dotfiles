@@ -17,3 +17,6 @@
 [submodule "emacs/.emacs.d/circe-notifications"]
 	path = emacs/.emacs.d/circe-notifications
 	url = git@github.com:codyreichert/circe-notifications
+[submodule "emacs/.emacs.d/wp-readme-mode"]
+	path = emacs/.emacs.d/wp-readme-mode
+	url = git@github.com:codyreichert/wp-readme-mode
