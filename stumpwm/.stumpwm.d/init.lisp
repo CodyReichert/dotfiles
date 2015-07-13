@@ -68,15 +68,38 @@
 ;; MPD
 (mpd:mpd-connect)
 
-
-(setf mpd:*mpd-modeline-fmt* "%a - %t (%n/%p)")
-
+(setf mpd:*mpd-modeline-fmt* "%L %a - %t (%n/%p)")
 
 ;; mode-line
 (defcommand toggle-current-mode-line () ()
   "Toggle the current screens mode-line."
   (stumpwm:toggle-mode-line (stumpwm:current-screen)
                             (stumpwm:current-head)))
+
+
+;; TODO: Is a better way to modify these?
+(in-package :cpu)
+(export 'current-cpu-usage)
+
+(defun fmt-cpu-usage (ml)
+  "Returns a string representing current the percent of average CPU
+  utilization."
+  (declare (ignore ml))
+  (let ((cpu (truncate (* 100 (current-cpu-usage)))))
+    (format nil "\^[~A~3D%^]" (bar-zone-color cpu) cpu)))
+
+(in-package :mem)
+(export 'mem-usage)
+
+(defun fmt-mem-usage (ml)
+  "Returns a string representing the current percent of used memory."
+  (declare (ignore ml))
+  (let* ((mem (mem-usage))
+	 (|%| (truncate (* 100 (nth 2 mem))))
+	 (allocated (truncate (/ (nth 1 mem) 1000))))
+    (format nil "~4D mb" allocated (bar-zone-color |%|) |%|)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defun enable-mode-line-all-heads ()
   (dolist (screen *screen-list*)
