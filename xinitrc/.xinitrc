@@ -1,3 +1,3 @@
 xbindkeys
 xmodmap ~/.Xmodmap
-exec awesome
+exec stumpwm
