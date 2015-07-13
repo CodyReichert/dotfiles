@@ -6,8 +6,8 @@
 
 (add-to-load-path "~/.stumpwm.d/contrib/")
 
-(add-to-load-path "/home/cody/.emacs.d/elpa/slime-20150627.1630/swank")
-(load "/home/cody/.emacs.d/elpa/slime-20150627.1630/swank-loader.lisp")
+(add-to-load-path "/home/cody/.emacs.d/slime/swank")
+(load "/home/cody/.emacs.d/slime/swank-loader.lisp")
 
 (add-to-load-path "/home/cody/.stumpwm.d/contrib/modeline/cpu")
 (add-to-load-path "/home/cody/.stumpwm.d/contrib/modeline/mem")
