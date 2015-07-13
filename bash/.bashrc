@@ -58,7 +58,6 @@ alias sgpr='stashsave && gpr origin master && stashpop'
 alias cabaldeps='cabal sandbox init; cabal install --only-dep -j'
   # other
 alias tree='tree -I ".git"'
-alias chromium='chromium-browser'
 alias untar='tar -zxvf'
 alias myxrandr='xrandr --output VGA-0 --auto --right-of HDMI-1'
 alias pgdevdb='bash /home/cody/.scripts/pgdevdb'
