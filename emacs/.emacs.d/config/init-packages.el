@@ -7,7 +7,8 @@
 
 ;;; Code:
 
-(setq package-list '(tabulated-list auctex
+(setq package-list '(tabulated-list afternoon-theme
+                                    auctex
                                     auto-complete
                                     circe
                                     coffee-mode
@@ -40,6 +41,7 @@
                                     magit
                                     markdown-mode
                                     moz
+                                    mu4e-maildirs-extension
                                     nodejs-repl
                                     org
                                     org-page
