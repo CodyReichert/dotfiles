@@ -7,7 +7,7 @@
 (add-to-list 'load-path "~/.emacs.d/es6-snippets")
 
 (require 'yasnippet)
-(require 'react-snippets)
+;; (require 'react-snippets)
 (require 'es6-snippets)
 
 

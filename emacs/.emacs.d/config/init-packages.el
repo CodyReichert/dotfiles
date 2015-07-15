@@ -61,6 +61,7 @@
                                     undo-tree
                                     web-mode
                                     yaml-mode
+                                    yasnippet
                                     ztree
                                     ))
 
