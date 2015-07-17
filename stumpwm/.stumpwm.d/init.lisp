@@ -17,6 +17,8 @@
 (load-module "mem")
 (load-module "mpd")
 
+(setf *mouse-focus-policy* :click)
+
 (setf stumpwm:*ignore-wm-inc-hints* t) ; fixes space around some windows
 
 ;; keys
