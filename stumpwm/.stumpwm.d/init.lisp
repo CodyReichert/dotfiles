@@ -30,7 +30,8 @@
 (define-key *root-map* (kbd "C-m") 'mpd:*mpd-map*)
 (define-key mpd:*mpd-map* (kbd "C-g") "smirk-shuffle-genre")
 (define-key mpd:*mpd-map* (kbd "C-a") "smirk-shuffle-artist")
-(define-key mpd:*mpd-map* (kbd "C-t") "smirk-shuffle-tracks")
+(define-key mpd:*mpd-map* (kbd "C-t") "smirk-random-tracks")
+(define-key mpd:*mpd-map* (kbd "a") "smirk-random-album")
 
 
 (defcommand smirk-shuffle-artist (artist) ((:string "Arist: "))
@@ -41,9 +42,13 @@
     "Shuffle MPD with the given genre."
   (stumpwm:run-shell-command (concat "smirk genre " genre)))
 
-(defcommand smirk-shuffle-tracks () ()
+(defcommand smirk-random-tracks () ()
     "Play a random 250 tracks in MPD."
   (stumpwm:run-shell-command "smirk tracks"))
+
+(defcommand smirk-random-album () ()
+    "Play a random album in MPD."
+  (stumpwm:run-shell-command "smirk album"))
 
 
 ;; swank
@@ -75,6 +80,12 @@
   "Toggle the current screens mode-line."
   (stumpwm:toggle-mode-line (stumpwm:current-screen)
                             (stumpwm:current-head)))
+
+
+(defun show-key-seq (key seq val)
+           (stumpwm:message (print-key-seq (reverse seq))))
+
+(add-hook stumpwm:*key-press-hook* 'show-key-seq)
 
 
 ;; TODO: Is a better way to modify these?
@@ -115,3 +126,4 @@
 (setf *mode-line-timeout* 2)
 
 (enable-mode-line-all-heads)
+
