@@ -26,6 +26,7 @@
 (define-key *root-map* (kbd "c") "exec terminator")
 (define-key *root-map* (kbd "C-c") "exec chromium")
 (define-key *root-map* (kbd "m") "toggle-current-mode-line")
+(define-key *root-map* (kbd "C-e") "exec emacs")
 
 (define-key *root-map* (kbd "C-m") 'mpd:*mpd-map*)
 (define-key mpd:*mpd-map* (kbd "C-g") "smirk-shuffle-genre")
