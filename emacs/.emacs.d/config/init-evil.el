@@ -28,6 +28,11 @@
 (key-chord-mode 1)
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
+
+(define-key evil-normal-state-map (kbd "C-p") nil)
+(define-key evil-normal-state-map (kbd "C-n") nil)
+
+
 (provide 'init-evil)
 
 ;;; init-evil.el ends here
