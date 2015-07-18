@@ -32,6 +32,9 @@
 (define-key evil-normal-state-map (kbd "C-p") nil)
 (define-key evil-normal-state-map (kbd "C-n") nil)
 
+(define-key evil-insert-state-map (kbd "C-p") nil)
+(define-key evil-insert-state-map (kbd "C-n") nil)
+
 
 (provide 'init-evil)
 

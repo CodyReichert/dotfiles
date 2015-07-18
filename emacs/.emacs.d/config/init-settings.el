@@ -21,6 +21,9 @@
 	       slime-xref-browser slime-highlight-edits
 	       slime-sprof))
 
+(define-key slime-repl-mode-map (kbd "C-p") 'slime-repl-backward-input)
+(define-key slime-repl-mode-map (kbd "C-n") 'slime-repl-forward-input)
+
 (set-fringe-mode nil)
 
 (setq-default indent-tabs-mode nil)
