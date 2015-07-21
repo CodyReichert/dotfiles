@@ -54,6 +54,11 @@
   (stumpwm:run-shell-command "smirk album"))
 
 
+
+(setf *mode-line-background-color* "#333")
+(setf *mode-line-foreground-color* "#ddd")
+
+
 ;; swank
 (swank-loader:init)
 
