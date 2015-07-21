@@ -25,6 +25,7 @@
 (require 'init-org)
 (require 'init-orgpage)
 (require 'init-projectile)
+(require 'init-slime)
 (require 'init-web)
 (require 'init-yasnippets)
 

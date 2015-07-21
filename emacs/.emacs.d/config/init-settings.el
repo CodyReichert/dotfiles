@@ -13,24 +13,13 @@
 
 (setq initial-buffer-choice '(lambda () (eshell)))
 
-;;; slime/lisp/etc
-(setq inferior-lisp-program "sbcl")
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-
-(slime-setup '(slime-fancy slime-mrepl slime-banner slime-tramp
-	       slime-xref-browser slime-highlight-edits
-	       slime-sprof))
-
-(define-key slime-repl-mode-map (kbd "C-p") 'slime-repl-backward-input)
-(define-key slime-repl-mode-map (kbd "C-n") 'slime-repl-forward-input)
-
 (set-fringe-mode nil)
 
 (setq-default indent-tabs-mode nil)
 
 (setq x-select-enable-clipboard t)
 
-(global-set-key (kbd "C-x o") 'switch-window)
+(global-set-key (kbd "C-x o") 'ace-window)
 
 (global-set-key (kbd "C-c C-v") 'er/expand-region)
 
