@@ -74,3 +74,4 @@ PATH=$HOME/.bin/ghc-7.8.4/bin:$PATH
 
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/bin/virtualenvwrapper.sh
+SHELLY_HOME=/home/cody/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
