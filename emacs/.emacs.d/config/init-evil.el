@@ -13,6 +13,8 @@
 (setq evil-leader/in-all-states t)
 (evil-leader/set-leader "SPC")
 
+(evil-leader/set-key "j" 'Control-X-prefix)
+
 (evil-leader/set-key "f" 'projectile-or-helm-find-file)
 (evil-leader/set-key "w" 'save-buffer)
 (evil-leader/set-key "k" 'kill-this-buffer)
