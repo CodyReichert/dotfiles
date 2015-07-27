@@ -1,13 +1,6 @@
-[submodule "awesome/.config/awesome/lain"]
-	path = awesome/.config/awesome/lain
-	url = git://github.com/CodyReichert/lain.git
-
 [submodule "vimperator/.vimperator/colors"]
 	path = vimperator/.vimperator/colors
 	url = https://github.com/vimpr/vimperator-colors
-[submodule "awesome/.config/awesome/awesompd"]
-	path = awesome/.config/awesome/awesompd
-	url = https://github.com/alexander-yakushev/awesompd
 [submodule "vimperator/.vimperator/plugin/smoozy"]
 	path = vimperator/.vimperator/plugin/smoozy
 	url = git://github.com/yuttie/smoozy.js
