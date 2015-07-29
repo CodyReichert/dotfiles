@@ -17,9 +17,16 @@
 (load-module "mem")
 (load-module "mpd")
 
-(setf *mouse-focus-policy* :click)
+;; run a couple commands on startup
+(stumpwm:run-shell-command "myxrandr")
+(stumpwm:run-shell-command "mpd")
 
+;; general setup
+(setf *mouse-focus-policy* :sloppy) ; focus window on mouse hover
 (setf stumpwm:*ignore-wm-inc-hints* t) ; fixes space around some windows
+(setf *mode-line-background-color* "#333")
+(setf *mode-line-foreground-color* "#ddd")
+
 
 ;; keys
 (set-prefix-key (kbd "C-t"))
@@ -52,11 +59,6 @@
 (defcommand smirk-random-album () ()
     "Play a random album in MPD."
   (stumpwm:run-shell-command "smirk album"))
-
-
-
-(setf *mode-line-background-color* "#333")
-(setf *mode-line-foreground-color* "#ddd")
 
 
 ;; swank
@@ -96,24 +98,17 @@
 (add-hook stumpwm:*key-press-hook* 'show-key-seq)
 
 
-;; TODO: Is a better way to modify these?
-(in-package :cpu)
-(export 'current-cpu-usage)
-
 (defun fmt-cpu-usage (ml)
   "Returns a string representing current the percent of average CPU
   utilization."
   (declare (ignore ml))
-  (let ((cpu (truncate (* 100 (current-cpu-usage)))))
+  (let ((cpu (truncate (* 100 (cpu:current-cpu-usage)))))
     (format nil "\^[~A~3D%^]" (bar-zone-color cpu) cpu)))
-
-(in-package :mem)
-(export 'mem-usage)
 
 (defun fmt-mem-usage (ml)
   "Returns a string representing the current percent of used memory."
   (declare (ignore ml))
-  (let* ((mem (mem-usage))
+  (let* ((mem (mem:mem-usage))
 	 (|%| (truncate (* 100 (nth 2 mem))))
 	 (allocated (truncate (/ (nth 1 mem) 1000))))
     (format nil "~4D mb" allocated (bar-zone-color |%|) |%|)))
