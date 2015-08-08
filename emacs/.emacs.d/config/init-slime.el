@@ -11,6 +11,11 @@
 	       slime-xref-browser slime-highlight-edits
 	       slime-sprof))
 
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'slime-repl-mode))
+
 (define-key slime-repl-mode-map (kbd "C-p") 'slime-repl-backward-input)
 (define-key slime-repl-mode-map (kbd "C-n") 'slime-repl-forward-input)
 

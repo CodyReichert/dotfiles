@@ -8,6 +8,7 @@
 ;;; Code:
 
 (setq package-list '(tabulated-list afternoon-theme
+                                    ac-slime
                                     auctex
                                     auto-complete
                                     circe
