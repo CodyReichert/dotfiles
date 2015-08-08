@@ -18,7 +18,7 @@
 
 (setq haskell-interactive-popup-errors 'nil)
 
-(setq haskell-process-type 'cabal-repl)
+(setq haskell-process-type 'stack-ghci)
 
 (setq haskell-process-use 'cabal-repl)
 
