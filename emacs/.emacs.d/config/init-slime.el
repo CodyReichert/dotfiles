@@ -38,7 +38,7 @@
      '(font-lock-face
       slime-repl-prompt-face
       rear-nonsticky
-      (slime-repl-prompt read-only font-lock-face intangible))))))
+      (slime-repl-prompt read-only font-lock-face intangible)))))
 
 
 (provide 'init-slime)
