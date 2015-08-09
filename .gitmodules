@@ -19,3 +19,6 @@
 [submodule "emacs/.emacs.d/slime"]
 	path = emacs/.emacs.d/slime
 	url = https://github.com/slime/slime
+[submodule "emacs/.emacs.d/slime-repl-ansi-color"]
+	path = emacs/.emacs.d/slime-repl-ansi-color
+	url = git@github.com:CodyReichert/slime-repl-ansi-color

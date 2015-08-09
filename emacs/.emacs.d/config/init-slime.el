@@ -4,12 +4,14 @@
 ;;; Settings for Slime, Swank, and Common Lisp
 
 ;;; Code:
+(add-to-list 'load-path "~/.emacs.d/slime-repl-ansi-color")
+
 (setq inferior-lisp-program "sbcl")
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 
 (slime-setup '(slime-fancy slime-mrepl slime-banner slime-tramp
 	       slime-xref-browser slime-highlight-edits
-	       slime-sprof))
+	       slime-sprof slime-repl-ansi-color))
 
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
