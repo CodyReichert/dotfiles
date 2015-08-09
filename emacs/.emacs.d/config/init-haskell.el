@@ -4,6 +4,8 @@
 ;;; haskell-mode settings
 
 ;;; Code:
+(require 'haskell)
+(require 'haskell-commands)
 (require 'haskell-mode)
 (require 'flycheck)
 
@@ -22,13 +24,15 @@
 
 (setq haskell-process-use 'cabal-repl)
 
-;;(define-key haskell-mode-map [f5] 'haskell-process-reload-devel-main)
 
-;;(eval-after-load 'shakespeare-mode
-;;   '(define-key shakespeare-mode-map [f7] 'haskell-process-cabal-build))
+(defun haskell-run-function-under-cursor ()
+"Send the `word-at-point' as a function to GHCi process."
+  (interactive)
+  (haskell-process-send-string
+   (haskell-interactive-process)
+   (format "%s" (word-at-point))))
 
-;; (eval-after-load 'shakespeare-mode
-;;   '(define-key shakespeare-mode-map [f5] 'haskell-process-reload-devel-main))
+(define-key haskell-mode-map (kbd "C-c C-j") 'haskell-run-function-under-cursor)
 
 
 (flycheck-define-checker haskell-stack
