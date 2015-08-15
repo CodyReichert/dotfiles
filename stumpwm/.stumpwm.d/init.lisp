@@ -79,10 +79,17 @@
       (message "Starting swank on port 4005."))))
 
 
+(defun show-key-seq (key seq val)
+  (declare (ignore key val))
+  (stumpwm:message (print-key-seq (reverse seq))))
+
+(add-hook stumpwm:*key-press-hook* 'show-key-seq)
+
 
 ;; MPD
 (mpd:mpd-connect)
 
+(setf *window-format* "<%n%m%30t>")
 (setf mpd:*mpd-modeline-fmt* "%L %a - %t (%n/%p)")
 
 ;; mode-line
@@ -92,26 +99,25 @@
                             (stumpwm:current-head)))
 
 
-(defun show-key-seq (key seq val)
-           (stumpwm:message (print-key-seq (reverse seq))))
-
-(add-hook stumpwm:*key-press-hook* 'show-key-seq)
-
-
-(defun fmt-cpu-usage (ml)
+(defun my/fmt-cpu-usage (ml)
   "Returns a string representing current the percent of average CPU
   utilization."
   (declare (ignore ml))
-  (let ((cpu (truncate (* 100 (cpu:current-cpu-usage)))))
-    (format nil "\^[~A~3D%^]" (bar-zone-color cpu) cpu)))
+  (let* ((cpu (nth-value 0 (truncate (* 100 (cpu::current-cpu-usage))))))
+    (format nil "~A%" cpu)))
 
-(defun fmt-mem-usage (ml)
+(pushnew '(#\U my/fmt-cpu-usage) *screen-mode-line-formatters* :test 'equal)
+
+
+(defun my/fmt-mem-usage (ml)
   "Returns a string representing the current percent of used memory."
   (declare (ignore ml))
-  (let* ((mem (mem:mem-usage))
-	 (|%| (truncate (* 100 (nth 2 mem))))
+  (let* ((mem (mem::mem-usage))
 	 (allocated (truncate (/ (nth 1 mem) 1000))))
-    (format nil "~4D mb" allocated (bar-zone-color |%|) |%|)))
+    (format nil "~A mb" allocated)))
+
+(pushnew '(#\N my/fmt-mem-usage) *screen-mode-line-formatters* :test 'equal)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -123,7 +129,7 @@
 (setf stumpwm:*screen-mode-line-format*
       (list
        "[^B%n^b] %W "
-       "^> %m | %M | %c | "
+       "^> %m | %N | %U | "
        '(:eval (run-shell-command "date '+%F %a %R' | tr -d [:cntrl:]" t))))
 
 (setf *mode-line-timeout* 2)
