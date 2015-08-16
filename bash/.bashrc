@@ -44,34 +44,33 @@ export ALTERNATE_EDITOR=""
 alias e='emacsclient -c'
 
 
-  # pacman
+# pacman
 alias pacman='sudo pacman'
 alias pacdep='sudo pacman -Si'
-
 alias packer='apacman'
-  # git
+# git
 alias gpr='git pull --rebase'
 alias stashsave='git stash save'
 alias stashpop='git stash pop'
 alias sgpr='stashsave && gpr origin master && stashpop'
-  # cabal
+# cabal
 alias cabaldeps='cabal sandbox init; cabal install --only-dep -j'
-  # other
+# other
 alias tree='tree -I ".git"'
 alias untar='tar -zxvf'
 alias myxrandr='xrandr --output VGA-0 --auto --right-of HDMI-1'
-alias pgdevdb='bash /home/cody/.scripts/pgdevdb'
 alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
 alias aspen='mount /dev/sdc1'
 
-source $HOME/.local/bin/bashmarks.sh
 
-PATH=$HOME/.cabal/bin:$PATH
-PATH=$HOME/.scripts/:$PATH
+# Path
 PATH=$PATH:/home/cody/.gem/ruby/2.2.0/bin
 PATH=$PATH:$HOME/.node/bin
-PATH=$HOME/.bin/ghc-7.8.4/bin:$PATH
+PATH=$PATH:$HOME/.bin
+PATH=$HOME/.cabal/bin:$PATH
+PATH=$HOME/.scripts/:$PATH
+PATH=$HOME/.stack/programs/x86_64-linux/ghc-7.10.2/bin:$PATH
 
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/bin/virtualenvwrapper.sh
+
+# Shlyfile setup
 SHELLY_HOME=/home/cody/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
