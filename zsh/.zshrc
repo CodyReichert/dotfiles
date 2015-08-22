@@ -60,3 +60,5 @@ alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
 alias aspen='mount /dev/sdc1'
 
 source $HOME/.local/bin/bashmarks.sh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

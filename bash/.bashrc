@@ -74,3 +74,5 @@ PATH=$HOME/.stack/programs/x86_64-linux/ghc-7.10.2/bin:$PATH
 
 # Shlyfile setup
 SHELLY_HOME=/home/cody/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
