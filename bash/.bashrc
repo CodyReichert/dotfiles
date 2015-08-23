@@ -30,7 +30,7 @@ if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
 
-set -o vi
+set -o emacs
 
 # ls aliases
 alias ls='ls --color=auto'
