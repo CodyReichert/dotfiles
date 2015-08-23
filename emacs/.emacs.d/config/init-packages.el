@@ -55,6 +55,7 @@
                                     recompile-on-save
                                     s
                                     shakespeare-mode
+                                    slime
                                     smart-mode-line
                                     smex
                                     smooth-scroll
