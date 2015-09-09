@@ -27,11 +27,17 @@
 (setf *mode-line-background-color* "#333")
 (setf *mode-line-foreground-color* "#ddd")
 
+(stumpwm:set-focus-color "green")
+(stumpwm:set-unfocus-color "yellow")
+
 
 ;; keys
 (set-prefix-key (kbd "C-t"))
 
-(define-key *root-map* (kbd "C-s") "swank")       
+(define-key *root-map* (kbd "o")   "next")
+(define-key *root-map* (kbd "C-o") "prev")
+
+(define-key *root-map* (kbd "C-s") "swank")
 (define-key *root-map* (kbd "c") "exec terminator")
 (define-key *root-map* (kbd "C-c") "exec chromium")
 (define-key *root-map* (kbd "m") "toggle-current-mode-line")
@@ -73,8 +79,8 @@
       (message "Swank server already running.")
     (progn
       (swank:create-server :port 4005
-			   :style swank:*communication-style*
-			   :dont-close t)
+                           :style swank:*communication-style*
+                           :dont-close t)
       (setf *swank-p* t)
       (message "Starting swank on port 4005."))))
 
@@ -113,7 +119,7 @@
   "Returns a string representing the current percent of used memory."
   (declare (ignore ml))
   (let* ((mem (mem::mem-usage))
-	 (allocated (truncate (/ (nth 1 mem) 1000))))
+         (allocated (truncate (/ (nth 1 mem) 1000))))
     (format nil "~A mb" allocated)))
 
 (pushnew '(#\N my/fmt-mem-usage) *screen-mode-line-formatters* :test 'equal)
@@ -135,4 +141,3 @@
 (setf *mode-line-timeout* 2)
 
 (enable-mode-line-all-heads)
-
