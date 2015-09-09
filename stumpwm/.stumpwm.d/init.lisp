@@ -34,7 +34,7 @@
 ;; keys
 (set-prefix-key (kbd "C-t"))
 
-(define-key *root-map* (kbd "o")   "next")
+(define-key *root-map* (kbd "o")   "fnext")
 (define-key *root-map* (kbd "C-o") "prev")
 
 (define-key *root-map* (kbd "C-s") "swank")
