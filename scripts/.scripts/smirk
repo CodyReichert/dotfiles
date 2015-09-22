@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 # smirk - a simple mpc wrapper for creating shuffled playlists.
 
@@ -33,7 +33,9 @@ if [[ "$1" == "album" ]]; then
 elif [[ "$1" == "tracks" ]]; then
     playRandomTracks
 elif [[ "$1" == "genre" ]]; then
-    playRandomGenre "$2"
+    args=( ${@} )
+    playRandomGenre "${args[*]:1}"
 elif [[ "$1" == "artist" ]]; then
-    shuffleArtist "$2"
+    args=( ${@} )
+    shuffleArtist "${args[*]:1}"
 fi
