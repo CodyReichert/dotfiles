@@ -53,6 +53,7 @@
                                     popup
                                     projectile
                                     recompile-on-save
+                                    rust-mode
                                     s
                                     shakespeare-mode
                                     slime
