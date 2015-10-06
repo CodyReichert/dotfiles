@@ -13,7 +13,15 @@
 (setq eshell-review-quick-commands nil)
 (setq eshell-smart-space-goes-to-end t)
 
+(set-face-attribute 'eshell-prompt nil :foreground "#228b22")
+
+(add-hook 'eshell-mode-hook
+          '(lambda ()
+             (define-key eshell-mode-map (kbd "C-n") 'eshell-next-input)
+             (define-key eshell-mode-map (kbd "C-p") 'eshell-previous-input)))
+
 (defun eshell/clear ()
+  "Clear the eshell buffer, similar to bash's `clear'."
   (interactive)
   (let ((inhibit-read-only t))
     (delete-region (point-min) (point-max))))
