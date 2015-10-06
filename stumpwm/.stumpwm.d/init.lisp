@@ -86,6 +86,7 @@
 
 
 (defun show-key-seq (key seq val)
+  "Show a brief message with the key-sequence used for all commands."
   (declare (ignore key val))
   (stumpwm:message (print-key-seq (reverse seq))))
 
@@ -126,7 +127,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (defun enable-mode-line-all-heads ()
   (dolist (screen *screen-list*)
     (dolist (head (screen-heads screen))
@@ -141,3 +141,32 @@
 (setf *mode-line-timeout* 2)
 
 (enable-mode-line-all-heads)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Groups and Windows
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setf *default-group-name* "1")
+
+(defun mode-line-scroll-through-windows (ml bt x y)
+  "Allows scrolling through windows and groups with the mouse-wheel.
+Using the left 100px of mode-line (where the group is displayed) will
+scroll through the groups, while using any other part of the mode-line
+will scroll through windows in the current group."
+  (declare (ignore ml y))
+  (cond ((>= x 100)
+         (cond ((eq bt 5)
+                (run-commands "next")
+                (message (format nil "~A / ~A" bt x)))
+               ((eq bt 4)
+                (run-commands "prev")
+                (message (format nil "~A / ~A" bt x)))))
+        (t
+         (cond ((eq bt 5)
+                (run-commands "gnext")
+                (message (format nil "~A / ~A" bt x)))
+               ((eq bt 4)
+                (run-commands "gprev")
+                (message (format nil "~A / ~A" bt x)))))))
+
+(add-hook *mode-line-click-hook* 'mode-line-scroll-through-windows)
