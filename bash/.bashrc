@@ -64,15 +64,18 @@ alias aspen='mount /dev/sdc1'
 
 
 # Path
-PATH=$PATH:/home/cody/.gem/ruby/2.2.0/bin
-PATH=$PATH:$HOME/.node/bin
 PATH=$PATH:$HOME/.bin
-PATH=$HOME/.cabal/bin:$PATH
 PATH=$HOME/.scripts/:$PATH
-PATH=$HOME/.stack/programs/x86_64-linux/ghc-7.10.2/bin:$PATH
-
+#PATH=$PATH:/home/cody/.gem/ruby/2.2.0/bin
+#PATH=$PATH:$HOME/.node/bin
+#PATH=$HOME/.cabal/bin:$PATH
+#PATH=$HOME/.stack/programs/x86_64-linux/ghc-7.10.2/bin:$PATH
+#PATH=$PATH:$HOME/.rvm/bin
 
 # Shlyfile setup
 SHELLY_HOME=/home/cody/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+set -o emacs
+
+export LC_ALL="en_US.UTF-8"
