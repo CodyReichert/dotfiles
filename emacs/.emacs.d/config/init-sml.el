@@ -4,10 +4,10 @@
 ;;; smart-mode-line settings
 
 ;;; Code:
-(require 'inbox)
+;(require 'inbox)
 (require 'smart-mode-line)
 
-(display-inbox-mode t)
+;(display-inbox-mode t)
 
 (setq mode-line-format
   (list
@@ -55,12 +55,12 @@
                              'help-echo "Buffer is read-only"))))
     "] "
 
-    "["
+    ;;"["
 
-    ;; unread mail count
-    '(:eval (propertize sml-inbox-count-string))
+    ;;;; unread mail count
+    ;;'(:eval (propertize sml-inbox-count-string))
 
-    "] "
+    ;;"] "
 
     ;; add the time
     '(:eval (propertize (format-time-string "%H:%M")

@@ -17,9 +17,12 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
 
 ;; This script has been modified to simply return a string, which can be used
 ;; anywhere instead of just the modeline.
+
+;;; Code:
 
 
 (defgroup inbox nil
@@ -28,15 +31,16 @@
   :group 'hardware)
 
 (defcustom inbox-update-interval 60
-  "Inbox update interval"
+  "Inbox update interval."
   :type 'integer
   :group 'inbox)
 
 (defvar inbox-update-timer nil
   "Interval timer object.")
 
-(defcustom inbox-count-command "echo -n $( mu find date:1w..now maildir:/simplyrets/INBOX flag:unread 2>/dev/null | wc -l )"
-  "Command to retrieve count of emails in Inbox"
+(defcustom inbox-count-command
+  "echo -n $( mu find date:1w..now maildir:/simplyrets/INBOX flag:unread 2>/dev/null | wc -l )"
+  "Command to retrieve count of emails in Inbox."
   :type 'string
   :group 'inbox)
 
@@ -69,19 +73,11 @@ the mode if ARG is omitted or nil."
   (setq sml-inbox-count-string
         (let ((unread (shell-command-to-string inbox-count-command)))
         (format "%s" unread))))
-  ;; (setq inbox-mode-line-string
-  ;;       (let ((unread (shell-command-to-string inbox-count-command)))
-  ;;         (propertize
-  ;;          (if (string= "0" unread)
-  ;;              "" "+")
-  ;;          'display (format "%s New mail" unread)
-  ;;          'help-echo (format "%s unread messages" unread))))
-
-
-  ;; (force-mode-line-update))
 
 (defun inbox-update-handler ()
   (inbox-update)
   (sit-for 0))
 
 (provide 'inbox)
+
+;;; inbox.el ends here
