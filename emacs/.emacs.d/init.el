@@ -7,6 +7,8 @@
 (add-to-list 'load-path "~/.emacs.d/config")
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
+(setenv "LANG" "en_US.UTF-8")
+
 (require 'init-packages)
 (require 'init-utils)
 (require 'init-settings)
