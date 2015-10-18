@@ -1,0 +1,6 @@
+bash-git-prompt
+darcs
+haskell-stack
+pgcli-git
+ttf-roboto
+ttf-roboto-mono
