@@ -10,6 +10,7 @@ cairo-infinality-ultimate
 chromium
 clisp
 coreutils
+cronie
 cryptsetup
 device-mapper
 dhcpcd
@@ -64,6 +65,7 @@ nginx
 nodejs
 npm
 ntfs-3g
+offlineimap
 openssh
 os-prober
 pacman
