@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Generates a list of all installed packages, and
+# saves them in dotfiles/packages/pkglist.txt.
+
+echo "Archiving Arch Repository packages..."
+pacman -Qqen > $HOME/dotfiles/packages/pkglist.txt
+
+echo "Archiving AUR packages..."
+pacman -Qemq > $HOME/dotfiles/packages/aur.pkglist.txt
