@@ -18,17 +18,18 @@
 (load-module "mpd")
 
 ;; run a couple commands on startup
-(stumpwm:run-shell-command "myxrandr")
-(stumpwm:run-shell-command "mpd")
+(run-shell-command "myxrandr")
+(run-shell-command "mpd")
 
 ;; general setup
 (setf *mouse-focus-policy* :sloppy) ; focus window on mouse hover
-(setf stumpwm:*ignore-wm-inc-hints* t) ; fixes space around some windows
+(setf *ignore-wm-inc-hints* t) ; fixes space around some windows
 (setf *mode-line-background-color* "#333")
 (setf *mode-line-foreground-color* "#ddd")
+(setf *suppress-frame-indicator*  t)
 
-(stumpwm:set-focus-color "green")
-(stumpwm:set-unfocus-color "yellow")
+(set-focus-color "green")
+(set-unfocus-color "yellow")
 
 
 ;; keys
@@ -52,19 +53,19 @@
 
 (defcommand smirk-shuffle-artist (artist) ((:string "Arist: "))
   "Shuffle MPD with the given artist."
-  (stumpwm:run-shell-command (concat "smirk artist " artist)))
+  (run-shell-command (concat "smirk artist " artist)))
 
 (defcommand smirk-shuffle-genre (genre) ((:string "Genre: "))
     "Shuffle MPD with the given genre."
-  (stumpwm:run-shell-command (concat "smirk genre " genre)))
+  (run-shell-command (concat "smirk genre " genre)))
 
 (defcommand smirk-random-tracks () ()
     "Play a random 250 tracks in MPD."
-  (stumpwm:run-shell-command "smirk tracks"))
+  (run-shell-command "smirk tracks"))
 
 (defcommand smirk-random-album () ()
     "Play a random album in MPD."
-  (stumpwm:run-shell-command "smirk album"))
+  (run-shell-command "smirk album"))
 
 
 ;; swank
@@ -74,7 +75,7 @@
 
 (defcommand swank () ()
 "Starts a swank server on port 4005 and notifies the user."
-  (setf stumpwm:*top-level-error-action* :break)
+  (setf *top-level-error-action* :break)
   (if *swank-p*
       (message "Swank server already running.")
     (progn
@@ -88,9 +89,9 @@
 (defun show-key-seq (key seq val)
   "Show a brief message with the key-sequence used for all commands."
   (declare (ignore key val))
-  (stumpwm:message (print-key-seq (reverse seq))))
+  (message (print-key-seq (reverse seq))))
 
-(add-hook stumpwm:*key-press-hook* 'show-key-seq)
+(add-hook *key-press-hook* 'show-key-seq)
 
 
 ;; MPD
@@ -102,8 +103,8 @@
 ;; mode-line
 (defcommand toggle-current-mode-line () ()
   "Toggle the current screens mode-line."
-  (stumpwm:toggle-mode-line (stumpwm:current-screen)
-                            (stumpwm:current-head)))
+  (toggle-mode-line (current-screen)
+                    (current-head)))
 
 
 (defun my/fmt-cpu-usage (ml)
@@ -132,7 +133,7 @@
     (dolist (head (screen-heads screen))
       (enable-mode-line screen head t))))
 
-(setf stumpwm:*screen-mode-line-format*
+(setf *screen-mode-line-format*
       (list
        "[^B%n^b] %W "
        "^> %m | %N | %U | "
