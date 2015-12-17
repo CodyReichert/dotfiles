@@ -65,19 +65,19 @@ state_line_color = "cyan"
 
 state_flags_color = "cyan"
 
-main_window_color = "white"
+main_window_color = "magenta"
 
-color1 = "white"
+color1 = "magenta"
 
 color2 = "cyan"
 
-main_window_highlight_color = "white"
+main_window_highlight_color = "magenta"
 
 progressbar_color = "green"
 
 progressbar_elapsed_color = "cyan"
 
-statusbar_color = "white"
+statusbar_color = "blue"
 
 alternative_ui_separator_color = "white"
 
@@ -88,6 +88,8 @@ visualizer_color = "white"
 window_border_color = "white"
 
 active_window_border = "white"
+
+song_window_title_format = "{%a - }{%t}|{%f}"
 
 # Everything past point is from the default config
 # leaving it for reference
