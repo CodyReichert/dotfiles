@@ -9,6 +9,7 @@
 
 (setq package-list '(tabulated-list afternoon-theme
                                     ac-slime
+                                    ace-window
                                     auctex
                                     auto-complete
                                     circe
@@ -38,7 +39,6 @@
                                     key-chord
                                     latex-extra
                                     less-css-mode
-                                    lisp-editing
                                     magit
                                     markdown-mode
                                     moz

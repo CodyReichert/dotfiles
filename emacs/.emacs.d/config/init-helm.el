@@ -12,13 +12,16 @@
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
 (global-unset-key (kbd "C-x C-c"))
+(global-unset-key (kbd "M-y"))
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+(define-key helm-map (kbd "C-z") 'helm-select-action) ; list actions using C-z
+
 
 (when (executable-find "curl")
   (setq helm-google-suggest-use-curl-p t))
+
 
 (setq helm-split-window-in-side-p           t
       helm-move-to-line-cycle-in-source     nil
@@ -26,7 +29,9 @@
       helm-scroll-amount                    8
       helm-ff-file-name-history-use-recentf t)
 
+
 (setq helm-echo-input-in-header-line t)
+
 
 (defun helm-hide-minibuffer-maybe ()
   (when (with-helm-buffer helm-echo-input-in-header-line)
@@ -51,6 +56,7 @@
 (helm-projectile-on)
 
 
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x C-f") 'projectile-or-helm-find-file)
 (global-set-key (kbd "C-x f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)

@@ -13,7 +13,7 @@
 (setq eshell-review-quick-commands nil)
 (setq eshell-smart-space-goes-to-end t)
 
-(set-face-attribute 'eshell-prompt nil :foreground "#228b22")
+;(eval-after-load 'eshell '(set-face-attribute 'eshell-prompt nil :foreground "#228b22"))
 
 (add-hook 'eshell-mode-hook
           '(lambda ()

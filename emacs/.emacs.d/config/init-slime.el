@@ -7,7 +7,7 @@
 (add-to-list 'load-path "~/.emacs.d/slime-repl-ansi-color")
 
 (setq inferior-lisp-program "sbcl")
-(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
 (slime-setup '(slime-fancy slime-mrepl slime-banner slime-tramp
 	       slime-xref-browser slime-highlight-edits

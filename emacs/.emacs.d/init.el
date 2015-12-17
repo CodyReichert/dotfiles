@@ -4,10 +4,13 @@
 ;;; This is yet another config file.
 
 ;;; Code:
+
+
 (add-to-list 'load-path "~/.emacs.d/config")
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
 (setenv "LANG" "en_US.UTF-8")
+(setenv "PATH" (concat "/home/cody/Downloads/node-v4.2.2-linux-x64/bin:" (getenv "PATH")))
 
 (require 'init-packages)
 (require 'init-utils)
