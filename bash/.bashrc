@@ -67,6 +67,7 @@ alias aspen='mount /dev/sdc1'
 PATH=$PATH:$HOME/.bin
 PATH=$HOME/.scripts/:$PATH
 PATH=$HOME/.qi/bin/:$PATH
+PATH=$HOME/.local/bin/:$PATH
 #PATH=$PATH:/home/cody/.gem/ruby/2.2.0/bin
 #PATH=$PATH:$HOME/.node/bin
 #PATH=$HOME/.cabal/bin:$PATH
