@@ -1,4 +1,4 @@
-;; -*-lisp-*-
+
 ;; StumpWM - init.lisp
 ;; Cody Reichert <codyreichert@gmail.com>
 
@@ -11,9 +11,11 @@
 
 (add-to-load-path "/home/cody/.stumpwm.d/contrib/modeline/cpu")
 (add-to-load-path "/home/cody/.stumpwm.d/contrib/modeline/mem")
+(add-to-load-path "/home/cody/.stumpwm.d/contrib/modeline/disk")
 (add-to-load-path "/home/cody/.stumpwm.d/contrib/minor-mode/mpd")
 
 (load-module "cpu")
+(load-module "disk")
 (load-module "mem")
 (load-module "mpd")
 
@@ -28,8 +30,8 @@
 (setf *mode-line-foreground-color* "#ddd")
 (setf *suppress-frame-indicator*  t)
 
-(set-focus-color "green")
-(set-unfocus-color "yellow")
+(set-focus-color "#7C4DFF")
+(set-unfocus-color "#727272")
 
 
 ;; keys
@@ -39,16 +41,16 @@
 (define-key *root-map* (kbd "C-o") "prev")
 
 (define-key *root-map* (kbd "C-s") "swank")
-(define-key *root-map* (kbd "c") "exec terminator")
+(define-key *root-map* (kbd "c")   "exec terminator")
 (define-key *root-map* (kbd "C-c") "exec chromium")
-(define-key *root-map* (kbd "m") "toggle-current-mode-line")
+(define-key *root-map* (kbd "m")   "toggle-current-mode-line")
 (define-key *root-map* (kbd "C-e") "exec emacs")
 
 (define-key *root-map* (kbd "C-m") 'mpd:*mpd-map*)
 (define-key mpd:*mpd-map* (kbd "C-g") "smirk-shuffle-genre")
 (define-key mpd:*mpd-map* (kbd "C-a") "smirk-shuffle-artist")
 (define-key mpd:*mpd-map* (kbd "C-t") "smirk-random-tracks")
-(define-key mpd:*mpd-map* (kbd "a") "smirk-random-album")
+(define-key mpd:*mpd-map* (kbd "a")   "smirk-random-album")
 
 
 (defcommand smirk-shuffle-artist (artist) ((:string "Arist: "))
@@ -94,10 +96,10 @@
 (add-hook *key-press-hook* 'show-key-seq)
 
 
-;; MPD
+; MPD
 (mpd:mpd-connect)
 
-(setf *window-format* "<%n%m%30t>")
+(setf *window-format* "|%n%m%30t|")
 (setf mpd:*mpd-modeline-fmt* "%L %a - %t (%n/%p)")
 
 ;; mode-line
@@ -126,6 +128,19 @@
 
 (pushnew '(#\N my/fmt-mem-usage) *screen-mode-line-formatters* :test 'equal)
 
+(defun my/fmt-disk-usage (ml)
+  "Returns a string representing the current percent of used memory."
+  (declare (ignore ml))
+  (disk::disk-update-usage disk::*disk-usage-paths*)
+  (let ((fmts (loop for p in disk::*disk-usage-paths*
+                 collect (disk::format-expand disk::*disk-formatters-alist*
+                                          "%m: %p"
+                                          p))))
+    (format nil "~{~a~}" fmts)))
+
+(pushnew '(#\Y my/fmt-disk-usage) *screen-mode-line-formatters* :test 'equal)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun enable-mode-line-all-heads ()
@@ -136,7 +151,7 @@
 (setf *screen-mode-line-format*
       (list
        "[^B%n^b] %W "
-       "^> %m | %N | %U | "
+       "^> %m | %N | %U | %Y | "
        '(:eval (run-shell-command "date '+%F %a %R' | tr -d [:cntrl:]" t))))
 
 (setf *mode-line-timeout* 2)
