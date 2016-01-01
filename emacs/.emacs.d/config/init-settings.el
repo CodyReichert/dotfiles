@@ -78,5 +78,10 @@
      ("helv" "helvetica" "arial" "fixed")))
 
 
+;; Show whitespace / delete it on save
+(setq show-trailing-whitespace t)
+(add-hook 'after-save-hook 'delete-trailing-whitespace)
+
+
 (provide 'init-settings)
 ;;; init-settings.el ends here
