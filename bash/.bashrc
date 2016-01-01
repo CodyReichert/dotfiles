@@ -58,7 +58,7 @@ alias cabaldeps='cabal sandbox init; cabal install --only-dep -j'
 # other
 alias tree='tree -I ".git"'
 alias untar='tar -zxvf'
-alias myxrandr='xrandr --output VGA-0 --auto --right-of HDMI-1'
+alias myxrandr='xrandr --output VGA-1 --auto --left-of HDMI-1'
 alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
 alias aspen='mount /dev/sdc1'
 
