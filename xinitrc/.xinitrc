@@ -1,5 +1,6 @@
 xbindkeys
 xmodmap ~/.Xmodmap
 xset r rate 250 60
-source ~/.fehbg &
+dunst &
+nitrogen --restore &
 exec stumpwm
