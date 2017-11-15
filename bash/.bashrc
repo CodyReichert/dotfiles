@@ -39,9 +39,13 @@ alias la='ls -A'
 # alias l='ls -CF'
 alias l1='ls -1'
 
+# Default editor
 export EDITOR="emacs"
 export ALTERNATE_EDITOR=""
 alias e='emacsclient -c'
+
+# Default browser
+export BROWSER="google-chrome-beta"
 
 
 # pacman
