@@ -11,17 +11,53 @@
 #
 
 #increase volume
-"amixer set Master playback 1+"
+"pamixer --increase 5"
 m:0x0 + c:123
 XF86AudioRaiseVolume
 
+# mpc play/pause
+"mpc toggle"
+    m:0x10 + c:127
+    Mod2 + Pause
+
+# mpc stop
+"mpc stop"
+    m:0x11 + c:127
+    Shift+Mod2 + Pause
+
+# mpc next
+"mpc next"
+    m:0x10 + c:75
+    Mod2 + F9
+
+# mpc previous
+"mpc prev"
+    m:0x0 + c:74
+    Mod2 + F8
+
+# smirk shuffle songs
+"smirk tracks"
+    m:0x11 + c:75
+    Shift+Mod2 + F9
+
+# smirk shuffle albums
+"smirk album"
+    m:0x11 + c:74
+    Shift+Mod2 + F8
+
+# smirk shuffle genre
+# (hardcoded to folk right now)
+"smirk folk"
+    m:0x11 + c:73
+    Shift+Mod2 + F7
+
 #decrase volume
-"amixer set Master playback 1-"
+"pamixer --decrease 5"
 m:0x0 + c:122
 XF86AudioLowerVolume
 
 #mute volume
-"amixer set Master toggle"
+"pactl set-sink-mute 0 toggle"
 m:0x0 + c:121
 XF86AudioMute
 
@@ -30,5 +66,9 @@ XF86MonBrightnessDown
 "xbacklight -inc 5"
 XF86MonBrightnessUp
 
+# pop up ncmpcpp to browse library
+"terminator -e ncmpcpp"
+    m:0x0 + c:148
+    XF86Calculator
 #
 # End of xbindkeysconfiguration
