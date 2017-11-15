@@ -6,9 +6,6 @@
 
 (add-to-load-path "~/.stumpwm.d/contrib/")
 
-(add-to-load-path "/home/cody/.emacs.d/slime/swank")
-(load "/home/cody/.emacs.d/slime/swank-loader.lisp")
-
 (add-to-load-path "/home/cody/.stumpwm.d/contrib/modeline/cpu")
 (add-to-load-path "/home/cody/.stumpwm.d/contrib/modeline/mem")
 (add-to-load-path "/home/cody/.stumpwm.d/contrib/modeline/disk")
@@ -26,7 +23,8 @@
 ;; general setup
 (setf *mouse-focus-policy* :sloppy) ; focus window on mouse hover
 (setf *ignore-wm-inc-hints* t) ; fixes space around some windows
-(setf *mode-line-background-color* "#333")
+(setf *mode-line-background-color* "#000")
+(setf *mode-line-border-color* "#000")
 (setf *mode-line-foreground-color* "#ddd")
 (setf *suppress-frame-indicator*  t)
 
@@ -40,7 +38,9 @@
 (define-key *root-map* (kbd "o")   "fnext")
 (define-key *root-map* (kbd "C-o") "prev")
 
-(define-key *root-map* (kbd "C-s") "swank")
+(define-key *root-map* (kbd "C-t") "pull-hidden-other")
+(define-key *root-map* (kbd "C-j") "next")
+
 (define-key *root-map* (kbd "c")   "exec terminator")
 (define-key *root-map* (kbd "C-c") "exec chromium")
 (define-key *root-map* (kbd "m")   "toggle-current-mode-line")
@@ -71,6 +71,11 @@
 
 
 ;; swank
+(add-to-load-path "/home/cody/.emacs.d/slime/swank")
+(load "/home/cody/.emacs.d/slime/swank-loader.lisp")
+
+(define-key *root-map* (kbd "C-s") "swank")
+
 (swank-loader:init)
 
 (defvar *swank-p* nil)
@@ -171,14 +176,14 @@ scroll through the groups, while using any other part of the mode-line
 will scroll through windows in the current group."
   (declare (ignore ml y))
   (cond ((>= x 100)
-         (cond ((eq bt 5)
+         (cond ((or (eq bt 5) (eq bt 1))
                 (run-commands "next"))
-               ((eq bt 4)
+               ((or (eq bt 4) (eq bt 3))
                 (run-commands "prev"))))
         (t
-         (cond ((eq bt 5)
+         (cond ((or (eq bt 5) (eq bt 1))
                 (run-commands "gnext"))
-               ((eq bt 4)
+               ((or (eq bt 4) (eq bt 3))
                 (run-commands "gprev"))))))
 
 (add-hook *mode-line-click-hook* 'mode-line-scroll-through-windows)
