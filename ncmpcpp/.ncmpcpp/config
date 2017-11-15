@@ -12,7 +12,7 @@ mpd_host = "0.0.0.0"
 
 mpd_port = "6600"
 
-mpd_music_dir = "/media/cody/ASPEN/music/tagged"
+mpd_music_dir = "/mnt/external/SDA1/music/tagged"
 
 mpd_connection_timeout = "5"
 
