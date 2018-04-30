@@ -71,26 +71,26 @@
 
 
 ;; swank
-(add-to-load-path "/home/cody/.emacs.d/slime/swank")
-(load "/home/cody/.emacs.d/slime/swank-loader.lisp")
-
-(define-key *root-map* (kbd "C-s") "swank")
-
-(swank-loader:init)
-
-(defvar *swank-p* nil)
-
-(defcommand swank () ()
-"Starts a swank server on port 4005 and notifies the user."
-  (setf *top-level-error-action* :break)
-  (if *swank-p*
-      (message "Swank server already running.")
-    (progn
-      (swank:create-server :port 4005
-                           :style swank:*communication-style*
-                           :dont-close t)
-      (setf *swank-p* t)
-      (message "Starting swank on port 4005."))))
+;; (add-to-load-path "/home/cody/.emacs.d/slime/swank")
+;; (load "/home/cody/.emacs.d/slime/swank-loader.lisp")
+;;
+;; (define-key *root-map* (kbd "C-s") "swank")
+;;
+;; (swank-loader:init)
+;;
+;; (defvar *swank-p* nil)
+;;
+;; (defcommand swank () ()
+;; "Starts a swank server on port 4005 and notifies the user."
+;;   (setf *top-level-error-action* :break)
+;;   (if *swank-p*
+;;       (message "Swank server already running.")
+;;     (progn
+;;       (swank:create-server :port 4005
+;;                            :style swank:*communication-style*
+;;                            :dont-close t)
+;;       (setf *swank-p* t)
+;;       (message "Starting swank on port 4005."))))
 
 
 (defun show-key-seq (key seq val)
