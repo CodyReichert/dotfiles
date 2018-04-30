@@ -20,6 +20,11 @@
 (evil-leader/set-key "k" 'kill-this-buffer)
 (evil-leader/set-key "b" 'helm-buffers-list)
 
+;; flow-for-emacs/flow.el required
+(evil-leader/set-key "j RET" 'flow-status)
+(evil-leader/set-key "j d" 'flow-get-def)
+(evil-leader/set-key "j t" 'flow-type-at-pos)
+
 (evil-leader/set-key "g c" 'avy-goto-char)
 (evil-leader/set-key "g C" 'avy-goto-char2)
 (evil-leader/set-key "g l" 'avy-goto-line)

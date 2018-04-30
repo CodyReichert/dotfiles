@@ -7,6 +7,7 @@
 (require 'web-mode)
 (require 'flycheck)
 
+(load-file "~/.emacs.d/flow-for-emacs/flow.el")
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
@@ -19,13 +20,15 @@
                       '(javascript-jshint)))
 
 (flycheck-add-mode 'javascript-eslint 'web-mode)
+(flycheck-add-mode 'javascript-eslint 'flowtype-mode)
+;; (flycheck-add-mode 'javascript-flowtype 'web-mode)
 
 (setq-default flycheck-disabled-checkers
               (append flycheck-disabled-checkers
                           '(json-jsonlist)))
 
 (defun web-mode-indent-hook ()
-  "Hooks for Web mode. Adjust indents"
+  "Hooks for Web mode.  Adjust indent."
   (setq web-mode-markup-indent-offset 4)
   (setq web-mode-css-indent-offset 4)
   (setq web-mode-code-indent-offset 4))
