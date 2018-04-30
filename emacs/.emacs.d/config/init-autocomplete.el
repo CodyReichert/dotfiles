@@ -6,7 +6,6 @@
 ;;; Code:
 (require 'auto-complete)
 (require 'auto-complete-config)
-(require 'jquery-doc)
 
 
 (global-auto-complete-mode t)
@@ -25,8 +24,6 @@
                ;; ac-source-gtags
                ;; ac-source-ispell
                ))
-
-(add-hook 'web-mode-hook 'jquery-doc-setup)
 
 (provide 'init-autocomplete)
 ;;; init-autocomplete.el ends here

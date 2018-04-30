@@ -44,8 +44,17 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+
+;; Disable alarm bell. Flash the mode-line instead
+(defun my-terminal-visible-bell ()
+  "A friendlier visual bell effect."
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil 'invert-face 'mode-line))
+
+(setq visible-bell nil ring-bell-function #'my-terminal-visible-bell)
+
 ;;;;;;;;;;;;;;;;;;
-;; Theme/Font ;;
+;; Theme/Font   ;;
 ;;;;;;;;;;;;;;;;;;
 (setq font-lock-maximum-decoration t)
 

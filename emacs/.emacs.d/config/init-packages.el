@@ -35,7 +35,6 @@
                                     json-reformat
                                     json-snatcher
                                     jsx-mode
-                                    jquery-doc
                                     key-chord
                                     latex-extra
                                     less-css-mode
