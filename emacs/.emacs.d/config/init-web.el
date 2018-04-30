@@ -37,5 +37,15 @@
 (add-hook 'web-mode-hook  'emmet-mode)
 
 
+;; Company mode settings
+(require 'company)
+(setq company-minimum-prefix-length 1)
+
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
+(define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+
+
 (provide 'init-web)
 ;;; init-web.el ends here

@@ -6,6 +6,13 @@
 ;;; Code:
 
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/config")
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
@@ -17,6 +24,7 @@
 (require 'init-settings)
 (require 'init-sml)
 
+(require 'init-web)
 (require 'init-autocomplete)
 (require 'init-circe)
 (require 'init-compilation)
@@ -26,12 +34,11 @@
 (require 'init-helm)
 (require 'init-ido)
 (require 'init-magit)
-(require 'init-mu)
+;; (require 'init-mu)
 (require 'init-org)
 (require 'init-orgpage)
 (require 'init-projectile)
 (require 'init-slime)
-(require 'init-web)
 (require 'init-yasnippets)
 
 

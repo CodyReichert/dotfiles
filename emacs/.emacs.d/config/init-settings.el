@@ -5,6 +5,7 @@
 
 ;;; Code:
 (add-to-list 'load-path "~/.emacs.d/wp-readme-mode")
+(add-to-list 'load-path "~/.emacs.d/oceanic-next")
 
 (require 'highlight-parentheses)
 (require 'switch-window)
@@ -68,9 +69,13 @@
 
 (set-scroll-bar-mode nil)
 
-(load-theme 'afternoon t)
+(load-theme 'material t)
 
-(set-frame-font "Roboto Mono 10")
+;; (set-frame-font "Roboto Mono 10")
+
+;; (set-frame-font "Hasklig Medium 10")
+
+;; (set-frame-font "Source Code Pro 10")
 
 (face-spec-reset-face 'mode-line)
 
@@ -86,10 +91,29 @@
      ("Sans Serif" "helv" "helvetica" "arial" "fixed")
      ("helv" "helvetica" "arial" "fixed")))
 
+;; Fira as default font
+(set-face-attribute 'default nil
+                    :family "Consolas"
+                    :height 110
+                    :weight 'normal
+                    :width 'normal)
+
+;; (set-face-attribute 'default nil
+;;                     :family "Fira code"
+;;                     :height 95
+;;                     :weight 'bold
+;;                     :width 'normal)
 
 ;; Show whitespace / delete it on save
 (setq show-trailing-whitespace t)
 (add-hook 'after-save-hook 'delete-trailing-whitespace)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Always prompt before closing ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq confirm-kill-emacs 'y-or-n-p)
 
 
 (provide 'init-settings)

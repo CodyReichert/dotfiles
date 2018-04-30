@@ -52,6 +52,16 @@
      'helm-find-files)))
 
 
+;; Enable 'skip-boring-files' to hide things like temporary files from
+;; 'find-files' and similar commands.
+(setq helm-boring-file-regexp-list
+  '("\\.#" "\\#.*#$" "\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$"
+    "\\.so$" "\\.a$" "\\.elc$" "\\.fas$" "\\.fasl$" "\\.pyc$" "\\.pyo$"))
+(setq helm-boring-buffer-regexp-list
+  '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*tramp" "\\*Minibuf" "\\*epc"))
+(setq helm-ff-skip-boring-files t)
+
+
 (helm-mode 1)
 (helm-projectile-on)
 
