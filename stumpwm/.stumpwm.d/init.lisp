@@ -21,7 +21,7 @@
 (run-shell-command "mpd")
 
 ;; general setup
-(setf *mouse-focus-policy* :sloppy) ; focus window on mouse hover
+(setf *mouse-focus-policy* :nil) ; focus window on mouse click
 (setf *ignore-wm-inc-hints* t) ; fixes space around some windows
 (setf *mode-line-background-color* "#000")
 (setf *mode-line-border-color* "#000")
