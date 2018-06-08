@@ -6,22 +6,23 @@
 ;;; Code:
 (require 'web-mode)
 (require 'flycheck)
+(require 'flow-minor-mode)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+
+(add-hook 'web-mode-hook 'flow-minor-enable-automatically)
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
 
-(add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode)) ;;web-mode for js/jsx
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq web-mode-content-types-alist
+  '(("jsx" . "\\.js[x]?\\'")))
 
 (setq-default flycheck-disabled-checkers
               (append flycheck-disabled-checkers
                       '(javascript-jshint)))
 
 (flycheck-add-mode 'javascript-eslint 'web-mode)
-(flycheck-add-mode 'javascript-eslint 'flowtype-mode)
-;; (flycheck-add-mode 'javascript-flowtype 'web-mode)
 
 (setq-default flycheck-disabled-checkers
               (append flycheck-disabled-checkers
