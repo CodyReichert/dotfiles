@@ -1,5 +1,24 @@
+
+# Scripts that should be ignored
 scripts/.scripts/.mailauth
 scripts/.scripts/mailcount
-scripts/.scripts/pgdevdb
-scripts/.scripts/mydevdb
+scripts/.scripts/pgdevdb*
+scripts/.scripts/packer
+
+# Emacs files that should be ignored
+emacs/.emacs.d/elpa
+emacs/.emacs.d/.private.el
+emacs/.emacs.d/tramp
+emacs/.emacs.d/network-security.data
+emacs/.emacs.d/projectile-bookmarks*
+emacs/.emacs.d/*.dat
+emacs/.emacs.d/eshell/history
+emacs/.emacs.d/eshell/lastdir
+
+# Files written by MPD that should be ignored
+mpd/.mpd/database
+mpd/.mpd/state
+mpd.log
+sticker.sql
+
 .\#.*
