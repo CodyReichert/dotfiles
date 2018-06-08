@@ -20,7 +20,8 @@
 (evil-leader/set-key "k" 'kill-this-buffer)
 (evil-leader/set-key "b" 'helm-buffers-list)
 
-;; flow-for-emacs/flow.el required
+;; flow-for-emacs/flow.el provided these functions
+(load-file "~/.emacs.d/flow-for-emacs/flow.el")
 (evil-leader/set-key "j RET" 'flow-status)
 (evil-leader/set-key "j d" 'flow-get-def)
 (evil-leader/set-key "j t" 'flow-type-at-pos)

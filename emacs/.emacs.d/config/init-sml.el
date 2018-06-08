@@ -75,7 +75,6 @@
 
 (setq sml/theme nil)
 (sml/setup)
-(set-face-background 'modeline-inactive nil)
 (set-face-background 'mode-line nil)
 
 

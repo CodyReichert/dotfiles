@@ -2,8 +2,8 @@
 
 ;;; Commentary:
 ;;;
-;;; On startup, initialize packages and repositories. Check for all of the
-;;; packages listed and if they don't exist, install them.
+;;; On startup, initialize packages and repositories.  Check for all
+;;; of the packages listed and if they don't exist, install them.
 
 ;;; Code:
 

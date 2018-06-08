@@ -382,7 +382,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '(
-   (sh . t)
+   (shell . t)
    (python . t)
    (R . t)
    (ruby . t)

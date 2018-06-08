@@ -7,7 +7,7 @@
 (require 'web-mode)
 (require 'flycheck)
 
-(load-file "~/.emacs.d/flow-for-emacs/flow.el")
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
