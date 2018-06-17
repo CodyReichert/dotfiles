@@ -22,7 +22,6 @@
                                     evil-numbers
                                     evil-org
                                     expand-region
-                                    flow-minor-mode
                                     flycheck
                                     ghci-completion
                                     goto-chg
