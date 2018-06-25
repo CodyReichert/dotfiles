@@ -18,6 +18,7 @@ emacs/.emacs.d/eshell/lastdir
 # Files written by MPD that should be ignored
 mpd/.mpd/database
 mpd/.mpd/state
+mpd/.mpd/pid
 mpd.log
 sticker.sql
 
