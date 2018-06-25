@@ -26,21 +26,22 @@
 
 (require 'init-web)
 (require 'init-autocomplete)
-(require 'init-circe)
 (require 'init-compilation)
 (require 'init-eshell)
 (require 'init-evil)
 (require 'init-haskell)
 (require 'init-helm)
-(require 'init-ido)
 (require 'init-magit)
-;; (require 'init-mu)
-(require 'init-org)
-(require 'init-orgpage)
 (require 'init-projectile)
-(require 'init-slime)
 (require 'init-yasnippets)
 
+;; Current unused
+;; (require 'init-ido)
+;; (require 'init-circe)
+;; (require 'init-slime)
+;; (require 'init-mu)
+;; (require 'init-org)
+;; (require 'init-orgpage)
 
 (provide 'init)
 
