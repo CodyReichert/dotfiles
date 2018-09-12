@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+#
+# spotihide
+#
+# Show/hide the spotify client on Linux.
+#
+# Best when used with Xbindkeys
+
+ACTIVE_WINDOW=$(xdotool getactivewindow getwindowname)
+ACTIVE_ARTIST=$(playerctl metadata artist)
+ACTIVE_TRACK=$(playerctl metadata title)
+SPOTIFY_WINDOW="$ACTIVE_ARTIST - $ACTIVE_TRACK"
+
+if [[ $ACTIVE_WINDOW == $SPOTIFY_WINDOW || "$ACTIVE_WINDOW" = "Spotify" ]]; then
+    xdotool search --class spotify windowminimize %@
+else
+    xdotool search --class spotify windowactivate %@
+fi
