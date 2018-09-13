@@ -7,12 +7,12 @@
 
 ;;; Code:
 
-(setq package-list '(tabulated-list afternoon-theme
+(setq package-list '(tabulated-list add-node-modules-path
+                                    afternoon-theme
                                     ac-slime
                                     ace-window
                                     auctex
                                     auto-complete
-                                    circe
                                     coffee-mode
                                     dash
                                     emmet-mode
@@ -30,18 +30,13 @@
                                     helm-projectile
                                     highlight-parentheses
                                     ido-vertical-mode
-                                    js2-mode
                                     json-mode
                                     json-reformat
-                                    json-snatcher
-                                    jsx-mode
                                     key-chord
                                     latex-extra
-                                    less-css-mode
                                     magit
                                     markdown-mode
                                     moz
-                                    mu4e-maildirs-extension
                                     nodejs-repl
                                     org
                                     org-page
@@ -51,20 +46,17 @@
                                     pkgbuild-mode
                                     popup
                                     projectile
-                                    recompile-on-save
                                     rust-mode
                                     s
                                     shakespeare-mode
                                     slime
                                     smart-mode-line
-                                    smex
                                     smooth-scroll
                                     switch-window
                                     undo-tree
                                     web-mode
                                     yaml-mode
                                     yasnippet
-                                    ztree
                                     ))
 
 (setq package-archives '(("marmalade" . "http://marmalade-repo.org/packages/")

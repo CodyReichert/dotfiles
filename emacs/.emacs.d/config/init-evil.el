@@ -7,6 +7,7 @@
 (require 'evil)
 (require 'evil-leader)
 (require 'key-chord)
+(require 'web-mode)
 
 
 (global-evil-leader-mode 1)
@@ -32,10 +33,20 @@
 (evil-leader/set-key "g w" 'avy-goto-word-0)
 (evil-leader/set-key "g W" 'avy-goto-word-1)
 
+(evil-leader/set-key "r w" 'web-mode)
+
 (evil-leader/set-key "p" 'ace-window)
 (evil-leader/set-key "o" 'aw-flip-window)
 (evil-leader/set-key "i" 'ace-swap-window)
+
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+
+;; web-mode keys
+(evil-leader/set-key "a k" 'web-mode-attribute-kill)
+(evil-leader/set-key "e w" 'web-mode-element-wrap)
+(evil-leader/set-key "e r" 'web-mode-element-rename)
+(evil-leader/set-key "e v" 'web-mode-element-vanish)
+
 
 ;; (setq evil-leader/no-prefix-mode-rx '("*-mode"))
 

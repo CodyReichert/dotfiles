@@ -19,6 +19,8 @@
 (autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
 (compilation-always-kill-mode 1)
 
+;; Don't run regex over compilation output for performance
+(setq compilation-error-regexp-alist '())
 
 (provide 'init-compilation)
 ;;; init-compilation.el ends here
