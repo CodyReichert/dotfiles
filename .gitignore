@@ -6,6 +6,7 @@ scripts/.scripts/pgdevdb*
 scripts/.scripts/packer
 
 # Emacs files that should be ignored
+emacs/.emacs.d/session.*
 emacs/.emacs.d/elpa
 emacs/.emacs.d/.private.el
 emacs/.emacs.d/tramp
