@@ -7,21 +7,24 @@
 
 (require 'web-mode)
 (require 'flycheck)
+(require 'add-node-modules-path)
+(require 'prettier-js)
 
 ;;; Web-mode setup
 
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
+(setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
 
-(setq web-mode-content-types-alist
-  '(("jsx" . "\\.js[x]?\\'")))
-
-(defun web-mode-indent-hook ()
+(defun web-mode-init-hook ()
   "Hooks for Web mode.  Adjust indent."
+  (setq web-mode-auto-quote-style nil)
   (setq web-mode-markup-indent-offset 4)
   (setq web-mode-css-indent-offset 4)
-  (setq web-mode-code-indent-offset 4))
+  (setq web-mode-code-indent-offset 4)
+  (add-node-modules-path)
+  (prettier-js-mode))
 
-(add-hook 'web-mode-hook  'web-mode-indent-hook)
+(add-hook 'web-mode-hook  'web-mode-init-hook)
 (add-hook 'web-mode-hook  'emmet-mode)
 
 ;;; Flycheck setup
@@ -33,19 +36,7 @@
                       '(javascript-jshint json-jsonlist)))
 
 (flycheck-add-mode 'javascript-eslint 'web-mode)
-
-(defun use-eslint-from-node-modules ()
-  "Find the eslint binary local to the current file to use the correct configuration, plugins, etc."
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/.bin/eslint"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
-(add-hook 'flycheck-mode-hook 'use-eslint-from-node-modules)
+(add-hook 'flycheck-mode-hook 'add-node-modules-path)
 
 (provide 'init-web)
 ;;; init-web.el ends here
