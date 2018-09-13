@@ -53,6 +53,7 @@ alias pacman='sudo pacman'
 alias pacdep='sudo pacman -Si'
 alias packer='apacman'
 # git
+alias gmm='GIT_EDITOR=/bin/true git merge master'
 alias gpr='git pull --rebase'
 alias stashsave='git stash save'
 alias stashpop='git stash pop'
