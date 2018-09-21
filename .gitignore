@@ -12,6 +12,7 @@ emacs/.emacs.d/.private.el
 emacs/.emacs.d/tramp
 emacs/.emacs.d/network-security.data
 emacs/.emacs.d/projectile-bookmarks*
+emacs/.emacs.d/projectile.cache
 emacs/.emacs.d/*.dat
 emacs/.emacs.d/eshell/history
 emacs/.emacs.d/eshell/lastdir

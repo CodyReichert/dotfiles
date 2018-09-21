@@ -42,6 +42,7 @@ alias l1='ls -1'
 # Default editor
 export EDITOR="emacs"
 export ALTERNATE_EDITOR=""
+export GIT_EDITOR=/bin/true
 alias e='emacsclient -c'
 
 # Default browser
