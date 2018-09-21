@@ -1,6 +1,8 @@
 [global_config]
   inactive_color_offset = 0.93
   suppress_multiple_term_dialog = True
+  title_font = Fira Mono 10
+  title_use_system_font = False
 [keybindings]
   line_down = <Primary>Down
   line_up = <Primary>Up
@@ -18,11 +20,11 @@
 [plugins]
 [profiles]
   [[default]]
-    background_color = "#1e1f29"
+    background_color = "#111111"
     copy_on_selection = True
     cursor_color = "#bbbbbb"
-    font = Roboto Mono 10
-    foreground_color = "#f8f8f2"
+    font = Fira Mono 10
+    foreground_color = "#ffffff"
     palette = "#000000:#ff5555:#50fa7b:#f1fa8c:#bd93f9:#ff79c6:#8be9fd:#bbbbbb:#555555:#ff5555:#50fa7b:#f1fa8c:#bd93f9:#ff79c6:#8be9fd:#ffffff"
     scroll_on_output = True
     scrollback_infinite = True
