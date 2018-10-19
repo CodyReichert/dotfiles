@@ -4,3 +4,8 @@
 # programs that use the readline library.
 
 set editing-mode vi
+
+# show a different cursor based on insert or command mode.
+set vi-ins-mode-string \1\e[5 q\2
+set vi-cmd-mode-string \1\e[2 q\2
+set show-mode-in-prompt on
