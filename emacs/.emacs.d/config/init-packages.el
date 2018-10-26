@@ -14,6 +14,7 @@
                                     auctex
                                     auto-complete
                                     coffee-mode
+                                    cyberpunk-theme
                                     dash
                                     emmet-mode
                                     epl
@@ -36,8 +37,6 @@
                                     latex-extra
                                     magit
                                     markdown-mode
-                                    moz
-                                    nodejs-repl
                                     org
                                     org-page
                                     php-mode

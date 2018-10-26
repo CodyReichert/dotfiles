@@ -20,12 +20,14 @@
 (evil-leader/set-key "w" 'save-buffer)
 (evil-leader/set-key "k" 'kill-this-buffer)
 (evil-leader/set-key "b" 'helm-buffers-list)
+(evil-leader/set-key "v" 'er/expand-region)
 
-;; flow-for-emacs/flow.el provided these functions
-(load-file "~/.emacs.d/flow-for-emacs/flow.el")
-(evil-leader/set-key "j RET" 'flow-status)
-(evil-leader/set-key "j d" 'flow-get-def)
-(evil-leader/set-key "j t" 'flow-type-at-pos)
+;; flow-mode.el provided these functions
+(evil-leader/set-key "j RET" 'flowmacs/flow-status)
+(evil-leader/set-key "j d" 'flowmacs/jump-to-def)
+(evil-leader/set-key "j r" 'flowmacs/find-refs)
+(evil-leader/set-key "j s" 'flowmacs/suggest-types)
+(evil-leader/set-key "j t" 'flowmacs/type-at-pos)
 
 (evil-leader/set-key "g c" 'avy-goto-char)
 (evil-leader/set-key "g C" 'avy-goto-char2)

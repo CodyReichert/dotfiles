@@ -5,6 +5,7 @@
 
 ;;; Code:
 (require 'magit)
+(require 'magit-gh-pulls)
 
 (setq magit-last-seen-setup-instructions "2.1.0")
 
@@ -25,6 +26,11 @@
         (pop-to-buffer buffer)
         (delete-other-windows)))
 
+;; magit-gh-pulls
+(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+
+;; magithub
+;; (magithub-feature-autoinject t)
 
 (provide 'init-magit)
 ;;; init-magit.el ends here

@@ -5,24 +5,23 @@
 
 ;;; Code:
 (add-to-list 'load-path "~/.emacs.d/wp-readme-mode")
-(add-to-list 'load-path "~/.emacs.d/oceanic-next")
 
 (require 'highlight-parentheses)
 (require 'switch-window)
 (require 'smooth-scroll)
 (require 'wp-readme)
+(require 'smart-mode-line)
+(require 'powerline)
 
 (setq initial-buffer-choice '(lambda () (eshell)))
 
-(set-fringe-mode nil)
+(set-fringe-mode 0)
 
 (setq-default indent-tabs-mode nil)
 
 (setq x-select-enable-clipboard t)
 
 (global-set-key (kbd "C-x o") 'ace-window)
-
-(global-set-key (kbd "C-c C-v") 'er/expand-region)
 
 (menu-bar-mode -1)
 
@@ -62,21 +61,22 @@
 (setq font-use-system-font nil)
 
 (tool-bar-mode -1)
-
 (menu-bar-mode -1)
-
 (column-number-mode -1)
-
 (set-scroll-bar-mode nil)
+(set-face-attribute 'fringe nil)
 
-(load-theme 'material t)
+(defun my/theme-setup-hook ()
+  "Enable sml after Emacs has loaded."
+  (load-theme 'cyberpunk t)
+  (sml/setup)
+  (sml/apply-theme 'powerline))
 
-(set-face-attribute 'mode-line-inactive nil
-                    :foreground "#969896")
+(add-hook 'after-init-hook 'my/theme-setup-hook)
 
 ;; Fira as default font
 (set-face-attribute 'default nil
-                    :family "Consolas"
+                    :family "Fira Mono"
                     :height 110
                     :weight 'normal
                     :width 'normal)
