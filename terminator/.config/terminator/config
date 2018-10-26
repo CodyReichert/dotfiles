@@ -4,10 +4,18 @@
   title_font = Fira Mono 10
   title_use_system_font = False
 [keybindings]
+  close_term = <Primary>w
+  go_left = <Primary>h
+  go_next = <Primary>j
+  go_prev = <Primary>k
+  go_right = <Primary>l
   line_down = <Primary>Down
   line_up = <Primary>Up
   page_down_half = <Primary><Shift>Page_Down
   page_up_half = <Primary><Shift>Page_Down
+  split_horiz = <Primary>o
+  split_vert = <Primary>e
+  toggle_zoom = <Primary>x
 [layouts]
   [[default]]
     [[[child1]]]
