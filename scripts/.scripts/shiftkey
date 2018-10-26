@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+#
+# shiftkey
+# Show/hide the Shift client on Linux.
+# Best when used with Xbindkeys
+#
+# Cody Reichert <codyreichert@gmail.com>
+# Licensed under MIT
+
+ACTIVE_WINDOW=$(xdotool getactivewindow getwindowname)
+SHIFT_WINDOW="Shift"
+
+if [[ $ACTIVE_WINDOW == "Shift" ]]; then
+    xdotool search --class shift windowminimize %@
+else
+    xdotool search --class shift windowactivate %@
+fi

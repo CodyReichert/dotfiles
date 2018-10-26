@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+~/apps/shift/Shift --no-sandbox

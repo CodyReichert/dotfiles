@@ -68,21 +68,15 @@ alias myxrandr='xrandr --output VGA-1 --auto --left-of HDMI-1'
 alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
 alias aspen='mount /dev/sdc1'
 
+# applications
+alias Shift='~/apps/shift/Shift --no-sandbox'
 
 # Path
 PATH=$PATH:$HOME/.bin
 PATH=$HOME/.scripts/:$PATH
 PATH=$HOME/.qi/bin/:$PATH
 PATH=$HOME/.local/bin/:$PATH
-#PATH=$PATH:/home/cody/.gem/ruby/2.2.0/bin
-#PATH=$PATH:$HOME/.node/bin
-#PATH=$HOME/.cabal/bin:$PATH
-#PATH=$HOME/.stack/programs/x86_64-linux/ghc-7.10.2/bin:$PATH
-#PATH=$PATH:$HOME/.rvm/bin
-
-# Shlyfile setup
-SHELLY_HOME=/home/cody/.shelly; [ -s "$SHELLY_HOME/lib/shelly/init.sh" ] && . "$SHELLY_HOME/lib/shelly/init.sh"
-
+PATH=$HOME/apps/shift/:$PATH
 
 set -o emacs
 
