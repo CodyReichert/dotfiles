@@ -33,6 +33,7 @@
 
 (setq electric-pair-mode 1)
 
+(add-hook 'after-init-hook #'global-emojify-mode)
 
 ;; highlight parentheses in all buffers
 (define-globalized-minor-mode global-highlight-parentheses-mode
