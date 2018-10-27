@@ -3,9 +3,32 @@
 # These settings take effect on all
 # programs that use the readline library.
 
-set editing-mode vi
-
 # show a different cursor based on insert or command mode.
 set vi-ins-mode-string \1\e[5 q\2
 set vi-cmd-mode-string \1\e[2 q\2
 set show-mode-in-prompt on
+
+# This tells readline not to convert the escaped control/ALT sequences,
+# but still to allow 8-bit values, thus allowing input of the UTF-8
+# characters. Again, 8-bit output needs to be turned on, so that when
+# programs output UTF-8 sequences, they don't get converted down to
+# escaped 7-bit sequences, which would confuse XTerm into thinking they
+# are control sequences.
+set input-meta   on
+set output-meta  on
+set convert-meta off
+
+set show-mode-in-prompt on
+
+# Color files by types
+set colored-stats On
+# Append char to indicate type
+set visible-stats On
+# Mark symlinked directories
+set mark-symlinked-directories On
+# Color the common prefix
+set colored-completion-prefix On
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix On
+
+set keymap vi

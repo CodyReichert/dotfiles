@@ -30,8 +30,6 @@ if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
 
-set -o emacs
-
 # ls aliases
 alias ls='ls --color=auto'
 alias ll='ls -alF'
@@ -78,6 +76,6 @@ PATH=$HOME/.qi/bin/:$PATH
 PATH=$HOME/.local/bin/:$PATH
 PATH=$HOME/apps/shift/:$PATH
 
-set -o emacs
-
 export LC_ALL="en_US.UTF-8"
+
+set -o vi
