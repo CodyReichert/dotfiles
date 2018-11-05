@@ -45,7 +45,7 @@
 
 ;;; Flycheck setup
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'web-mode-hook #'flycheck-mode)
 
 (setq-default flycheck-disabled-checkers
               (append flycheck-disabled-checkers

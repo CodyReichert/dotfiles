@@ -17,6 +17,7 @@
                                     cyberpunk-theme
                                     dash
                                     emmet-mode
+                                    emojify
                                     epl
                                     evil
                                     evil-leader
@@ -28,6 +29,7 @@
                                     goto-chg
                                     haskell-mode
                                     helm
+                                    helm-git-grep
                                     helm-projectile
                                     highlight-parentheses
                                     ido-vertical-mode
@@ -44,12 +46,14 @@
                                     pkg-info
                                     pkgbuild-mode
                                     popup
+                                    powerline
                                     projectile
                                     rust-mode
                                     s
                                     shakespeare-mode
                                     slime
                                     smart-mode-line
+                                    smart-mode-line-powerline-theme
                                     smooth-scroll
                                     switch-window
                                     undo-tree
