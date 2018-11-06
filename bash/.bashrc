@@ -65,6 +65,7 @@ alias untar='tar -zxvf'
 alias myxrandr='xrandr --output VGA-1 --auto --left-of HDMI-1'
 alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
 alias aspen='mount /dev/sdc1'
+alias winpid='xprop _NET_WM_PID | cut -d' ' -f3'
 
 # applications
 alias Shift='~/apps/shift/Shift --no-sandbox'

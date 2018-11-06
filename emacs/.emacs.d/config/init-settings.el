@@ -33,6 +33,12 @@
 
 (setq electric-pair-mode 1)
 
+(add-to-list 'electric-layout-rules
+             '((?\{ . around ) (?\} . around)))
+
+(add-to-list 'electric-layout-rules
+             '((?\[ . around ) (?\] . around)))
+
 (add-hook 'after-init-hook #'global-emojify-mode)
 
 ;; highlight parentheses in all buffers
@@ -77,8 +83,8 @@
 
 ;; Fira as default font
 (set-face-attribute 'default nil
-                    :family "Fira Mono"
-                    :height 110
+                    :family "Hasklig"
+                    :height 120
                     :weight 'normal
                     :width 'normal)
 

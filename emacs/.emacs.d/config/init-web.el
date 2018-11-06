@@ -4,7 +4,7 @@
 ;;; web-mode settings
 
 ;;; Code:
-(add-to-list 'load-path "/home/cody/workspace/repos/flowmacs")
+(add-to-list 'load-path "~/.emacs.d/flowmacs")
 
 (require 'web-mode)
 (require 'flycheck)
@@ -24,6 +24,12 @@
   (setq web-mode-markup-indent-offset 4)
   (setq web-mode-css-indent-offset 4)
   (setq web-mode-code-indent-offset 4)
+  (setq web-mode-enable-current-column-highlight t)
+  (web-mode-toggle-current-element-highlight)
+  (electric-pair-local-mode)
+  (electric-indent-local-mode)
+  (electric-layout-mode)
+  (electric-pair-mode)
   (add-node-modules-path)
   (flowmacs-mode)
   (prettier-js-mode))
