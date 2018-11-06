@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-xrandr --output LVDS-1 --off --output HDMI-2 --auto && xrandr --output HDMI-3 --auto --left-of HDMI-2
-nitrogen --restore &
-xbindkeys
-xmodmap ~/.Xmodmap
-xset r rate 250 60
