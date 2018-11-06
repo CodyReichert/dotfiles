@@ -54,5 +54,43 @@
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 (add-hook 'flycheck-mode-hook 'add-node-modules-path)
 
+(defun setup-pragmata-ligatures ()
+  (setq prettify-symbols-alist
+        (append prettify-symbols-alist
+         '(("!!"   . ?)
+           ("!="   . ?≠)
+           ("!=="  . ?≢)
+           ("<="   . ?≤)
+           (">="   . ?≥)
+           ("..."  . ?…)
+           ("=>"   . ?⇒)
+           (" * "  . ?×)
+
+           ("||"   . ?∨)
+           ("&&"   . ?∧)
+           ("=="   . ?⩵)
+           ("==="  . ?⩶)
+           ("+="   . ?⩲)
+
+           ;; ("--"   . ?)
+           ;; ("/>"   . ?)
+           ;; ("<!--" . ?)
+           ;; ("++"   . ?++)
+           ;; ("//"   . ? )
+           ))))
+
+(defun refresh-pretty ()
+  (prettify-symbols-mode -1)
+  (prettify-symbols-mode +1))
+
+  ;; Hooks for modes in which to install the Pragmata ligatures
+(mapc (lambda (hook)
+        (add-hook hook (lambda () (setup-pragmata-ligatures) (refresh-pretty))))
+      '(text-mode-hook
+        prog-mode-hook))
+
+(global-prettify-symbols-mode +1)
+
+
 (provide 'init-web)
 ;;; init-web.el ends here
