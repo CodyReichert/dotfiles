@@ -63,7 +63,7 @@
 (defun setup-pragmata-ligatures ()
   (setq prettify-symbols-alist
         (append prettify-symbols-alist
-         '(("!!"   . ?)
+         '(("!!"   . ?↯)
            ("!="   . ?≠)
            ("!=="  . ?≢)
            ("<="   . ?≤)
@@ -71,19 +71,9 @@
            ("..."  . ?…)
            ("=>"   . ?⇒)
            (" * "  . ?×)
-
            ("||"   . ?∨)
            ("&&"   . ?∧)
-           ("=="   . ?⩵)
-           ("==="  . ?⩶)
-           ("+="   . ?⩲)
-
-           ;; ("--"   . ?)
-           ;; ("/>"   . ?)
-           ;; ("<!--" . ?)
-           ;; ("++"   . ?++)
-           ;; ("//"   . ? )
-           ))))
+           ("==="  . ?≡)))))
 
 (defun refresh-pretty ()
   (prettify-symbols-mode -1)

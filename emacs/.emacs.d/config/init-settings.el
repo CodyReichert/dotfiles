@@ -24,6 +24,7 @@
 (global-set-key (kbd "C-x o") 'ace-window)
 
 (menu-bar-mode -1)
+(column-number-mode)
 
 (setq scroll-margin 3
       scroll-conservatively 9999

@@ -45,6 +45,7 @@
 
 (require 'flycheck-haskell)
 
+(add-hook 'haskell-mode #'flycheck-mode)
 (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
 
 (add-hook 'haskell-mode-hook

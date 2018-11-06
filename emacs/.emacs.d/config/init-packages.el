@@ -16,6 +16,7 @@
                                     coffee-mode
                                     cyberpunk-theme
                                     dash
+                                    dotenv-mode
                                     emmet-mode
                                     emojify
                                     epl

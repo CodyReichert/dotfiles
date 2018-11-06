@@ -23,6 +23,7 @@
 (evil-leader/set-key "v" 'er/expand-region)
 
 ;; flow-mode.el provided these functions
+(evil-leader/set-key "j \\" 'flowmacs/flow-pretty-status)
 (evil-leader/set-key "j RET" 'flowmacs/flow-status)
 (evil-leader/set-key "j d" 'flowmacs/jump-to-def)
 (evil-leader/set-key "j r" 'flowmacs/find-refs)
