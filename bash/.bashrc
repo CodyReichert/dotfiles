@@ -51,6 +51,7 @@ export BROWSER="google-chrome-beta"
 alias pacman='sudo pacman'
 alias pacdep='sudo pacman -Si'
 alias packer='apacman'
+alias y='yaourt'
 # git
 alias gmm='GIT_EDITOR=/bin/true git merge master'
 alias gpr='git pull --rebase'
@@ -65,13 +66,14 @@ alias untar='tar -zxvf'
 alias myxrandr='xrandr --output VGA-1 --auto --left-of HDMI-1'
 alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
 alias aspen='mount /dev/sdc1'
-alias winpid='xprop _NET_WM_PID | cut -d' ' -f3'
+alias winpid="xprop _NET_WM_PID | cut -d' ' -f3"
 
 # applications
 alias Shift='~/apps/shift/Shift --no-sandbox'
 
 # Path
 PATH=$PATH:$HOME/.bin
+PATH=$HOME/.local/bin:$PATH
 PATH=$HOME/.scripts/:$PATH
 PATH=$HOME/.qi/bin/:$PATH
 PATH=$HOME/.local/bin/:$PATH
@@ -84,3 +86,8 @@ set -o vi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+function retsmd() {
+    docker kill retsmd
+    docker run --detach --rm --net=host -e 8080:8080 --name=retsmd simplyrets/retsmd:latest
+}
