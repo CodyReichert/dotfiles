@@ -32,6 +32,7 @@
                                     helm
                                     helm-git-grep
                                     helm-projectile
+                                    helm-spotify-plus
                                     highlight-parentheses
                                     ido-vertical-mode
                                     json-mode

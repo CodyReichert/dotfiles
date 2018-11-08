@@ -8,6 +8,7 @@
 (require 'evil-leader)
 (require 'key-chord)
 (require 'web-mode)
+(require 'helm-spotify-plus)
 
 
 (global-evil-leader-mode 1)
@@ -50,8 +51,11 @@
 (evil-leader/set-key "e r" 'web-mode-element-rename)
 (evil-leader/set-key "e v" 'web-mode-element-vanish)
 
-
-;; (setq evil-leader/no-prefix-mode-rx '("*-mode"))
+;; helm-spotify-plus
+(evil-leader/set-key "s s" 'helm-spotify-plus)
+(evil-leader/set-key "s t" 'helm-spotify-plus-toggle-play-pause)
+(evil-leader/set-key "s n" 'helm-spotify-plus-next)
+(evil-leader/set-key "s p" 'helm-spotify-plus-previous)
 
 
 (evil-mode 1)
