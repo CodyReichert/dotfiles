@@ -43,6 +43,9 @@
 (evil-leader/set-key "o" 'aw-flip-window)
 (evil-leader/set-key "i" 'ace-swap-window)
 
+(evil-leader/set-key "e n" 'flycheck-next-error)
+(evil-leader/set-key "e p" 'flycheck-previous-error)
+
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
 ;; web-mode keys

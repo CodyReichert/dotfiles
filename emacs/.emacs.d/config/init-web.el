@@ -34,6 +34,11 @@
   (flowmacs-mode)
   (prettier-js-mode))
 
+(load-file "~/.emacs.d/webpack-dev-server.el/webpack-dev-server.el")
+(setq webpack-dev-server-command
+      "make -C ~/workspace/assertible/assertible frontend-dev")
+
+
 (defun my/local-flow-bin ()
   "Tell flowmacs to use flow-bin from local node_modules."
   (let* ((root (locate-dominating-file

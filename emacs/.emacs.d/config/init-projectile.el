@@ -11,7 +11,7 @@
 (global-set-key (kbd "C-c g")       'projectile-grep)
 (global-set-key (kbd "C-c i")       'projectile-ibuffer)
 (global-set-key (kbd "C-x C-d")     'projectile-switch-project)
-(global-set-key [f5]                'projectile-compile-project)
+(global-set-key [f8]                'projectile-compile-project)
 
 
 (defun projectile-or-ido-find-file ()

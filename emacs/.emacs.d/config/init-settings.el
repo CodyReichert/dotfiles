@@ -70,15 +70,14 @@
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(column-number-mode -1)
 (set-scroll-bar-mode nil)
 (set-face-attribute 'fringe nil)
 
 (defun my/theme-setup-hook ()
   "Enable sml after Emacs has loaded."
-  (load-theme 'cyberpunk t)
+  (load-theme 'base16-classic-dark t)
   (sml/setup)
-  (sml/apply-theme 'powerline))
+  (sml/apply-theme 'respectful))
 
 (add-hook 'after-init-hook 'my/theme-setup-hook)
 

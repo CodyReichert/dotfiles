@@ -8,7 +8,7 @@
 
 (setq magit-last-seen-setup-instructions "2.1.0")
 
-(define-key global-map [f6] 'magit-status)
+(define-key global-map [f7] 'magit-status)
 (evil-set-initial-state 'magit-mode 'normal)
 (evil-set-initial-state 'magit-log-mode 'normal)
 (evil-set-initial-state 'magit-status-mode 'insert)
