@@ -7,9 +7,12 @@
 
 # History
 HISTCONTROL=ignoreboth
+HISTSIZE=100000
+HISTFILESIZE=100000
 shopt -s histappend
-#HISTSIZE=1000
-#HISTFILESIZE=2000
+shopt -s histreedit
+shopt -s histverify
+PROMPT_COMMAND="history -a; $PROMP_COMMAND"
 
 shopt -s autocd
 shopt -s checkwinsize
@@ -78,6 +81,7 @@ PATH=$HOME/.scripts/:$PATH
 PATH=$HOME/.qi/bin/:$PATH
 PATH=$HOME/.local/bin/:$PATH
 PATH=$HOME/apps/shift/:$PATH
+PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 
 export LC_ALL="en_US.UTF-8"
 
