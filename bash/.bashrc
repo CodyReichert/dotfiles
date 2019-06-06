@@ -33,13 +33,6 @@ if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
 
-# ls aliases
-alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
-# alias l='ls -CF'
-alias l1='ls -1'
-
 # Default editor
 export EDITOR="emacs"
 export ALTERNATE_EDITOR=""
@@ -49,20 +42,28 @@ alias e='emacsclient -c'
 # Default browser
 export BROWSER="google-chrome-beta"
 
+# ls aliases
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l1='ls -1'
+
+# utility aliases
+alias c='clear'
 
 # pacman
 alias pacman='sudo pacman'
 alias pacdep='sudo pacman -Si'
 alias packer='apacman'
 alias y='yaourt'
+
 # git
 alias gmm='GIT_EDITOR=/bin/true git merge master'
 alias gpr='git pull --rebase'
 alias stashsave='git stash save'
 alias stashpop='git stash pop'
 alias sgpr='stashsave && gpr origin master && stashpop'
-# cabal
-alias cabaldeps='cabal sandbox init; cabal install --only-dep -j'
+
 # other
 alias tree='tree -I ".git"'
 alias untar='tar -zxvf'
@@ -73,6 +74,7 @@ alias winpid="xprop _NET_WM_PID | cut -d' ' -f3"
 
 # applications
 alias Shift='~/apps/shift/Shift --no-sandbox'
+alias dc='docker-compose'
 
 # Path
 PATH=$PATH:$HOME/.bin
@@ -95,3 +97,74 @@ function retsmd() {
     docker kill retsmd
     docker run --detach --rm --net=host -e 8080:8080 --name=retsmd simplyrets/retsmd:latest
 }
+###-begin-npm-completion-###
+#
+# npm command completion script
+#
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+#
+
+if type complete &>/dev/null; then
+  _npm_completion () {
+    local words cword
+    if type _get_comp_words_by_ref &>/dev/null; then
+      _get_comp_words_by_ref -n = -n @ -n : -w words -i cword
+    else
+      cword="$COMP_CWORD"
+      words=("${COMP_WORDS[@]}")
+    fi
+
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           npm completion -- "${words[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+    if type __ltrim_colon_completions &>/dev/null; then
+      __ltrim_colon_completions "${words[cword]}"
+    fi
+  }
+  complete -o default -F _npm_completion npm
+elif type compdef &>/dev/null; then
+  _npm_completion() {
+    local si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 npm completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+  _npm_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       npm completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _npm_completion npm
+fi
+###-end-npm-completion-###
+export PATH=/home/cody/apps/shift/:/home/cody/.local/bin/:/home/cody/.qi/bin/:/home/cody/.scripts/:/home/cody/.local/bin:/home/cody/.nvm/versions/node/v9.7.1/bin:/home/cody/apps/shift/:/home/cody/.local/bin/:/home/cody/.qi/bin/:/home/cody/.scripts/:/home/cody/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/cody/.bin:/home/cody/.gem/ruby/2.5.0/bin:/home/cody/.bin:/home/cody/.gem/ruby/2.5.0/bin:/home/cody/workspace/CodyReichert/pgdevdb
+
+if [[ "$TERM" == "dumb" ]]
+then
+    unsetopt zle
+    unsetopt prompt_cr
+    unsetopt prompt_subst
+    unfunction precmd
+    unfunction preexec
+    PS1='$ '
+fi

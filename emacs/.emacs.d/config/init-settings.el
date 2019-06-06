@@ -84,9 +84,7 @@
 ;; Fira as default font
 (set-face-attribute 'default nil
                     :family "Hasklig"
-                    :height 120
-                    :weight 'normal
-                    :width 'normal)
+                    :height 120)
 
 ;; Show whitespace / delete it on save
 (setq show-trailing-whitespace t)
