@@ -1,7 +1,7 @@
 ;;; init.el --- Emacs init file
-;;  Author: Ian Y.E. Pan
+;;  Author: Cody Reichert
 ;;; Commentary:
-;;  This is my personal Emacs configuration
+;;  Personal Emacs configuration
 ;;; Code:
 (defvar file-name-handler-alist-original file-name-handler-alist)
 
@@ -504,7 +504,6 @@
         haskell-process-type 'stack-ghci
         haskell-indent-spaces 4)
   (add-to-list 'haskell-font-lock-quasi-quote-modes '("yamlQQ" . yaml-mode))
-  (add-to-list 'haskell-font-lock-quasi-quote-modes '("js" . web-mode))
   (add-to-list 'haskell-process-args-stack-ghci "--ghci-options=-O0")
   (add-to-list 'haskell-process-args-stack-ghci "--ghci-options=-fshow-loaded-modules")
   (add-to-list 'auto-mode-alist '("\\.lhs\\'" . literate-haskell-mode))
@@ -578,19 +577,6 @@
     (define-key company-active-map (kbd "C-n") #'company-select-next)
     (define-key company-active-map (kbd "C-p") #'company-select-previous)))
 
-(use-package flycheck
-  :hook ((prog-mode . flycheck-mode)
-         (web-mode . flycheck-mode))
-  :config
-  (setq flycheck-check-syntax-automatically '(save mode-enabled newline))
-  (setq flycheck-python-flake8-executable "python3")
-  (setq flycheck-flake8rc "~/.config/flake8")
-  (setq-default flycheck-disabled-checkers '(python-pylint)))
-
-(use-package flycheck-haskell
-  :ensure t
-  :hook haskell-mode)
-
 (use-package org
   :hook ((org-mode . visual-line-mode)
          (org-mode . org-indent-mode))
@@ -616,45 +602,68 @@
                   (when (equal my-company-point (point))
                     (yas-expand)))))
 
-(use-package kotlin-mode :ensure t)
-(use-package dart-mode :ensure t)
 (use-package json-mode :ensure t)
 (use-package yaml-mode :ensure t)
 (use-package csv-mode :ensure t)
-(use-package prettier-js :ensure t)
-(use-package add-node-modules-path :ensure t)
 
 (use-package wp-readme
   :load-path "~/workspace/CodyReichert/wp-readme-mode")
 
+(use-package add-node-modules-path
+  :ensure t
+  :config
+  (eval-after-load 'web-mode
+    '(add-hook 'web-mode-hook 'add-node-modules-path)))
+
 (use-package flowmacs
   :load-path "~/workspace/CodyReichert/flowmacs"
-  :hook web-mode
   :config
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (flow (and root (expand-file-name
-                          "node_modules/.bin/flow"
-                          root))))
-    (when (and flow (file-executable-p flow))
-      (setq-local flowmacs/+flow+ flow))))
+  ;; Ensure `flowmacs' uses the project local flow binary
+  (defun cody/flowmacs-local-flow ()
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (flow (and root (expand-file-name
+                            "node_modules/.bin/flow"
+                            root))))
+      (when (and flow (file-executable-p flow))
+        (setq-local flowmacs/+flow+ flow))))
+  (add-hook 'flowmacs-mode-hook 'cody/flowmacs-local-flow)
+  (eval-after-load 'web-mode
+    '(add-hook 'web-mode-hook 'flowmacs-mode)))
+
+(use-package prettier-js
+  :ensure t
+  :config
+  (eval-after-load 'web-mode
+    '(add-hook 'web-mode-hook 'prettier-js-mode)))
 
 (use-package web-mode
+  :ensure t
+  :after (add-node-modules-path)
   :mode (("\\.jsx?$" . web-mode)
          ("\\.php$" . web-mode)
          ("\\.tsx?\\'" . web-mode)
          ("\\.html?\\'" . web-mode))
+  :custom
+  (web-mode-css-indent-offset 4)
+  (web-mode-code-indent-offset 4)
+  (web-mode-markup-indent-offset 4)
+  (web-mode-auto-quote-style nil)
+  (web-mode-enable-current-column-highlight t)
+  (web-mode-enable-current-element-highlight t)
+  (web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'"))))
+
+(use-package flycheck
+  :ensure t
   :config
-  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
-  (setq web-mode-auto-quote-style nil)
-  (setq web-mode-markup-indent-offset 4)
-  (setq web-mode-css-indent-offset 4)
-  (setq web-mode-code-indent-offset 4)
-  (setq web-mode-enable-current-column-highlight t)
-  (web-mode-toggle-current-element-highlight)
-  (prettier-js-mode)
-  (add-node-modules-path))
+  (global-flycheck-mode)
+  (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(json-jsonlint javascript-jshint)))
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
+
+(use-package flycheck-haskell
+  :ensure t
+  :hook haskell-mode)
 
 (use-package emmet-mode
   :hook ((html-mode . emmet-mode)
