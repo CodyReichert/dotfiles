@@ -29,8 +29,8 @@ then
   complete -cf sudo
 fi
 
-if [ -f /etc/bash_completion ]; then
-  . /etc/bash_completion
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
 fi
 
 # Default editor
@@ -56,6 +56,7 @@ alias pacman='sudo pacman'
 alias pacdep='sudo pacman -Si'
 alias packer='apacman'
 alias y='yaourt'
+alias aura='sudo aura'
 
 # git
 alias gmm='GIT_EDITOR=/bin/true git merge master'
