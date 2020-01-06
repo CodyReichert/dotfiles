@@ -16,6 +16,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.eslintrc$" . json-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
 (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
 
 (defun web-mode-init-hook ()
@@ -26,6 +27,7 @@
   (setq web-mode-code-indent-offset 4)
   (setq web-mode-enable-current-column-highlight t)
   (web-mode-toggle-current-element-highlight)
+  (goto-address-mode)
   (electric-pair-local-mode)
   (electric-indent-local-mode)
   (electric-layout-mode)
