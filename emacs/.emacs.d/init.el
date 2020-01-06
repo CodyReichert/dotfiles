@@ -169,7 +169,7 @@
   (setq initial-frame-alist (quote ((fullscreen . maximized))))
   (blink-cursor-mode -1)
   (when (member "Source Code Pro" (font-family-list))
-    (set-frame-font "Source Code Pro-13:weight=regular" t t)))
+    (set-frame-font "Source Code Pro-12:weight=regular" t t)))
 
 (use-package ediff
   :ensure nil
@@ -244,10 +244,10 @@
 
 (use-package smart-mode-line
   :config
-  (when (member "Menlo" (font-family-list))
+  (when (member "Source Code Pro" (font-family-list))
     (progn
-      (set-face-attribute 'mode-line nil :height 120 :font "Menlo")
-      (set-face-attribute 'mode-line-inactive nil :height 120 :font "Menlo")))
+      (set-face-attribute 'mode-line nil :height 110 :font "Source Code Pro")
+      (set-face-attribute 'mode-line-inactive nil :height 110 :font "Source Code Pro")))
   (setq sml/no-confirm-load-theme t
         sml/theme 'atom-one-dark)
   (sml/setup))
@@ -671,19 +671,6 @@
          (js-mode . emmet-mode)
          (web-mode . emmet-mode))
   :config (setq emmet-expand-jsx-className? t))
-
-(use-package format-all
-  :preface
-  (defun cody/format-code ()
-    "Auto-format whole buffer."
-    (interactive)
-    (if (derived-mode-p 'prolog-mode)
-        (prolog-indent-buffer)
-      (format-all-buffer)))
-  (defun format-document()
-    "Auto-format whole buffer (VSCode syntax)."
-    (interactive)
-    (cody/format-code)))
 
 ;; Miscellaneous
 
