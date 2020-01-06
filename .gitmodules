@@ -4,21 +4,6 @@
 [submodule "vimperator/.vimperator/plugin/smoozy"]
 	path = vimperator/.vimperator/plugin/smoozy
 	url = git://github.com/yuttie/smoozy.js
-[submodule "emacs/.emacs.d/es6-snippets"]
-	path = emacs/.emacs.d/es6-snippets
-	url = git@github.com:CodyReichert/es6-snippets
-[submodule "emacs/.emacs.d/circe-notifications"]
-	path = emacs/.emacs.d/circe-notifications
-	url = git@github.com:codyreichert/circe-notifications
-[submodule "emacs/.emacs.d/wp-readme-mode"]
-	path = emacs/.emacs.d/wp-readme-mode
-	url = git@github.com:codyreichert/wp-readme-mode
 [submodule "stumpwm/.stumpwm.d/contrib"]
 	path = stumpwm/.stumpwm.d/contrib
 	url = git@github.com:stumpwm/stumpwm-contrib
-[submodule "emacs/.emacs.d/slime"]
-	path = emacs/.emacs.d/slime
-	url = https://github.com/slime/slime
-[submodule "emacs/.emacs.d/slime-repl-ansi-color"]
-	path = emacs/.emacs.d/slime-repl-ansi-color
-	url = git@github.com:CodyReichert/slime-repl-ansi-color

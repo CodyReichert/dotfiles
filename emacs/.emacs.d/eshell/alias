@@ -1,6 +1,0 @@
-alias amp  $*
-alias ff find-file $1
-alias sff sudo-find-file $1
-alias myxrandr xrandr --output VGA-0 --auto --right-of HDMI-1
-alias pacman sudo pacman
-alias gst magit-status
