@@ -31,7 +31,7 @@
     background_color = "#111111"
     copy_on_selection = True
     cursor_color = "#bbbbbb"
-    font = Source Code Pro 12
+    font = Source Code Pro 11
     foreground_color = "#ffffff"
     palette = "#000000:#ff5555:#50fa7b:#f1fa8c:#bd93f9:#ff79c6:#8be9fd:#bbbbbb:#555555:#ff5555:#50fa7b:#f1fa8c:#bd93f9:#ff79c6:#8be9fd:#ffffff"
     scroll_on_output = True
