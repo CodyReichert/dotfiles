@@ -1,7 +1,10 @@
 [global_config]
+  borderless = True
+  enabled_plugins = TerminatorThemes, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   inactive_color_offset = 0.93
   suppress_multiple_term_dialog = True
-  title_font = Fira Mono 10
+  title_font = Source Code Pro 10
+  title_transmit_fg_color = "#2e3436"
   title_use_system_font = False
 [keybindings]
   close_term = <Primary>w
@@ -18,96 +21,27 @@
   toggle_zoom = <Primary>x
 [layouts]
   [[default]]
-    [[[child1]]]
-      parent = window0
-      profile = default
-      type = Terminal
-    [[[window0]]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = 2e03f632-63a7-499c-91bd-3554de05c9fd
+      last_active_window = True
+      maximised = True
+      order = 0
       parent = ""
+      position = 0:0
+      size = 1920, 1056
+      title = /bin/bash
       type = Window
 [plugins]
 [profiles]
   [[default]]
-    background_color = "#111111"
+    background_color = "#1e1f29"
     copy_on_selection = True
-    cursor_color = "#bbbbbb"
-    font = Source Code Pro 11
-    foreground_color = "#ffffff"
-    palette = "#000000:#ff5555:#50fa7b:#f1fa8c:#bd93f9:#ff79c6:#8be9fd:#bbbbbb:#555555:#ff5555:#50fa7b:#f1fa8c:#bd93f9:#ff79c6:#8be9fd:#ffffff"
+    cursor_color = "#aaaaaa"
+    font = Source Code Pro 12
+    foreground_color = "#f8f8f2"
+    palette = "#44475a:#ff5555:#50fa7b:#f1fa8c:#8be9fd:#bd93f9:#ff79c6:#94a3a5:#000000:#ff5555:#50fa7b:#f1fa8c:#8be9fd:#bd93f9:#ff79c6:#ffffff"
     scroll_on_output = True
     scrollback_infinite = True
-    show_titlebar = False
-    use_system_font = False
-  [[Smyck]]
-    background_color = "#1b1b1b"
-    cursor_color = "#bbbbbb"
-    font = Inconsolata Medium 10
-    foreground_color = "#f7f7f7"
-    palette = "#000000:#b84131:#7da900:#c4a500:#62a3c4:#ba8acc:#207383:#a1a1a1:#7a7a7a:#d6837c:#c4f137:#fee14d:#8dcff0:#f79aff:#6ad9cf:#f7f7f7"
-    scrollbar_position = hidden
-    show_titlebar = False
-    use_system_font = False
-  [[base16]]
-    background_color = "#313131"
-    background_darkness = 0.92
-    cursor_color = "#d3d0c8"
-    font = Inconsolata Medium 10
-    foreground_color = "#d3d0c8"
-    palette = "#2d2d2d:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#d3d0c8:#747369:#f2777a:#99cc99:#ffcc66:#6699cc:#cc99cc:#66cccc:#f2f0ec"
-    scrollbar_position = hidden
-    show_titlebar = False
-    use_system_font = False
-  [[belafonteDay]]
-    background_color = "#d5ccba"
-    cursor_color = "#45373c"
-    font = Inconsolata Medium 10
-    foreground_color = "#45373c"
-    palette = "#20111b:#be100e:#858162:#eaa549:#426a79:#97522c:#989a9c:#968c83:#5e5252:#be100e:#858162:#eaa549:#426a79:#97522c:#989a9c:#d5ccba"
-    scrollbar_position = hidden
-    show_titlebar = False
-    use_system_font = False
-  [[broadcast]]
-    background_color = "#111111"
-    cursor_color = "#ffffff"
-    font = Inconsolata Medium 10
-    foreground_color = "#e6e1dc"
-    palette = "#000000:#da4939:#519f50:#ffd24a:#6d9cbe:#d0d0ff:#6e9cbe:#ffffff:#323232:#ff7b6b:#83d182:#ffff7c:#9fcef0:#ffffff:#a0cef0:#ffffff"
-    scrollbar_position = hidden
-    show_titlebar = False
-    use_system_font = False
-  [[chalk]]
-    background_color = "#2b2d2e"
-    cursor_color = "#708284"
-    font = Inconsolata Medium 10
-    foreground_color = "#d2d8d9"
-    palette = "#7d8b8f:#b23a52:#789b6a:#b9ac4a:#2a7fac:#bd4f5a:#44a799:#d2d8d9:#888888:#f24840:#80c470:#ffeb62:#4196ff:#fc5275:#53cdbd:#d2d8d9"
-    scrollbar_position = hidden
-    show_titlebar = False
-    use_system_font = False
-  [[monokaiSoda]]
-    background_color = "#1a1a1a"
-    cursor_color = "#f6f7ec"
-    font = Inconsolata Medium 10
-    foreground_color = "#c4c5b5"
-    palette = "#1a1a1a:#f4005f:#98e024:#fa8419:#9d65ff:#f4005f:#58d1eb:#c4c5b5:#625e4c:#f4005f:#98e024:#e0d561:#9d65ff:#f4005f:#58d1eb:#f6f6ef"
-    scrollbar_position = hidden
-    show_titlebar = False
-    use_system_font = False
-  [[novel]]
-    background_color = "#dfdbc3"
-    cursor_color = "#73635a"
-    font = Inconsolata Medium 10
-    foreground_color = "#3b2322"
-    palette = "#000000:#cc0000:#009600:#d06b00:#0000cc:#cc00cc:#0087cc:#cccccc:#808080:#cc0000:#009600:#d06b00:#0000cc:#cc00cc:#0087cc:#ffffff"
-    scrollbar_position = hidden
-    show_titlebar = False
-    use_system_font = False
-  [[wryan]]
-    background_color = "#101010"
-    cursor_color = "#9e9ecb"
-    font = Inconsolata Medium 10
-    foreground_color = "#999993"
-    palette = "#333333:#8c4665:#287373:#7c7c99:#395573:#5e468c:#31658c:#899ca1:#3d3d3d:#bf4d80:#53a6a6:#9e9ecb:#477ab3:#7e62b3:#6096bf:#c0c0c0"
-    scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False
