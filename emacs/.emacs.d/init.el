@@ -223,7 +223,7 @@
 
 (use-package doom-themes
   :custom-face (cursor ((t (:background "#eeaf2c"))))
-  :config (load-theme 'doom-dracula t))
+  :config (load-theme 'doom-one t))
 
 (use-package solaire-mode
   :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
@@ -284,6 +284,10 @@
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-character 9615) ; left-align vertical bar
   (setq highlight-indent-guides-auto-character-face-perc 20))
+
+(use-package rainbow-mode
+  :hook ((web-mode . rainbow-mode)
+         (emacs-lisp-mode . rainbow-mode)))
 
 (use-package highlight-symbol
   :diminish
@@ -473,21 +477,21 @@
   (evil-leader/set-key "k" 'kill-this-buffer)
   (evil-leader/set-key "b" 'ivy-switch-buffer)
   (evil-leader/set-key "v" 'er/expand-region)
-
-  ;; flow-mode.el provided these functions
+  ;; Flowmacs commands
   (evil-leader/set-key "j \\" 'flowmacs/flow-pretty-status)
   (evil-leader/set-key "j RET" 'flowmacs/flow-status)
   (evil-leader/set-key "j d" 'flowmacs/jump-to-def)
   (evil-leader/set-key "j r" 'flowmacs/find-refs)
   (evil-leader/set-key "j s" 'flowmacs/suggest-types)
   (evil-leader/set-key "j t" 'flowmacs/type-at-pos)
-
-  ;; Window switching
+  ;; ace-window commands
   (evil-leader/set-key "p" 'ace-window)
   (evil-leader/set-key "o" 'aw-flip-window)
   (evil-leader/set-key "i" 'ace-swap-window)
-
-  ;; web-mode keys
+  ;; highlight-symbol commands
+  (evil-leader/set-key "n" 'highlight-symbol-prev)
+  (evil-leader/set-key "m" 'highlight-symbol-next)
+  ;; web-mode commands
   (evil-leader/set-key "r w" 'web-mode)
   (evil-leader/set-key "a k" 'web-mode-attribute-kill)
   (evil-leader/set-key "e w" 'web-mode-element-wrap)
@@ -584,6 +588,9 @@
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-<tab>") nil))
   (use-package org-bullets :hook (org-mode . org-bullets-mode)))
+
+(use-package dotenv-mode
+  :mode (("\\.env\\'" . dotenv-mode)))
 
 (use-package markdown-mode
   :hook (markdown-mode . visual-line-mode))
