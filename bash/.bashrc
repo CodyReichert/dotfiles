@@ -59,7 +59,6 @@ alias y='yaourt'
 alias aura='sudo aura'
 
 # git
-alias gmm='GIT_EDITOR=/bin/true git merge master'
 alias gpr='git pull --rebase'
 alias stashsave='git stash save'
 alias stashpop='git stash pop'
@@ -74,7 +73,6 @@ alias aspen='mount /dev/sdc1'
 alias winpid="xprop _NET_WM_PID | cut -d' ' -f3"
 
 # applications
-alias Shift='~/apps/shift/Shift --no-sandbox'
 alias dc='docker-compose'
 
 # Path
