@@ -56,7 +56,9 @@ alias pacman='sudo pacman'
 alias pacdep='sudo pacman -Si'
 alias packer='apacman'
 alias y='yaourt'
-alias aura='sudo aura'
+
+# aura
+alias aura='sudo aura --unsuppress'
 
 # git
 alias gpr='git pull --rebase'
@@ -74,6 +76,8 @@ alias winpid="xprop _NET_WM_PID | cut -d' ' -f3"
 
 # applications
 alias dc='docker-compose'
+alias cura='~/apps/cura/cura-4.4.1.AppImage &'
+alias mjpg_start='mjpg_streamer -i "input_uvc.so -n -r VGA -f 5 -q 50" -o "output_http.so -w ./www -p 5001" &'
 
 # Path
 PATH=$PATH:$HOME/.bin
@@ -82,6 +86,7 @@ PATH=$HOME/.scripts/:$PATH
 PATH=$HOME/.qi/bin/:$PATH
 PATH=$HOME/.local/bin/:$PATH
 PATH=$HOME/apps/shift/:$PATH
+PATH=$HOME/apps/cura/:$PATH
 PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 
 export LC_ALL="en_US.UTF-8"
