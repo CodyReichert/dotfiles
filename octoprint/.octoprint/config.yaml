@@ -1,0 +1,131 @@
+# Octoprint notes and configuration
+#
+###
+### Running octoprint and dependencies
+###
+# 1. Start the octoprint server:
+#
+#    $ sudo systemctl start octoprint
+#
+# 2. (optional) Start mjpg_streamer to stream the webcam:
+#
+#    $ mjpg_streamer -i "input_uvc.so -n -r VGA -f 5 -q 50" -o "output_http.so -w ./www -p 5001"
+#
+# 3. (optional) Start a proxy to access Octoprint remotely
+#
+#    $ ngrok http 5000
+###
+### Programs and other software
+###
+# Octoprint
+#   Octoprint is the main server for interacting with the printer.
+#   Plugins: Detailed Progress, M73 Progress, Octolapse, Octopod
+#
+# Octoclient
+#   Octoclient is the official iPhone app for Octoprint.
+#   Alternative: Octopod
+#
+# Thingiverse
+#   Thingiverse is the primary source of patterns and things.
+#
+# Ultimaker Cura
+#   Cura let's you download STL files (ie from thingiverse), modify
+#   the print settings, and export them as .gcode to print.
+#   Plugins: Octoprint plugin to use the "Monitor" tab.
+#
+# OpenSCAD
+#   OpenSCAD let's you download SCAR files (ie from thingiverse) and
+#   modify the code, render, and export as STL, which can then be
+#   imported to Cura and printed.
+
+events:
+  enabled: true
+  subscriptions:
+    - event: PrintDone
+      command: notify-send "[Ender 3 Pro - Office] Print completed! {__filename}" -a Octoprint -i ~/.octoprint/octoprint-app-icon.png
+
+# accessControl:
+#   salt: 0HBVFiGBEZNXUaWaA3hBwWuxnXqqO4oz
+# api:
+#   key: 3A036862D49E47D6B9EB479D2D0DCBE7
+# appearance:
+#   color: black
+#   showFahrenheitAlso: true
+# plugins:
+#   _disabled:
+#   - webcamtab
+#   announcements:
+#     _config_version: 1
+#     channels:
+#       _blog:
+#         read_until: 1576506900
+#       _important:
+#         read_until: 1521111600
+#       _octopi:
+#         read_until: 1573722900
+#       _plugins:
+#         read_until: 1576627200
+#       _releases:
+#         read_until: 1580219100
+#   discovery:
+#     upnpUuid: 85f460c8-2756-48a0-9b75-a35735c3d724
+#   errortracking:
+#     unique_id: afe2f999-a60f-46b1-952e-e2da61a9c433
+#   m73progress:
+#     progress_from_time: true
+#   octopod:
+#     _config_version: 7
+#     tokens:
+#     - apnsToken: 970E266EF14863B3628C435577E4094E973895AE75DC10103C7B8BE75EA6232E
+#       date: 2020-01-27 15:00:13.215750
+#       deviceName: Cody Reichert's iPhone
+#       languageCode: en
+#       printerID: x-coredata://3BFF6AB4-4590-434C-B17E-E4CC2685E91E/Printer/p1
+#       printerName: Ender 3 Pro - Office
+#   softwareupdate:
+#     _config_version: 6
+#     check_providers:
+#       detailedprogress: detailedprogress
+#       m73progress: m73progress
+#       octolapse: octolapse
+#       octopod: octopod
+#       webcamtab: webcamtab
+#   tracking:
+#     enabled: true
+#     unique_id: 19dea8f9-2b5f-4b56-90b6-2d63b95c6825
+# printerProfiles:
+#   default: _default
+# serial:
+#   autoconnect: true
+# server:
+#   firstRun: false
+#   onlineCheck:
+#     enabled: true
+#   pluginBlacklist:
+#     enabled: true
+#   secretKey: pqw21J3ExvEE9H3EMPOpIlyQbS4Hu79O
+#   seenWizards:
+#     corewizard: 3
+#     tracking: null
+# temperature:
+#   profiles:
+#   - bed: 100
+#     chamber: null
+#     extruder: 210
+#     name: ABS
+#   - bed: 60
+#     chamber: null
+#     extruder: 180
+#     name: PLA
+# webcam:
+#   ffmpeg: /usr/bin/ffmpeg
+#   snapshot: http://192.168.1.186:5001/?action=snapshot
+#   snapshotSslValidation: false
+#   stream: http://192.168.1.186:5001/?action=stream
+#   timelapse:
+#     fps: 25
+#     options:
+#       interval: 10
+#     postRoll: 0
+#     type: timed
+#   watermark: false
