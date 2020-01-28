@@ -330,6 +330,11 @@
 
 (use-package evil-magit)
 
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
 ;; Git integration
 
 (use-package magit
