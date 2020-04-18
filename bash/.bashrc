@@ -81,13 +81,13 @@ alias mjpg_start='mjpg_streamer -i "input_uvc.so -n -r VGA -f 5 -q 50" -o "outpu
 
 # Path
 PATH=$PATH:$HOME/.bin
-PATH=$HOME/.local/bin:$PATH
-PATH=$HOME/.scripts/:$PATH
-PATH=$HOME/.qi/bin/:$PATH
-PATH=$HOME/.local/bin/:$PATH
-PATH=$HOME/apps/shift/:$PATH
-PATH=$HOME/apps/cura/:$PATH
-PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
+PATH=$PATH:$HOME/.local/bin
+PATH=$PATH:$HOME/.scripts/
+PATH=$PATH:$HOME/.qi/bin/
+PATH=$PATH:$HOME/.local/bin/
+PATH=$PATH:$HOME/apps/shift/
+PATH=$PATH:$HOME/apps/cura/
+PATH=$PATH:$HOME/workspace/CodyReichert/pgdevdb
 
 export LC_ALL="en_US.UTF-8"
 
@@ -161,7 +161,6 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
-export PATH=/home/cody/apps/shift/:/home/cody/.local/bin/:/home/cody/.qi/bin/:/home/cody/.scripts/:/home/cody/.local/bin:/home/cody/.nvm/versions/node/v9.7.1/bin:/home/cody/apps/shift/:/home/cody/.local/bin/:/home/cody/.qi/bin/:/home/cody/.scripts/:/home/cody/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/cody/.bin:/home/cody/.gem/ruby/2.5.0/bin:/home/cody/.bin:/home/cody/.gem/ruby/2.5.0/bin:/home/cody/workspace/CodyReichert/pgdevdb
 
 if [[ "$TERM" == "dumb" ]]
 then
