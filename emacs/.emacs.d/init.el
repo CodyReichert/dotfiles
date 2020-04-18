@@ -62,7 +62,12 @@
   (menu-bar-mode -1)
   (setq-default line-spacing 3
                 indent-tabs-mode nil
-                tab-width cody/indent-width))
+                tab-width cody/indent-width)
+  (defun sudo-find-file (file-name)
+    "Like find file, but opens the file as root."
+    (interactive "FSudo Find File: ")
+    (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
+      (find-file tramp-file-name))))
 
 ;;; Built-in packages
 
@@ -115,7 +120,6 @@
   :config
   (global-auto-revert-mode +1)
   (setq auto-revert-interval 2
-        auto-revert-check-vc-info t
         global-auto-revert-non-file-buffers t
         auto-revert-verbose nil))
 
@@ -124,11 +128,6 @@
   :diminish
   :hook (prog-mode . eldoc-mode)
   :config (setq eldoc-idle-delay 0.4))
-
-(use-package js
-  :ensure nil
-  :mode ("\\.jsx?\\'" . js-mode)
-  :config (setq js-indent-level cody/indent-width))
 
 (use-package xref
   :ensure nil
@@ -217,13 +216,20 @@
 
 (use-package recentf :config (recentf-mode +1))
 
+(use-package conf-mode
+  :ensure nil
+  :mode (("\\.flowconfig$" . conf-mode)
+         ("\\.npmrc$" . conf-mode)
+         ("\\.prettierrc$" . conf-mode))
+  :config (setq js-indent-level cody/indent-width))
+
 ;;; Third-party Packages
 
 ;; GUI enhancements
 
 (use-package doom-themes
-  :custom-face (cursor ((t (:background "#eeaf2c"))))
-  :config (load-theme 'doom-one t))
+  ;; :custom-face (cursor ((t (:background "#eeaf2c"))))
+  :config (load-theme 'doom-vibrant t))
 
 (use-package solaire-mode
   :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
@@ -289,19 +295,11 @@
   :hook ((web-mode . rainbow-mode)
          (emacs-lisp-mode . rainbow-mode)))
 
-(use-package highlight-symbol
-  :diminish
-  :hook (prog-mode . highlight-symbol-mode)
-  :config (setq highlight-symbol-idle-delay 0.3))
+(use-package emojify
+  :config
+  (global-emojify-mode))
 
-(use-package highlight-numbers
-  :hook (prog-mode . highlight-numbers-mode))
-
-(use-package highlight-operators
-  :hook (prog-mode . highlight-operators-mode))
-
-(use-package highlight-escape-sequences
-  :hook (prog-mode . hes-mode))
+(use-package emojify-logos)
 
 ;; Vi keybindings
 
@@ -482,6 +480,7 @@
   (evil-leader/set-key "k" 'kill-this-buffer)
   (evil-leader/set-key "b" 'ivy-switch-buffer)
   (evil-leader/set-key "v" 'er/expand-region)
+  (evil-leader/set-key "g" 'helm-git-grep)
   ;; Flowmacs commands
   (evil-leader/set-key "j \\" 'flowmacs/flow-pretty-status)
   (evil-leader/set-key "j RET" 'flowmacs/flow-status)
@@ -493,9 +492,9 @@
   (evil-leader/set-key "p" 'ace-window)
   (evil-leader/set-key "o" 'aw-flip-window)
   (evil-leader/set-key "i" 'ace-swap-window)
-  ;; highlight-symbol commands
-  (evil-leader/set-key "n" 'highlight-symbol-prev)
-  (evil-leader/set-key "m" 'highlight-symbol-next)
+  ;; evil commands
+  (evil-leader/set-key "n" 'evil-search-word-backward)
+  (evil-leader/set-key "m" 'evil-search-word-forward)
   ;; web-mode commands
   (evil-leader/set-key "r w" 'web-mode)
   (evil-leader/set-key "a k" 'web-mode-attribute-kill)
@@ -555,7 +554,7 @@
   :hook ((c-mode         ; clangd
           c-or-c++-mode  ; clangd
           java-mode      ; eclipse-jdtls
-          js-mode        ; typescript-language-server
+          ;; js-mode        ; typescript-language-server
           python-mode    ; pyls
           dart-mode      ; dart analysis server
           ) . lsp)
@@ -576,9 +575,10 @@
   :diminish
   :hook (prog-mode . company-mode)
   :config
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.1
+  (setq company-minimum-prefix-length 2
+        company-idle-delay 0
         company-selection-wrap-around t
+        company-dabbrev-downcase nil
         company-tooltip-align-annotations t
         company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
                             company-echo-metadata-frontend))
@@ -594,11 +594,8 @@
     (define-key org-mode-map (kbd "C-<tab>") nil))
   (use-package org-bullets :hook (org-mode . org-bullets-mode)))
 
-(use-package dotenv-mode
-  :mode (("\\.env\\'" . dotenv-mode)))
-
-(use-package markdown-mode
-  :hook (markdown-mode . visual-line-mode))
+(use-package es6-snippets
+  :load-path "~/workspace/CodyReichert/es6-snippets")
 
 (use-package yasnippet-snippets
   :config
@@ -614,18 +611,24 @@
                   (when (equal my-company-point (point))
                     (yas-expand)))))
 
-(use-package json-mode :ensure t)
 (use-package yaml-mode :ensure t)
 (use-package csv-mode :ensure t)
+
+(use-package dotenv-mode
+  :mode (("\\.env\\'" . dotenv-mode)
+         ("\\.env.sample\\'" . dotenv-mode)))
+
+(use-package markdown-mode
+  :hook (markdown-mode . visual-line-mode))
 
 (use-package wp-readme
   :load-path "~/workspace/CodyReichert/wp-readme-mode")
 
 (use-package add-node-modules-path
   :ensure t
-  :config
-  (eval-after-load 'web-mode
-    '(add-hook 'web-mode-hook 'add-node-modules-path)))
+  :hook ((web-mode . add-node-modules-path)
+         (markdown-mode . add-node-modules-path)
+         (json-mode . add-node-modules-path)))
 
 (use-package flowmacs
   :load-path "~/workspace/CodyReichert/flowmacs"
@@ -646,17 +649,24 @@
 
 (use-package prettier-js
   :ensure t
-  :config
-  (eval-after-load 'web-mode
-    '(add-hook 'web-mode-hook 'prettier-js-mode)))
+  :hook ((web-mode . prettier-js-mode)
+         (markdown-mode . prettier-js-mode)
+         (json-mode . prettier-js-mode)))
+
+(use-package emmet-mode
+  :ensure t
+  :hook ((html-mode . emmet-mode)
+         (css-mode . emmet-mode)
+         (web-mode . emmet-mode))
+  :config (setq emmet-expand-jsx-className? t))
 
 (use-package web-mode
   :ensure t
   :after (add-node-modules-path)
-  :mode (("\\.jsx?$" . web-mode)
+  :mode (("\\.jsx$" . web-mode)
+         ("\\.js$" . web-mode)
          ("\\.php$" . web-mode)
-         ("\\.tsx?\\'" . web-mode)
-         ("\\.html?\\'" . web-mode))
+         ("\\.html$" . web-mode))
   :custom
   (web-mode-css-indent-offset 4)
   (web-mode-code-indent-offset 4)
@@ -677,13 +687,6 @@
   :ensure t
   :hook haskell-mode)
 
-(use-package emmet-mode
-  :hook ((html-mode . emmet-mode)
-         (css-mode . emmet-mode)
-         (js-mode . emmet-mode)
-         (web-mode . emmet-mode))
-  :config (setq emmet-expand-jsx-className? t))
-
 ;; Miscellaneous
 
 (use-package diminish
@@ -698,6 +701,7 @@
 
 (use-package exec-path-from-shell
   :config (when (memq window-system '(mac ns x))
+            (setq exec-path-from-shell-arguments '("-c"))
             (exec-path-from-shell-initialize)))
 
 (provide 'init)
