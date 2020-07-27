@@ -479,35 +479,59 @@
   (global-evil-leader-mode 1)
   (setq evil-leader/in-all-states t)
   (evil-leader/set-leader "SPC")
+
+  ; global
   (evil-leader/set-key "j" 'Control-X-prefix)
-  (evil-leader/set-key "f" 'projectile-find-file)
   (evil-leader/set-key "w" 'save-buffer)
-  (evil-leader/set-key "k" 'kill-this-buffer)
   (evil-leader/set-key "b" 'ivy-switch-buffer)
-  (evil-leader/set-key "v" 'er/expand-region)
+  (evil-leader/set-key "f" 'projectile-find-file)
   (evil-leader/set-key "g" 'helm-git-grep)
-  ;; Flowmacs commands
-  (evil-leader/set-key "j \\" 'flowmacs/flow-pretty-status)
-  (evil-leader/set-key "j RET" 'flowmacs/flow-status)
-  (evil-leader/set-key "j d" 'flowmacs/jump-to-def)
-  (evil-leader/set-key "j r" 'flowmacs/find-refs)
-  (evil-leader/set-key "j s" 'flowmacs/suggest-types)
-  (evil-leader/set-key "j t" 'flowmacs/type-at-pos)
-  ;; ace-window commands
-  (evil-leader/set-key "p" 'ace-window)
   (evil-leader/set-key "o" 'aw-flip-window)
-  (evil-leader/set-key "i" 'ace-swap-window)
-  ;; evil commands
-  (evil-leader/set-key "n" 'evil-search-word-backward)
-  (evil-leader/set-key "m" 'evil-search-word-forward)
-  ;; web-mode commands
-  (evil-leader/set-key "r w" 'web-mode)
-  (evil-leader/set-key "a k" 'web-mode-attribute-kill)
-  (evil-leader/set-key "e w" 'web-mode-element-wrap)
-  (evil-leader/set-key "e r" 'web-mode-element-rename)
-  (evil-leader/set-key "e v" 'web-mode-element-vanish)
+  (evil-leader/set-key "k"
+    '(lambda ()
+       (interactive)
+       (kill-this-buffer)
+       (previous-buffer)))
+
+  ; flycheck-*
   (evil-leader/set-key "e n" 'flycheck-next-error)
-  (evil-leader/set-key "e p" 'flycheck-previous-error))
+  (evil-leader/set-key "e p" 'flycheck-previous-error)
+
+  ; flowmacs/*
+  (evil-leader/set-key "j r" 'flowmacs-mode)
+  (evil-leader/set-key "j f" 'flowmacs/find-refs)
+  (evil-leader/set-key "j t" 'flowmacs/type-at-pos)
+  (evil-leader/set-key "j d" 'flowmacs/jump-to-def)
+  (evil-leader/set-key "j s" 'flowmacs/suggest-types)
+  (evil-leader/set-key "j RET" 'flowmacs/status)
+
+  ; web-mode-*
+  (evil-leader/set-key "r r" 'web-mode)
+  (evil-leader/set-key "r a k" 'web-mode-attribute-kill)
+  (evil-leader/set-key "r a t" 'web-mode-attribute-transpose)
+  (evil-leader/set-key "r a s" 'web-mode-attribute-select)
+  (evil-leader/set-key "r a k" 'web-mode-attribute-kill)
+  (evil-leader/set-key "r a t" 'web-mode-attribute-transpose)
+  (evil-leader/set-key "r a s" 'web-mode-attribute-select)
+  (evil-leader/set-key "r t a" 'web-mode-tag-attributes-sort)
+  (evil-leader/set-key "r t m" 'web-mode-tag-match)
+  (evil-leader/set-key "r t s" 'web-mode-tag-select)
+  (evil-leader/set-key "r e w" 'web-mode-element-wrap)
+  (evil-leader/set-key "r e c" 'web-mode-element-clone)
+  (evil-leader/set-key "r e r" 'web-mode-element-rename)
+  (evil-leader/set-key "r e v" 'web-mode-element-vanish)
+  (evil-leader/set-key "r e u" 'web-mode-element-parent)
+
+  ;; evil commands
+  ;; (evil-leader/set-key "n" 'evil-search-word-backward)
+  ;; (evil-leader/set-key "m" 'evil-search-word-forward)
+  ;;
+  ;; web-mode (legacy)
+  ;; (evil-leader/set-key "a k" 'web-mode-attribute-kill)
+  ;; (evil-leader/set-key "e w" 'web-mode-element-wrap)
+  ;; (evil-leader/set-key "e r" 'web-mode-element-rename)
+  ;; (evil-leader/set-key "e v" 'web-mode-element-vanish)
+  )
 
 (use-package haskell-mode
   :ensure t
@@ -629,6 +653,21 @@
 (use-package wp-readme
   :load-path "~/workspace/CodyReichert/wp-readme-mode")
 
+(use-package web-mode
+  :ensure t
+  :mode (("\\.jsx$" . web-mode)
+         ("\\.js$" . web-mode)
+         ("\\.php$" . web-mode)
+         ("\\.html$" . web-mode))
+  :custom
+  (web-mode-css-indent-offset 4)
+  (web-mode-code-indent-offset 4)
+  (web-mode-markup-indent-offset 4)
+  (web-mode-auto-quote-style nil)
+  (web-mode-enable-current-column-highlight t)
+  (web-mode-enable-current-element-highlight t)
+  (web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'"))))
+
 (use-package add-node-modules-path
   :ensure t
   :hook ((web-mode . add-node-modules-path)
@@ -664,22 +703,6 @@
          (css-mode . emmet-mode)
          (web-mode . emmet-mode))
   :config (setq emmet-expand-jsx-className? t))
-
-(use-package web-mode
-  :ensure t
-  :after (add-node-modules-path)
-  :mode (("\\.jsx$" . web-mode)
-         ("\\.js$" . web-mode)
-         ("\\.php$" . web-mode)
-         ("\\.html$" . web-mode))
-  :custom
-  (web-mode-css-indent-offset 4)
-  (web-mode-code-indent-offset 4)
-  (web-mode-markup-indent-offset 4)
-  (web-mode-auto-quote-style nil)
-  (web-mode-enable-current-column-highlight t)
-  (web-mode-enable-current-element-highlight t)
-  (web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'"))))
 
 (use-package flycheck
   :ensure t
