@@ -1,9 +1,7 @@
 <div align="center">
   <h1>dotfiles</h1>
   <i>
-    
-   by [@CodyReichert](https://codys.club)
-    
+    by <a href="https://codys.club" target="_blank">@CodyReichert</a>
   </i>
 </div>
 
@@ -11,14 +9,13 @@ This repo constains configuration files for many of the programs I use
 daily. My desktop and laptop both run Arch Linux, but all of these
 should work on any Linux machine.
 
-_\* Some tweaks may be required._
+_\* Tweaks possibly required._
 
 # Installation and usage
 
-The hierarchy and structure of the files in this repo are designed to
-be installed by the program [GNU
-Stow](https://www.gnu.org/software/stow/). You can run `stow` from the
-top-level folder and install one or many configuration files.
+The hierarchy of the files in this repo are designed to be installed by
+the program [GNUStow](https://www.gnu.org/software/stow/). You can run
+`stow` from the top-level folder and install one or many configuration files.
 
 To install a configuration file or folder:
 
@@ -29,8 +26,8 @@ $ stow emacs
 # Software and scripts
 
 Although I don't use _all_ of these programs anymore, I thought it
-would be useful to keep them around to help people find examples of
-specific configuration options.
+would be useful to keep them around to help people searching for specific
+configuration options find an example, as I did many, many times.
 
 Here is a list of software this covers:
 
@@ -43,16 +40,16 @@ Here is a list of software this covers:
 - [xmodmap](http://www.x.org/archive/X11R6.8.2/doc/xmodmap.1.html)
 - [xsession](https://wiki.debian.org/Xsession)
 
-## Miscellaneous
-
-- [octoprint](https://octoprint.org/)
-- [scripts](http://github.com/CodyReichert/dotfiles/scripts)
-
 ## Development
 
 - [eslint](http://eslint.org/)
 - [git](http://git-scm.com/)
 - [sbcl](http://www.sbcl.org/)
+
+## Miscellaneous
+
+- [octoprint](https://octoprint.org/)
+- [scripts](http://github.com/CodyReichert/dotfiles/scripts)
 
 ## Music
 
