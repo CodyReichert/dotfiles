@@ -35,12 +35,13 @@
 [plugins]
 [profiles]
   [[default]]
-    background_color = "#1e1f29"
+    background_color = "#212121"
+    cursor_color = "#ff00ff"
+    foreground_color = "#fcfcfc"
+    palette = "#2e3436:#ff0945:#1aff81:#fff64a:#2bf1ff:#7b68ee:#98f4ff:#d3d7cf:#555753:#ff0945:#1aff81:#fff64a:#2bf1ff:#7b68ee:#98f4ff:#eeeeec"
+    background_image = None
     copy_on_selection = True
-    cursor_color = "#aaaaaa"
     font = Source Code Pro 12
-    foreground_color = "#f8f8f2"
-    palette = "#44475a:#ff5555:#50fa7b:#f1fa8c:#8be9fd:#bd93f9:#ff79c6:#94a3a5:#000000:#ff5555:#50fa7b:#f1fa8c:#8be9fd:#bd93f9:#ff79c6:#ffffff"
     scroll_on_output = True
     scrollback_infinite = True
     show_titlebar = False
