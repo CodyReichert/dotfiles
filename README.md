@@ -13,7 +13,7 @@ should work on any Linux machine.
 
 _\* Some tweaks may be required._
 
-### Installation and usage
+# Installation and usage
 
 The hierarchy and structure of the files in this repo are designed to
 be installed by the program [GNU
@@ -26,7 +26,7 @@ To install a configuration file or folder:
 $ stow emacs
 ```
 
-### Software and scripts
+# Software and scripts
 
 Although I don't use _all_ of these programs anymore, I thought it
 would be useful to keep them around to help people find examples of
@@ -34,7 +34,7 @@ specific configuration options.
 
 Here is a list of software this covers:
 
-#### Desktop / X server
+## Desktop / X server
 
 - [fehbg](http://feh.finalrewind.org/)
 - [stumpwm](https://stumpwm.github.io/)
@@ -43,24 +43,24 @@ Here is a list of software this covers:
 - [xmodmap](http://www.x.org/archive/X11R6.8.2/doc/xmodmap.1.html)
 - [xsession](https://wiki.debian.org/Xsession)
 
-#### Miscellaneous
+## Miscellaneous
 
 - [octoprint](https://octoprint.org/)
 - [scripts](http://github.com/CodyReichert/dotfiles/scripts)
 
-### Development
+## Development
 
 - [eslint](http://eslint.org/)
 - [git](http://git-scm.com/)
 - [sbcl](http://www.sbcl.org/)
 
-#### Music
+## Music
 
 - [beets](http://beets.radbox.org/)
 - [mpd](http://www.musicpd.org/)
 - [ncmpcpp](http://ncmpcpp.rybczak.net/)
 
-#### Terminal
+## Terminal
 
 - [bash](https://savannah.gnu.org/git/?group=bash)
 - [bash-git-prompt](https://github.com/magicmonty/bash-git-prompt)
@@ -69,12 +69,12 @@ Here is a list of software this covers:
 - [terminator](https://launchpad.net/terminator)
 - [Z-shell](http://www.zsh.org/)
 
-#### Text editor
+## Text editor
 
 - [emacs](https://www.gnu.org/software/emacs/)
 - [vim](http://www.vim.org/)
 
-### License
+# License
 
 MIT
 
