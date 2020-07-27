@@ -25,9 +25,9 @@ $ stow emacs
 
 # Software and scripts
 
-Although I don't use _all_ of these programs anymore, I thought it
-would be useful to keep them around to help people searching for specific
-configuration options find an example, as I did many, many times.
+Although I don't use _all_ of these programs anymore, I find it useful
+to keep them around to help myself (and others) searching for specific
+configuration options find an example.
 
 Here is a list of software this covers:
 
@@ -77,4 +77,4 @@ MIT
 
 ---
 
-> Let's connect: &nbsp;&middot;&nbsp; [Medium](http://medium.com/@CodyReichert) &nbsp;&middot;&nbsp; [GitHub](https://github.com/assertible) &nbsp;&middot;&nbsp; [Twitter](https://twitter.com/CodyReichert)
+> Let's connect: [codys.club](https://codys.club) &nbsp;&middot;&nbsp; [Medium](http://medium.com/@CodyReichert) &nbsp;&middot;&nbsp; [GitHub](https://github.com/CodyReichert) &nbsp;&middot;&nbsp; [Twitter](https://twitter.com/CodyReichert)
