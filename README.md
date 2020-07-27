@@ -43,7 +43,6 @@ Here is a list of software this covers:
 
 - [octoprint](https://octoprint.org/)
 - [scripts](http://github.com/CodyReichert/dotfiles/scripts)
-- [vimperator](http://www.vimperator.org/vimperator)
 
 ### Development
 

@@ -1,4 +1,0 @@
-let configpath = '/home/cody/.cvimrc'
-set localconfig
-
-set smoothscroll

@@ -1,9 +1,3 @@
-[submodule "vimperator/.vimperator/colors"]
-	path = vimperator/.vimperator/colors
-	url = https://github.com/vimpr/vimperator-colors
-[submodule "vimperator/.vimperator/plugin/smoozy"]
-	path = vimperator/.vimperator/plugin/smoozy
-	url = git://github.com/yuttie/smoozy.js
 [submodule "stumpwm/.stumpwm.d/contrib"]
 	path = stumpwm/.stumpwm.d/contrib
 	url = git@github.com:stumpwm/stumpwm-contrib
