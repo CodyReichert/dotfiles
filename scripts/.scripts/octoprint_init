@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+# Example of starting octoprint
+#   (These services are auto-enabled)
+# systemctl start octoprint
+# systemctl start octoprint2
+
+ngrok start --all --log=stdout > ngrok.log &
+
+INPUT_UVC_SETTINGS='input_uvc.so -n -r 960x720 -f 15 -d'
+OUTPUT_HTTP_SETTINGS='output_http.so -w ./www -p'
+
+CAM_ONE=/dev/video2
+CAM_ONE_PORT=5001
+
+CAM_TWO=/dev/video0
+CAM_TWO_PORT=5006
+
+# Start first webcam stream
+mjpg_streamer -b \
+              -i "$INPUT_UVC_SETTINGS $CAM_ONE" \
+              -o "$OUTPUT_HTTP_SETTINGS $CAM_ONE_PORT" &
+
+# Start second webcam stream
+mjpg_streamer -b \
+              -i "$INPUT_UVC_SETTINGS $CAM_TWO" \
+              -o "$OUTPUT_HTTP_SETTINGS $CAM_TWO_PORT" &
