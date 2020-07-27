@@ -1,4 +1,3 @@
-
 # Scripts that should be ignored
 scripts/.scripts/.mailauth
 scripts/.scripts/mailcount
@@ -25,3 +24,6 @@ mpd.log
 sticker.sql
 
 .\#.*
+
+# Terminator plugins
+terminator/**/plugins
