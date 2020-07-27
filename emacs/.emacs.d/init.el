@@ -228,8 +228,25 @@
 ;; GUI enhancements
 
 (use-package doom-themes
-  ;; :custom-face (cursor ((t (:background "#eeaf2c"))))
-  :config (load-theme 'doom-vibrant t))
+  :custom-face (cursor ((t (:background "#ff00ff"))))
+  :config (load-theme 'doom-Iosvkem t))
+
+(use-package doom-modeline
+  :defer 2
+  :config
+  (column-number-mode)
+  (size-indication-mode)
+  (setq doom-modeline-buffer-file-name-style 'auto
+        doom-modeline-major-mode-color-icon nil
+        doom-modeline-buffer-encoding nil
+        doom-modeline-env-version t
+        doom-modeline-height 15
+        doom-modeline-lsp t)
+
+  :init
+  (doom-modeline-mode)
+  :hook
+  (after-init . doom-modeline-mode))
 
 (use-package solaire-mode
   :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
@@ -245,18 +262,6 @@
         dashboard-banner-logo-title "Dangerously powerful"
         dashboard-items nil
         dashboard-set-footer nil))
-
-(use-package smart-mode-line-atom-one-dark-theme)
-
-(use-package smart-mode-line
-  :config
-  (when (member "Source Code Pro" (font-family-list))
-    (progn
-      (set-face-attribute 'mode-line nil :height 110 :font "Source Code Pro")
-      (set-face-attribute 'mode-line-inactive nil :height 110 :font "Source Code Pro")))
-  (setq sml/no-confirm-load-theme t
-        sml/theme 'atom-one-dark)
-  (sml/setup))
 
 (use-package all-the-icons
   :config (setq all-the-icons-scale-factor 1.0))
