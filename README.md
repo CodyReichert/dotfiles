@@ -49,7 +49,7 @@ Here is a list of software this covers:
 ## Miscellaneous
 
 - [octoprint](https://octoprint.org/)
-- [scripts](http://github.com/CodyReichert/dotfiles/scripts)
+- [scripts](https://github.com/CodyReichert/dotfiles/tree/master/scripts/.scripts)
 
 ## Music
 
@@ -62,7 +62,7 @@ Here is a list of software this covers:
 - [bash](https://savannah.gnu.org/git/?group=bash)
 - [bash-git-prompt](https://github.com/magicmonty/bash-git-prompt)
 - [htop](http://hisham.hm/htop/)
-- [inputrc](http://github.com/dotfiles/inputrc)
+- [inputrc](http://www.linuxfromscratch.org/blfs/view/5.1/postlfs/inputrc.html)
 - [terminator](https://launchpad.net/terminator)
 - [Z-shell](http://www.zsh.org/)
 
