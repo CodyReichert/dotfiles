@@ -1,6 +1,10 @@
 <div align="center">
   <h1>dotfiles</h1>
-  <i>by [@CodyReichert](https://codys.club)</i>
+  <i>
+    
+   by [@CodyReichert](https://codys.club)
+    
+  </i>
 </div>
 
 This repo constains configuration files for many of the programs I use
