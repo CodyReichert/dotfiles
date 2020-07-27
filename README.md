@@ -80,4 +80,4 @@ MIT
 
 ---
 
-> Let's connect: &nbsp;&middot;&nbsp; > [Medium](http://medium.com/@CodyReichert) &nbsp;&middot;&nbsp; > [GitHub](https://github.com/assertible) &nbsp;&middot;&nbsp; > [Twitter](https://twitter.com/CodyReichert)
+> Let's connect: &nbsp;&middot;&nbsp; [Medium](http://medium.com/@CodyReichert) &nbsp;&middot;&nbsp; [GitHub](https://github.com/assertible) &nbsp;&middot;&nbsp; [Twitter](https://twitter.com/CodyReichert)
