@@ -487,6 +487,7 @@
   (evil-leader/set-key "f" 'projectile-find-file)
   (evil-leader/set-key "g" 'helm-git-grep)
   (evil-leader/set-key "o" 'aw-flip-window)
+  (evil-leader/set-key "i" 'window-swap-states)
   (evil-leader/set-key "k"
     '(lambda ()
        (interactive)
