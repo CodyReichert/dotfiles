@@ -658,6 +658,7 @@
   :ensure t
   :mode (("\\.jsx$" . web-mode)
          ("\\.js$" . web-mode)
+         ("\\.json$" . web-mode)
          ("\\.php$" . web-mode)
          ("\\.html$" . web-mode))
   :custom
@@ -667,7 +668,14 @@
   (web-mode-auto-quote-style nil)
   (web-mode-enable-current-column-highlight t)
   (web-mode-enable-current-element-highlight t)
-  (web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'"))))
+  (web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+  :config
+  (defun cody/set-web-mode-indent-width ()
+    (message web-mode-content-type)
+    (if (s-equals? web-mode-content-type "json")
+        (setq web-mode-code-indent-offset 2)
+      (setq web-mode-code-indent-offset 4)))
+  (add-hook 'web-mode-hook 'cody/set-web-mode-indent-width))
 
 (use-package add-node-modules-path
   :ensure t
