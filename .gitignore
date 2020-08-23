@@ -15,6 +15,12 @@ emacs/.emacs.d/projectile.cache
 emacs/.emacs.d/*.dat
 emacs/.emacs.d/eshell/history
 emacs/.emacs.d/eshell/lastdir
+emacs/.emacs.d/to-be-dumped.el
+emacs/.emacs.d/recentf
+emacs/.emacs.d/emojis
+emacs/.emacs.d/transient
+emacs/.emacs.d/var
+emacs/.emacs.d/places
 
 # Files written by MPD that should be ignored
 mpd/.mpd/database
