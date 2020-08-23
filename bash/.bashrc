@@ -39,8 +39,10 @@ export ALTERNATE_EDITOR=""
 export GIT_EDITOR=/bin/true
 alias e='emacsclient -c'
 
-# Default browser
-export BROWSER="google-chrome-beta"
+# Browser
+export BROWSER="google-chrome-unstable"
+alias chrome="google-chrome-unstable"
+alias chrome-beta="google-chrome-beta"
 
 # ls aliases
 alias ls='ls --color=auto'
