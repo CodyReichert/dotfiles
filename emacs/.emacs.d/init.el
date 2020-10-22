@@ -60,6 +60,8 @@
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (tool-bar-mode -1)
   (menu-bar-mode -1)
+  ;; Store backup/autosave files outside of the project
+  (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
   (setq-default line-spacing 3
                 indent-tabs-mode nil
                 tab-width cody/indent-width)
