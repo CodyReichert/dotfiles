@@ -39,10 +39,8 @@ export ALTERNATE_EDITOR=""
 export GIT_EDITOR=/bin/true
 alias e='emacsclient -c'
 
-# Browser
+# Default browser
 export BROWSER="google-chrome-unstable"
-alias chrome="google-chrome-unstable"
-alias chrome-beta="google-chrome-beta"
 
 # ls aliases
 alias ls='ls --color=auto'
@@ -52,6 +50,7 @@ alias l1='ls -1'
 
 # utility aliases
 alias c='clear'
+alias grep='grep -i'
 
 # pacman
 alias pacman='sudo pacman'
@@ -78,7 +77,6 @@ alias winpid="xprop _NET_WM_PID | cut -d' ' -f3"
 
 # applications
 alias dc='docker-compose'
-alias cura='~/apps/cura/cura-4.4.1.AppImage &'
 alias mjpg_start='mjpg_streamer -i "input_uvc.so -n -r VGA -f 5 -q 50" -o "output_http.so -w ./www -p 5001" &'
 
 # Path
@@ -88,7 +86,6 @@ PATH=$PATH:$HOME/.scripts/
 PATH=$PATH:$HOME/.qi/bin/
 PATH=$PATH:$HOME/.local/bin/
 PATH=$PATH:$HOME/apps/shift/
-PATH=$PATH:$HOME/apps/cura/
 PATH=$PATH:$HOME/workspace/CodyReichert/pgdevdb
 
 export LC_ALL="en_US.UTF-8"
