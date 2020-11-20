@@ -1,23 +1,34 @@
-// an example to create a new mapping `ctrl-y`
-mapkey("<Ctrl-b>", "Show me the money", function () {
-  Front.showPopup(":moneybag:");
-});
+/**
+ * SurfingKeys
+ *
+ * Add vim-like keyboard controls to Chrome.
+ *
+ * API and usage information:
+ * https://github.com/brookhong/Surfingkeys/
+ */
 
-// an example to replace `T` with `gt`, click `Default mappings` to see how `T` works.
-map("gt", "T");
+map("J", "E") // Go one tab left
+map("K", "R") // Go one tab right
 
-map("J", "E");
-map("K", "R");
+map("H", "S") // History back
+map("L", "D") // History forward
 
-map("H", "S");
-map("L", "D");
-
-// an example to remove mapkey `Ctrl-i`
-unmap("<Ctrl-i>");
+// Unmap some keys on Gmail
+unmap("e", /mail.google.com/)
+unmap("u", /mail.google.com/)
+unmap("y", /mail.google.com/)
+unmap("x", /mail.google.com/)
+unmap("l", /mail.google.com/)
+unmap("I", /mail.google.com/)
+unmap("<Ctrl-l>", /mail.google.com/)
+iunmap("<Ctrl-i>", /mail.google.com/)
 
 // Left align hints
-settings.hintAlign = "left";
-Hints.characters = "hjklasdfg";
+settings.hintAlign = "left"
+Hints.characters = "asdfghjkl"
+
+// More emoji
+settings.startToShowEmoji = 1
 
 // set theme
 settings.theme = `
@@ -56,5 +67,4 @@ settings.theme = `
 }
 #sk_status, #sk_find {
     font-size: 20pt;
-}`;
-// click `Save` button to make above settings to take effect.
+}`
