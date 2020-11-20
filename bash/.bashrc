@@ -9,11 +9,11 @@
 HISTCONTROL=ignoreboth
 HISTSIZE=100000
 HISTFILESIZE=100000
+PROMPT_COMMAND="history -a; $PROMP_COMMAND"
+
 shopt -s histappend
 shopt -s histreedit
 shopt -s histverify
-PROMPT_COMMAND="history -a; $PROMP_COMMAND"
-
 shopt -s autocd
 shopt -s checkwinsize
 
@@ -21,8 +21,11 @@ source ~/.bash_git
 
 export GIT_PS1_SHOWDIRTYSTATE=1
 
+# Set the prompt style to:
+#
+#  cody@desktop ~/dir (master *)
+#  λ
 export PS1="\[\e[00;37m\]\n\u@\h \w\[\033[32m\]\$(__git_ps1)\n\[\e[0m\]\[\e[00;31m\]λ \[\e[0m\]"
-
 
 if [ "$PS1" ];
 then
@@ -35,7 +38,7 @@ fi
 
 # Default editor
 export EDITOR="emacs"
-export ALTERNATE_EDITOR=""
+export ALTERNATE_EDITOR="vim"
 export GIT_EDITOR=/bin/true
 alias e='emacsclient -c'
 
@@ -51,31 +54,12 @@ alias l1='ls -1'
 # utility aliases
 alias c='clear'
 alias grep='grep -i'
-
-# pacman
 alias pacman='sudo pacman'
-alias pacdep='sudo pacman -Si'
-alias packer='apacman'
-alias y='yaourt'
-
-# aura
 alias aura='sudo aura --unsuppress'
-
-# git
-alias gpr='git pull --rebase'
-alias stashsave='git stash save'
-alias stashpop='git stash pop'
-alias sgpr='stashsave && gpr origin master && stashpop'
-
-# other
+alias g='git'
 alias tree='tree -I ".git"'
 alias untar='tar -zxvf'
-alias myxrandr='xrandr --output VGA-1 --auto --left-of HDMI-1'
-alias beetimport='beet import -i /media/cody/ASPEN/music/untagged'
-alias aspen='mount /dev/sdc1'
 alias winpid="xprop _NET_WM_PID | cut -d' ' -f3"
-
-# applications
 alias dc='docker-compose'
 alias mjpg_start='mjpg_streamer -i "input_uvc.so -n -r VGA -f 5 -q 50" -o "output_http.so -w ./www -p 5001" &'
 
@@ -96,10 +80,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-function retsmd() {
-    docker kill retsmd
-    docker run --detach --rm --net=host -e 8080:8080 --name=retsmd simplyrets/retsmd:latest
-}
+# Automatically load ssh-agent on login
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+  eval `ssh-agent`
+  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+ssh-add -l > /dev/null || ssh-add
+
 ###-begin-npm-completion-###
 #
 # npm command completion script
@@ -170,11 +158,3 @@ then
     unfunction preexec
     PS1='$ '
 fi
-
-# Automatically load ssh-agent on login
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-  eval `ssh-agent`
-  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-fi
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-ssh-add -l > /dev/null || ssh-add
