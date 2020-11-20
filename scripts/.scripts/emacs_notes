@@ -1,0 +1,3 @@
+#!/bin/bash
+
+emacsclient -c -F "'(name . \"emacs_notes\"))" /home/cody/workspace/notes/notes.md
