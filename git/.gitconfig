@@ -8,6 +8,9 @@
   s = status
   ss = stash push
   sp = stash pop
+  sl = stash list
+  p = push
+  lo = log --oneline
   l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [filter "lfs"]
   clean = git-lfs clean -- %f
