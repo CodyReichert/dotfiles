@@ -1,0 +1,16 @@
+#!/bin/bash
+
+app='google-chrome-beta'
+
+window_id=$(xdotool search google-chrome-beta | tail -n 1)
+active_win_id=`xprop -root | grep '^_NET_ACTIVE_W' | awk -F'# 0x' '{print $2}' | awk -F', ' '{print $1}'`
+
+if [ "$active_win_id" == "0" ]; then
+    exit 0
+fi
+
+if [ -z "$window_id" ]; then
+    google-chrome-beta &
+else
+    xdotool windowactivate $window_id
+fi
