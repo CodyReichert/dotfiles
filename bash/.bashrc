@@ -38,7 +38,7 @@ fi
 
 # Default editor
 export EDITOR="emacs"
-export ALTERNATE_EDITOR="vim"
+export ALTERNATE_EDITOR=""
 export GIT_EDITOR=/bin/true
 alias e='emacsclient -c'
 
@@ -171,3 +171,5 @@ then
     unfunction preexec
     PS1='$ '
 fi
+
+zsh
