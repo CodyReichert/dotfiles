@@ -115,7 +115,8 @@
   :ensure nil
   :config
   (setq confirm-kill-processes nil
-        make-backup-files nil))
+        make-backup-files nil
+        create-lockfiles nil))
 
 (use-package autorevert
   :ensure nil
