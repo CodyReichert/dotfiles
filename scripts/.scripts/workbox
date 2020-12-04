@@ -1,16 +1,24 @@
 #!/bin/bash
+#
+# Usage:
+#   $ workbox [application]
+#
+# Calling this script will do one of three things:
+#   1. Focus $application window if it exists.
+#   2. Minimize $application window if it is already focused.
+#   3. Launch $application if no window exists.
 
-app='google-chrome-beta'
-
-window_id=$(xdotool search google-chrome-beta | tail -n 1)
-active_win_id=`xprop -root | grep '^_NET_ACTIVE_W' | awk -F'# 0x' '{print $2}' | awk -F', ' '{print $1}'`
-
-if [ "$active_win_id" == "0" ]; then
-    exit 0
-fi
+application=$1
+window_id=$(xdotool search $application | tail -n 1)
+active_win_id=$(xdotool getactivewindow)
 
 if [ -z "$window_id" ]; then
-    google-chrome-beta &
+    # Launch $application if no windows exist
+    ($application) &
+elif [ "$active_win_id" == "$window_id" ]; then
+    # Minimize $application window
+    xdotool windowminimize $window_id
 else
+    # Focus $application window
     xdotool windowactivate $window_id
 fi
