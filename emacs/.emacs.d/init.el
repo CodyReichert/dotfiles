@@ -690,15 +690,18 @@
   :load-path "~/workspace/CodyReichert/flowmacs"
   :config
   ;; Ensure `flowmacs' uses the project local flow binary
-  (defun cody/flowmacs-local-flow ()
+  (defun cody/flowmacs-local-flow (&optional start)
     (let* ((root (locate-dominating-file
-                  (or (buffer-file-name) default-directory)
+                  (or start (buffer-file-name) default-directory)
                   "node_modules"))
            (flow (and root (expand-file-name
                             "node_modules/.bin/flow"
                             root))))
-      (when (and flow (file-executable-p flow))
-        (setq-local flowmacs/+flow+ flow))))
+      (message root)
+      (message flow)
+      (if (and flow (file-executable-p flow))
+          (setq-local flowmacs/+flow+ flow)
+        (cody/flowmacs-local-flow (file-name-directory (directory-file-name root))))))
   (add-hook 'flowmacs-mode-hook 'cody/flowmacs-local-flow)
   (eval-after-load 'web-mode
     '(add-hook 'web-mode-hook 'flowmacs-mode)))
