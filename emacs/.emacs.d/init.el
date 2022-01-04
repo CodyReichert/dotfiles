@@ -60,6 +60,7 @@
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (tool-bar-mode -1)
   (menu-bar-mode -1)
+  (set-fill-column 90)
   ;; Store backup/autosave files outside of the project
   (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
   (setq-default line-spacing 3
@@ -230,9 +231,12 @@
 
 ;; GUI enhancements
 
-(use-package doom-themes
+;; Alternative themes:
+;; - snazzy-theme
+;; - doom-themes/doom-Iosvkem
+(use-package snazzy-theme
   :custom-face (cursor ((t (:background "#ff00ff"))))
-  :config (load-theme 'doom-Iosvkem t))
+  :config (load-theme 'snazzy t))
 
 (use-package doom-modeline
   :defer 2
@@ -697,8 +701,6 @@
            (flow (and root (expand-file-name
                             "node_modules/.bin/flow"
                             root))))
-      (message root)
-      (message flow)
       (if (and flow (file-executable-p flow))
           (setq-local flowmacs/+flow+ flow)
         (cody/flowmacs-local-flow (file-name-directory (directory-file-name root))))))
@@ -710,7 +712,8 @@
   :ensure t
   :hook ((web-mode . prettier-js-mode)
          (markdown-mode . prettier-js-mode)
-         (json-mode . prettier-js-mode)))
+         (json-mode . prettier-js-mode))
+  :config (add-node-modules-path))
 
 (use-package emmet-mode
   :ensure t
