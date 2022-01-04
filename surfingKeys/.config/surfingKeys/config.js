@@ -7,6 +7,8 @@
  * https://github.com/brookhong/Surfingkeys/
  */
 
+const { map, unmap, Hints } = api
+
 map("J", "E") // Go one tab left
 map("K", "R") // Go one tab right
 
@@ -15,7 +17,13 @@ map("L", "D") // History forward
 
 map("F", "/") // Use SurfingKeys search
 
-// Unmap some keys on Gmail
+map('<Ctrl-i>', '<Alt-s>'); // Disable SurfingKeys on current site
+
+/**
+ * Unmap keyboard shortcuts
+ */
+unmap("i", /dashboard.stripe.com/)
+
 unmap("e", /mail.google.com/)
 unmap("u", /mail.google.com/)
 unmap("y", /mail.google.com/)
@@ -23,11 +31,12 @@ unmap("x", /mail.google.com/)
 unmap("l", /mail.google.com/)
 unmap("I", /mail.google.com/)
 unmap("<Ctrl-l>", /mail.google.com/)
-iunmap("<Ctrl-i>", /mail.google.com/)
+unmap("<Ctrl-i>", /mail.google.com/)
+
 
 // Hints
 settings.hintAlign = "left"
-Hints.characters = "asdfghjkl"
+Hints.setCharacters("asdfgiuop")
 Hints.style(`
     border: none;
     padding: 3px;
