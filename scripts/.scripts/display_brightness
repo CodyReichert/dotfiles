@@ -1,0 +1,32 @@
+#!/bin/bash
+
+Help()
+{
+   # Display Help
+   echo "Set the brightness of Display 1 and Display 2 simultaneously."
+   echo
+   echo "Syntax: display_brightness [-h] brightness"
+   echo "options:"
+   echo "h     Print this Help."
+   echo
+}
+
+
+while getopts ":h" option; do
+   case $option in
+      h) # display Help
+         Help
+         exit;;
+   esac
+done
+
+brightness=$1
+
+if [ -z "$brightness" ]
+then
+    echo "Error. No brightness specified"
+    exit 1
+else
+    ddcutil setvcp 10 ${brightness} --display 1
+    ddcutil setvcp 10 ${brightness} --display 2
+fi
