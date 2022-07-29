@@ -38,13 +38,14 @@ unmap("<Ctrl-i>", /mail.google.com/)
 settings.hintAlign = "left"
 Hints.setCharacters("asdfgiuop")
 Hints.style(`
-    border: none;
-    padding: 3px;
-    opacity: 0.9;
-    margin-bottom: 3px;
-    color: #ebdbb2;
-    background: #282828;
-    background-color: #282828;
+    font-family: SauceCodePro Nerd Font, Consolas, Menlo, monospace;
+    font-size: 11px;
+    padding: 4px;
+    border: 0px;
+    opacity: 0.8;
+    color: #f0edec;
+    background: initial;
+    background-color: #1A1C20;
 `)
 
 // More emoji
