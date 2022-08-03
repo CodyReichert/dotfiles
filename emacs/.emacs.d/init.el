@@ -66,6 +66,8 @@
   (setq-default line-spacing 3
                 indent-tabs-mode nil
                 tab-width cody/indent-width)
+  (defun disable-delete-trailing-whitespace ()
+    (remove-hook 'after-save-hook 'delete-trailing-whitespace))
   (defun sudo-find-file (file-name)
     "Like find file, but opens the file as root."
     (interactive "FSudo Find File: ")
