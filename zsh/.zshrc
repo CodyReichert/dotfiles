@@ -66,6 +66,7 @@ alias untar='tar -zxvf'
 alias winpid="xprop _NET_WM_PID | cut -d' ' -f3"
 alias dc='docker-compose'
 alias mjpg_start='mjpg_streamer -i "input_uvc.so -n -r VGA -f 5 -q 50" -o "output_http.so -w ./www -p 5001" &'
+alias sysu='systemctl --user'
 
 source $HOME/.local/bin/bashmarks.sh
 
