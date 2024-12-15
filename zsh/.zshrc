@@ -7,7 +7,7 @@ fi
 
 export ZSH=/home/cody/.oh-my-zsh
 ZSH_THEME="steeef"
-plugins=(git zshmarks emoji)
+plugins=(zsh-nvm git zshmarks emoji)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -37,8 +37,13 @@ alias e='emacsclient -c'
 # Default browser
 export BROWSER="google-chrome-unstable"
 
-# Aliases
+# Load NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Aliases
+alias h='history'
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
