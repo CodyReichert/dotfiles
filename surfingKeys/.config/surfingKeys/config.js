@@ -12,8 +12,8 @@ const { map, unmap, Hints } = api
 map("J", "E") // Go one tab left
 map("K", "R") // Go one tab right
 
-map("H", "S") // History back
-map("L", "D") // History forward
+map("h", "S") // History back
+map("l", "D") // History forward
 
 map("F", "/") // Use SurfingKeys search
 
@@ -24,11 +24,9 @@ map('<Ctrl-i>', '<Alt-s>'); // Disable SurfingKeys on current site
  */
 unmap("i", /dashboard.stripe.com/)
 
-unmap("e", /mail.google.com/)
 unmap("u", /mail.google.com/)
 unmap("y", /mail.google.com/)
 unmap("x", /mail.google.com/)
-unmap("l", /mail.google.com/)
 unmap("I", /mail.google.com/)
 unmap("<Ctrl-l>", /mail.google.com/)
 unmap("<Ctrl-i>", /mail.google.com/)
@@ -36,7 +34,7 @@ unmap("<Ctrl-i>", /mail.google.com/)
 
 // Hints
 settings.hintAlign = "left"
-Hints.setCharacters("asdfgiuop")
+Hints.setCharacters = "asdfgiuop"
 Hints.style(`
     font-family: SauceCodePro Nerd Font, Consolas, Menlo, monospace;
     font-size: 11px;
