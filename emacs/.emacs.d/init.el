@@ -322,6 +322,7 @@
   :init
   (setq evil-want-C-u-scroll t)
   (setq evil-shift-width cody/indent-width)
+  (setq-default evil-kill-on-visual-paste nil)
   :hook (after-init . evil-mode)
   :preface
   (defun cody/save-and-kill-this-buffer ()
