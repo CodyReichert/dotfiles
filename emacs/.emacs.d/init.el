@@ -61,6 +61,7 @@
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (set-fill-column 90)
+  (display-line-numbers-mode t)
   ;; Store backup/autosave files outside of the project
   (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
   (setq-default line-spacing 3
@@ -232,13 +233,19 @@
 ;;; Third-party Packages
 
 ;; GUI enhancements
-
-;; Alternative themes:
-;; - snazzy-theme
-;; - doom-themes/doom-Iosvkem
-(use-package snazzy-theme
+;; Load theme from modus-themes
+(use-package modus-themes
+  :ensure t
   :custom-face (cursor ((t (:background "#ff00ff"))))
-  :config (load-theme 'snazzy t))
+  :config
+  (setq modus-themes-italic-constructs t)
+  (setq modus-themes-bold-constructs t)
+
+  ;; F5 to toggle between light and dark theme
+  (setq modus-themes-to-toggle '(modus-operandi-tritanopia modus-vivendi))
+  (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
+
+  (load-theme 'modus-vivendi t))
 
 (use-package doom-modeline
   :defer 2
@@ -282,16 +289,16 @@
   :demand
   :init (setq centaur-tabs-set-bar 'over)
   :config
-  (centaur-tabs-mode +1)
-  (centaur-tabs-headline-match)
-  (setq centaur-tabs-set-modified-marker t
-        centaur-tabs-modified-marker " ● "
-        centaur-tabs-cycle-scope 'tabs
-        centaur-tabs-height 30
-        centaur-tabs-set-icons t
-        centaur-tabs-close-button " × ")
-  (when (member "Arial" (font-family-list))
-      (centaur-tabs-change-fonts "Arial" 130))
+  (centaur-tabs-mode t)
+  ;; (centaur-tabs-headline-match)
+  ;; (setq centaur-tabs-set-modified-marker t
+  ;;       centaur-tabs-modified-marker " ● "
+  ;;       centaur-tabs-cycle-scope 'tabs
+  ;;       centaur-tabs-height 30
+  ;;       centaur-tabs-set-icons t
+  ;;       centaur-tabs-close-button " × ")
+  ;; (when (member "Arial" (font-family-list))
+  ;;     (centaur-tabs-change-fonts "Arial" 130))
   (centaur-tabs-group-by-projectile-project)
   :bind
   ("C-S-<tab>" . centaur-tabs-backward)
