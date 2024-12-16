@@ -47,6 +47,7 @@
   :config
   (setq confirm-kill-emacs 'y-or-n-p)
   (setq show-trailing-whitespace t)
+  (setq ad-redefinition-action 'accept)
   (add-hook 'after-save-hook 'delete-trailing-whitespace)
   (setq user-full-name "Cody Reichert"
         frame-title-format '("Emacs")
@@ -61,7 +62,7 @@
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (set-fill-column 90)
-  (display-line-numbers-mode t)
+  (global-display-line-numbers-mode)
   ;; Store backup/autosave files outside of the project
   (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
   (setq-default line-spacing 3
@@ -181,18 +182,6 @@
   :ensure nil
   :config (setq ediff-split-window-function #'split-window-horizontally))
 
-(use-package faces
-  :ensure nil
-  :preface
-  (defun cody/disable-bold-and-fringe-bg-face-globally ()
-    "Disable bold face and fringe background in Emacs."
-    (interactive)
-    (set-face-attribute 'fringe nil :background nil)
-    (mapc #'(lambda (face)
-              (when (eq (face-attribute face :weight) 'bold)
-                (set-face-attribute face nil :weight 'normal))) (face-list)))
-  :config (add-hook 'after-init-hook #'cody/disable-bold-and-fringe-bg-face-globally))
-
 (use-package flyspell
   :ensure nil
   :diminish
@@ -205,10 +194,6 @@
 (use-package whitespace
   :ensure nil
   :hook (before-save . whitespace-cleanup))
-
-(use-package display-line-numbers
-  :ensure nil
-  :bind ("s-j" . global-display-line-numbers-mode))
 
 (use-package dired
   :ensure nil
@@ -263,13 +248,6 @@
   (doom-modeline-mode)
   :hook
   (after-init . doom-modeline-mode))
-
-(use-package solaire-mode
-  :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
-         (minibuffer-setup . solaire-mode-in-minibuffer))
-  :config
-  (solaire-global-mode)
-  (solaire-mode-swap-bg))
 
 (use-package dashboard
   :config
@@ -327,9 +305,10 @@
 (use-package evil
   :diminish undo-tree-mode
   :init
-  (setq evil-want-C-u-scroll t)
   (setq evil-shift-width cody/indent-width)
   (setq-default evil-kill-on-visual-paste nil)
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   :hook (after-init . evil-mode)
   :preface
   (defun cody/save-and-kill-this-buffer ()
@@ -341,19 +320,25 @@
     (define-key evil-insert-state-map (kbd "C-n") nil)
     (define-key evil-insert-state-map (kbd "C-p") nil))
   (evil-set-initial-state 'term-mode 'emacs)
+  (define-key evil-normal-state-map (kbd "x") 'gptel-menu)
   (evil-ex-define-cmd "q" #'kill-this-buffer)
-  (evil-ex-define-cmd "wq" #'cody/save-and-kill-this-buffer)
-  (use-package evil-commentary
-    :after evil
-    :diminish
-    :config (evil-commentary-mode +1)))
+  (evil-ex-define-cmd "wq" #'cody/save-and-kill-this-buffer))
 
-(use-package evil-magit)
+(use-package evil-commentary
+  :after evil
+  :diminish
+  :config (evil-commentary-mode +1))
 
 (use-package evil-surround
   :ensure t
   :config
   (global-evil-surround-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-mode 1))
 
 ;; Git integration
 
@@ -375,9 +360,9 @@
 
 (use-package diff-hl
   :custom-face
-  (diff-hl-insert ((t (:foreground "#55bb55" :background nil))))
-  (diff-hl-delete ((t (:foreground "#ff6666" :background nil))))
-  (diff-hl-change ((t (:foreground "#99bbdd" :background nil))))
+  (diff-hl-insert ((t (:foreground "#55bb55" :background "unspecified"))))
+  (diff-hl-delete ((t (:foreground "#ff6666" :background "unspecified"))))
+  (diff-hl-change ((t (:foreground "#99bbdd" :background "unspecified"))))
   :config
   (global-diff-hl-mode +1)
   (diff-hl-flydiff-mode +1)
@@ -388,12 +373,12 @@
 (use-package flx)
 
 (use-package counsel
-  :diminish
+  :bind (("M-X" . counsel-M-x))
   :hook (ivy-mode . counsel-mode)
   :config
-  (global-set-key (kbd "s-P") #'counsel-M-x)
-  (global-set-key (kbd "s-f") #'counsel-grep-or-swiper)
-  (setq counsel-rg-base-command "rg --vimgrep %s"))
+  (setq counsel-rg-base-command "rg --vimgrep %s")
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x b") 'counsel-switch-buffer))
 
 (use-package counsel-projectile
   :config (counsel-projectile-mode +1))
@@ -427,11 +412,6 @@
   :after ivy
   :diminish
   :config
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))
-        ivy-posframe-height-alist '((t . 20)))
-  (if (member "Menlo" (font-family-list))
-      (setq ivy-posframe-parameters '((internal-border-width . 10) (font . "Menlo")))
-    ivy-posframe-parameters '((internal-border-width . 10)))
   (setq ivy-posframe-width 70)
   (ivy-posframe-mode +1))
 
@@ -442,36 +422,20 @@
         (get-buffer candidate)
       (all-the-icons-icon-for-mode major-mode)))
   :init
-  (setq ivy-rich-display-transformers-list ; max column width sum = (ivy-poframe-width - 1)
-        '(ivy-switch-buffer
+  (setq ivy-rich-display-transformers-list
+        '(counsel-switch-buffer
           (:columns
            ((ivy-rich-switch-buffer-icon (:width 2))
-            (ivy-rich-candidate (:width 35))
+            (ivy-rich-candidate (:width 30))
+            (ivy-rich-switch-buffer-size (:width 7))
+            (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+            (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
             (ivy-rich-switch-buffer-project (:width 15 :face success))
-            (ivy-rich-switch-buffer-major-mode (:width 13 :face warning)))
+            (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
            :predicate
-           #'(lambda (cand) (get-buffer cand)))
-          counsel-M-x
-          (:columns
-           ((counsel-M-x-transformer (:width 35))
-            (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
-          counsel-describe-function
-          (:columns
-           ((counsel-describe-function-transformer (:width 35))
-            (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
-          counsel-describe-variable
-          (:columns
-           ((counsel-describe-variable-transformer (:width 35))
-            (ivy-rich-counsel-variable-docstring (:width 34 :face font-lock-doc-face))))
-          package-install
-          (:columns
-           ((ivy-rich-candidate (:width 25))
-            (ivy-rich-package-version (:width 12 :face font-lock-comment-face))
-            (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-            (ivy-rich-package-install-summary (:width 23 :face font-lock-doc-face))))))
-  :config
-  (ivy-rich-mode +1)
-  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
+           (lambda (cand) (get-buffer cand)))))  :config
+           (ivy-rich-mode)
+           (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
 
 (use-package projectile
   :diminish
@@ -484,9 +448,6 @@
         projectile-indexing-method 'hybrid
         projectile-completion-system 'ivy))
 
-;; (use-package helm-git-grep
-;;   :ensure helm)
-
 (use-package ace-window
   :ensure t)
 
@@ -498,13 +459,14 @@
   (evil-leader/set-leader "SPC")
 
   ; global
-  (evil-leader/set-key "j" 'Control-X-prefix)
   (evil-leader/set-key "w" 'save-buffer)
-  (evil-leader/set-key "b" 'ivy-switch-buffer)
-  (evil-leader/set-key "f" 'projectile-find-file)
-  (evil-leader/set-key "g" 'helm-git-grep)
+  (evil-leader/set-key "j" 'Control-X-prefix)
+  (evil-leader/set-key "b" 'counsel-switch-buffer)
+  (evil-leader/set-key "f" 'counsel-projectile-find-file)
+  (evil-leader/set-key "g" 'counsel-git-grep)
   (evil-leader/set-key "o" 'aw-flip-window)
   (evil-leader/set-key "i" 'window-swap-states)
+  (evil-leader/set-key "x" 'gptel-menu)
   (evil-leader/set-key "k"
     '(lambda ()
        (interactive)
@@ -587,7 +549,7 @@
   :after (prescient ivy)
   :config
   (setq ivy-prescient-sort-commands
-        '(:not swiper counsel-grep ivy-switch-buffer))
+        '(:not swiper counsel-grep counsel-switch-buffer))
   (setq ivy-prescient-retain-classic-highlighting t)
   (ivy-prescient-mode +1))
 
@@ -614,10 +576,6 @@
 (use-package lsp-java
   :after lsp)
 
-(use-package company-lsp
-  :commands company-lsp
-  :config (setq company-lsp-cache-candidates 'auto))
-
 (use-package company
   :diminish
   :hook (prog-mode . company-mode)
@@ -640,6 +598,8 @@
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-<tab>") nil))
   (use-package org-bullets :hook (org-mode . org-bullets-mode)))
+
+(use-package yasnippet)
 
 (use-package es6-snippets
   :load-path "~/workspace/CodyReichert/es6-snippets")
@@ -743,8 +703,22 @@
   :ensure t
   :hook haskell-mode)
 
-;; Miscellaneous
+;; Grok
 
+(use-package gptel
+  :config
+  (setq gptel-model 'grok-beta)
+  (setq gptel-backend
+        (gptel-make-openai "xai"
+                           :host "api.x.ai"
+                           :key (with-temp-buffer
+                                  (insert-file-contents "~/.emacs.d/api-key.gptel")
+                                  (buffer-string))
+                           :endpoint "/v1/chat/completions"
+                           :stream t
+                           :models '(grok-beta))))
+
+;; Miscellaneous
 (use-package diminish
   :demand t)
 
