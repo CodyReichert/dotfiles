@@ -300,15 +300,21 @@
 
 (use-package emojify-logos)
 
+(use-package undo-fu
+  :config
+  (global-unset-key (kbd "C-z"))
+  (global-set-key (kbd "C-z") 'undo-fu-only-undo)
+  (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
+
 ;; Vi keybindings
 
 (use-package evil
-  :diminish undo-tree-mode
   :init
   (setq evil-shift-width cody/indent-width)
   (setq-default evil-kill-on-visual-paste nil)
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-undo-system 'undo-fu)
   :hook (after-init . evil-mode)
   :preface
   (defun cody/save-and-kill-this-buffer ()
@@ -663,7 +669,6 @@
 (use-package flowmacs
   :load-path "~/workspace/CodyReichert/flowmacs"
   :config
-  ;; Ensure `flowmacs' uses the project local flow binary
   (defun cody/flowmacs-local-flow (&optional start)
     (let* ((root (locate-dominating-file
                   (or start (buffer-file-name) default-directory)
@@ -673,7 +678,8 @@
                             root))))
       (if (and flow (file-executable-p flow))
           (setq-local flowmacs/+flow+ flow)
-        (cody/flowmacs-local-flow (file-name-directory (directory-file-name root))))))
+        (when root  ;; Check if root is non-nil before recursion
+          (cody/flowmacs-local-flow (file-name-directory (directory-file-name root)))))))
   (add-hook 'flowmacs-mode-hook 'cody/flowmacs-local-flow)
   (eval-after-load 'web-mode
     '(add-hook 'web-mode-hook 'flowmacs-mode)))
