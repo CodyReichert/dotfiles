@@ -709,6 +709,9 @@
   :ensure t
   :hook haskell-mode)
 
+;; Pass integration
+(use-package password-store)
+
 ;; Grok
 
 (use-package gptel
@@ -717,9 +720,7 @@
   (setq gptel-backend
         (gptel-make-openai "xai"
                            :host "api.x.ai"
-                           :key (with-temp-buffer
-                                  (insert-file-contents "~/.emacs.d/api-key.gptel")
-                                  (buffer-string))
+                           :key (password-store-get "x.ai/api/emacs/api-key")
                            :endpoint "/v1/chat/completions"
                            :stream t
                            :models '(grok-beta))))
