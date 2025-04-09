@@ -326,7 +326,7 @@
     (define-key evil-insert-state-map (kbd "C-n") nil)
     (define-key evil-insert-state-map (kbd "C-p") nil))
   (evil-set-initial-state 'term-mode 'emacs)
-  (define-key evil-normal-state-map (kbd "x") 'gptel-menu)
+  ;; (define-key evil-normal-state-map (kbd "x") 'gptel-menu)
   (evil-ex-define-cmd "q" #'kill-this-buffer)
   (evil-ex-define-cmd "wq" #'cody/save-and-kill-this-buffer))
 
@@ -472,7 +472,7 @@
   (evil-leader/set-key "g" 'counsel-git-grep)
   (evil-leader/set-key "o" 'aw-flip-window)
   (evil-leader/set-key "i" 'window-swap-states)
-  (evil-leader/set-key "x" 'gptel-menu)
+  ;; (evil-leader/set-key "x" 'gptel-menu)
   (evil-leader/set-key "k"
     '(lambda ()
        (interactive)
@@ -714,16 +714,16 @@
 
 ;; Grok
 
-(use-package gptel
-  :config
-  (setq gptel-model 'grok-beta)
-  (setq gptel-backend
-        (gptel-make-openai "xai"
-                           :host "api.x.ai"
-                           :key (password-store-get "x.ai/api/emacs/api-key")
-                           :endpoint "/v1/chat/completions"
-                           :stream t
-                           :models '(grok-beta))))
+;; (use-package gptel
+;;   :config
+;;   (setq gptel-model 'grok-beta)
+;;   (setq gptel-backend
+;;         (gptel-make-openai "xai"
+;;                            :host "api.x.ai"
+;;                            :key (password-store-get "x.ai/api/emacs/api-key")
+;;                            :endpoint "/v1/chat/completions"
+;;                            :stream t
+;;                            :models '(grok-beta))))
 
 ;; Miscellaneous
 (use-package diminish
