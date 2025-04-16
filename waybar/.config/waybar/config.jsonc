@@ -1,0 +1,145 @@
+// -*- mode: json -*-
+
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": [
+    "hyprland/workspaces",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "custom/homeassistant",
+    "custom/right-arrow-dark",
+  ],
+  "modules-center": [
+    "custom/left-arrow-dark",
+    "clock#1",
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
+    "clock#2",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "clock#3",
+    "custom/right-arrow-dark",
+  ],
+  "modules-right": [
+    "custom/left-arrow-dark",
+    "pulseaudio",
+    "pulseaudio/slider",
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
+    "memory",
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
+    "cpu",
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
+    "temperature",
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
+    "disk",
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
+    "tray"
+  ],
+
+  "custom/left-arrow-dark": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/left-arrow-light": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right-arrow-dark": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right-arrow-light": {
+    "format": "",
+    "tooltip": false
+  },
+
+  "hyprland/window": {
+      "separate-outputs": true
+  },
+
+  "hyprland/workspaces": {
+    "active-only": true,
+    "show-special": true,
+    "all-outputs": false,
+    "on-click": "activate",
+    "disable-scroll": true,
+    "all-outputs": false,
+    "format": "{name}"
+  },
+
+  "clock#1": {
+    "format": "{:%a}",
+    "tooltip": false
+  },
+  "clock#2": {
+    "format": "{:%H:%M}",
+    "tooltip": false
+  },
+  "clock#3": {
+    "format": "{:%m-%d}",
+    "tooltip": false
+  },
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume:2}%",
+    "format-bluetooth": "{icon}  {volume}%",
+    "format-muted": "🔇",
+    "format-icons": {
+      "headphones": "🎧",
+      "default": [
+        "🔈",
+        "🔉",
+        "🔊"
+      ]
+    },
+    "scroll-step": 5,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+  "temperature": {
+    "hwmon-path-abs": "/sys/bus/pci/drivers/k10temp/0000:00:18.3/hwmon",
+    "input-filename": "temp1_input",
+    "critical-threshold": 90,
+    "warning-threshold": 65,
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["🟢", "🟠" ,"🔴"],
+    "format-warning": "{temperatureC}°C 🟠",
+    "format-critical": "‼ {temperatureC}°C ‼"
+  },
+  "memory": {
+    "interval": 5,
+    "format": "🐏 {used:0.1f}G/{total:0.0f}G"
+  },
+  "cpu": {
+    "interval": 5,
+    "format": "🧠 {usage:2}%"
+  },
+  "disk": {
+    "interval": 5,
+    "format": "💾 {percentage_used:2}%",
+    "path": "/"
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10,
+    "show-passive-items": true
+  },
+  "custom/homeassistant": {
+      "exec": "$HOME/.local/bin/waybarHomeassistant $HOME/.config/hypr/homeassistant-waybar/homeassistant-waybar.toml",
+    "format": " {}  ",
+    "interval": 30,
+    "return-type": "json",
+    "max-length": 35,
+    "tooltip": true
+  }
+}
