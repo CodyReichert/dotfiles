@@ -57,6 +57,7 @@
         scroll-conservatively 10000
         scroll-preserve-screen-position t
         auto-window-vscroll nil
+        vc-follow-symlinks t ; Don't ask!
         load-prefer-newer t)
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (tool-bar-mode -1)
@@ -65,16 +66,42 @@
   (global-display-line-numbers-mode)
   ;; Store backup/autosave files outside of the project
   (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
-  (setq-default line-spacing 3
+  (setq-default line-spacing 2
                 indent-tabs-mode nil
                 tab-width cody/indent-width)
   (defun disable-delete-trailing-whitespace ()
     (remove-hook 'after-save-hook 'delete-trailing-whitespace))
+
   (defun sudo-find-file (file-name)
     "Like find file, but opens the file as root."
     (interactive "FSudo Find File: ")
     (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
-      (find-file tramp-file-name))))
+      (find-file tramp-file-name)))
+
+  ;; --- Theme Toggle Function ---
+  (defun toggle-custom-themes ()
+    "Toggle between 'codys-custom-dark' and 'codys-custom-light' themes."
+    (interactive)
+
+    ;; Ensure the theme directory is in the path
+    (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+    ;; Check which theme is currently active and switch to the other
+    (if (memq 'codys-custom-dark custom-enabled-themes)
+        ;; If dark is active, disable it and load light
+        (progn
+          (disable-theme 'codys-custom-dark)
+          (load-theme 'codys-custom-light t)
+          (message "Switched to Cody's Custom Light Theme"))
+      ;; Otherwise switch to dark theme
+      (progn
+        (when (memq 'codys-custom-light custom-enabled-themes)
+          (disable-theme 'codys-custom-light))
+        (load-theme 'codys-custom-dark t)
+        (message "Switched to Cody's Custom Dark Theme"))))
+
+  ;; Toggle light and dark themes with [F5]
+  (global-set-key (kbd "<f5>") #'toggle-custom-themes))
 
 ;;; Built-in packages
 
@@ -170,14 +197,6 @@
   :init (setq show-paren-delay 0)
   :config (show-paren-mode +1))
 
-(use-package frame
-  :ensure nil
-  :config
-  (setq initial-frame-alist (quote ((fullscreen . maximized))))
-  (blink-cursor-mode -1)
-  (when (member "Source Code Pro" (font-family-list))
-    (set-frame-font "Source Code Pro-12:weight=regular" t t)))
-
 (use-package ediff
   :ensure nil
   :config (setq ediff-split-window-function #'split-window-horizontally))
@@ -217,37 +236,34 @@
 
 ;;; Third-party Packages
 
+(use-package ultra-scroll
+  :vc (:url "https://github.com/jdtsmith/ultra-scroll")
+  :init (setq scroll-conservatively 101
+              scroll-margin 0)
+  :config
+  (ultra-scroll-mode 1))
+
 ;; GUI enhancements
-;; Load theme from modus-themes
-(use-package modus-themes
-  :ensure t
-  :custom-face (cursor ((t (:background "#ff00ff"))))
+(use-package mood-line
+  ;; Enable mood-line
   :config
-  (setq modus-themes-italic-constructs t)
-  (setq modus-themes-bold-constructs t)
-
-  ;; F5 to toggle between light and dark theme
-  (setq modus-themes-to-toggle '(modus-operandi-tritanopia modus-vivendi))
-  (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
-
-  (load-theme 'modus-vivendi t))
-
-(use-package doom-modeline
-  :defer 2
-  :config
-  (column-number-mode)
-  (size-indication-mode)
-  (setq doom-modeline-buffer-file-name-style 'auto
-        doom-modeline-major-mode-color-icon nil
-        doom-modeline-buffer-encoding nil
-        doom-modeline-env-version t
-        doom-modeline-height 15
-        doom-modeline-lsp t)
-
-  :init
-  (doom-modeline-mode)
-  :hook
-  (after-init . doom-modeline-mode))
+  ;; (setq mood-line-format mood-line-format-default-extended)
+  (setq mood-line-glyph-alist mood-line-glyphs-unicode)
+  (setq mood-line-format
+      (mood-line-defformat
+       :left
+       (((mood-line-segment-buffer-status) . " ")
+        ((mood-line-segment-buffer-name)   . " : (")
+        ((mood-line-segment-modal) . ") ")
+        ((mood-line-segment-scroll)             . " ")
+        ((mood-line-segment-cursor-position)    . "  "))
+       :right
+       (((mood-line-segment-project)    . "  ")
+        ((mood-line-segment-process)    . "  ")
+        ((mood-line-segment-vc)    . "  ")
+        ((when (mood-line-segment-checker) "|") . "  ")
+        ((mood-line-segment-checker)            . "  "))))
+  (mood-line-mode))
 
 (use-package dashboard
   :config
@@ -255,10 +271,20 @@
   (setq dashboard-startup-banner 'logo
         dashboard-banner-logo-title "Dangerously powerful"
         dashboard-items nil
-        dashboard-set-footer nil))
+        dashboard-set-footer t))
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+(use-package codys-custom-dark-theme
+  :ensure nil
+  :init (add-to-list
+         'custom-theme-load-path "~/.emacs.d/themes/")
+  :load-path "~/.emacs.d/themes/"
+  :demand
+  :config (load-theme 'codys-custom-dark t))
 
 (use-package all-the-icons
-  :config (setq all-the-icons-scale-factor 1.0))
+  :config (setq all-the-icons-scale-factor 1.25))
 
 (use-package all-the-icons-ivy
   :hook (after-init . all-the-icons-ivy-setup))
@@ -268,15 +294,13 @@
   :init (setq centaur-tabs-set-bar 'over)
   :config
   (centaur-tabs-mode t)
-  ;; (centaur-tabs-headline-match)
-  ;; (setq centaur-tabs-set-modified-marker t
-  ;;       centaur-tabs-modified-marker " ● "
-  ;;       centaur-tabs-cycle-scope 'tabs
-  ;;       centaur-tabs-height 30
-  ;;       centaur-tabs-set-icons t
-  ;;       centaur-tabs-close-button " × ")
-  ;; (when (member "Arial" (font-family-list))
-  ;;     (centaur-tabs-change-fonts "Arial" 130))
+  (centaur-tabs-headline-match)
+  (setq centaur-tabs-set-modified-marker t
+        centaur-tabs-modified-marker " ● "
+        centaur-tabs-cycle-scope 'tabs
+        centaur-tabs-height 20
+        centaur-tabs-set-icons t
+        centaur-tabs-close-button " × ")
   (centaur-tabs-group-by-projectile-project)
   :bind
   ("C-S-<tab>" . centaur-tabs-backward)
@@ -295,8 +319,8 @@
          (emacs-lisp-mode . rainbow-mode)))
 
 (use-package emojify
-  :config
-  (global-emojify-mode))
+  :config (global-emojify-mode)
+  :hook (after-init . emojify-mode-line-mode))
 
 (use-package emojify-logos)
 
