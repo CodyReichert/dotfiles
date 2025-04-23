@@ -168,7 +168,7 @@
   :ensure nil
   :config
   (define-key prog-mode-map (kbd "s-b") #'xref-find-definitions)
-  (define-key prog-mode-map (kbd "s-[") #'xref-pop-marker-stack))
+  (define-key prog-mode-map (kbd "s-[") #'xref-go-back))
 
 (use-package cc-vars
   :ensure nil
@@ -403,7 +403,7 @@
 (use-package flx)
 
 (use-package counsel
-  :bind (("M-X" . counsel-M-x))
+  :bind (("M-x" . counsel-M-x))
   :hook (ivy-mode . counsel-mode)
   :config
   (setq counsel-rg-base-command "rg --vimgrep %s")
