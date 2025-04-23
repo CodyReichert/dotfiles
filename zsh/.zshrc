@@ -78,7 +78,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git systemd spaceship-ember spaceship-vi-mode emoji zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git systemd emoji zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -105,8 +105,8 @@ set -o vi
 # SHIFT + TAB to accept completion suggestion
 bindkey '^[[Z' autosuggest-accept
 
-alias pinstall="sudo pacman -S" 
-alias puninstall="sudo pacman -Rns" 
+alias pinstall="sudo pacman -S"
+alias puninstall="sudo pacman -Rns"
 
 # Set personal aliases, overriding those provided by Oh My Zsh libs,
 # plugins, and themes. Aliases can be placed here, though Oh My Zsh
