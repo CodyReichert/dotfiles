@@ -256,7 +256,7 @@
         ((mood-line-segment-buffer-name)   . " : (")
         ((mood-line-segment-modal) . ") ")
         ((mood-line-segment-scroll)             . " ")
-        ((mood-line-segment-cursor-position)    . "  "))
+        ((mood-line-segment-cursor-point)    . "  "))
        :right
        (((mood-line-segment-project)    . "  ")
         ((mood-line-segment-process)    . "  ")
@@ -270,8 +270,7 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 'logo
         dashboard-banner-logo-title "Dangerously powerful"
-        dashboard-items nil
-        dashboard-set-footer t))
+        dashboard-items nil))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
@@ -296,10 +295,11 @@
   (centaur-tabs-mode t)
   (centaur-tabs-headline-match)
   (setq centaur-tabs-set-modified-marker t
-        centaur-tabs-modified-marker " ● "
+        centaur-tabs-modified-marker " "
         centaur-tabs-cycle-scope 'tabs
-        centaur-tabs-height 20
+        centaur-tabs-height 22
         centaur-tabs-set-icons t
+        centaur-tabs-icon-type "all-the-icons"
         centaur-tabs-close-button " × ")
   (centaur-tabs-group-by-projectile-project)
   :bind
@@ -350,7 +350,7 @@
     (define-key evil-insert-state-map (kbd "C-n") nil)
     (define-key evil-insert-state-map (kbd "C-p") nil))
   (evil-set-initial-state 'term-mode 'emacs)
-  ;; (define-key evil-normal-state-map (kbd "x") 'gptel-menu)
+  (define-key evil-normal-state-map (kbd "x") 'gptel-menu)
   (evil-ex-define-cmd "q" #'kill-this-buffer)
   (evil-ex-define-cmd "wq" #'cody/save-and-kill-this-buffer))
 
@@ -472,10 +472,10 @@
   :config
   (projectile-mode +1)
   (define-key projectile-mode-map (kbd "C-c p") #'projectile-command-map)
-  (define-key projectile-mode-map (kbd "s-p") #'projectile-find-file) ; counsel
+  (define-key projectile-mode-map (kbd "C-p") #'projectile-find-file) ; counsel
   (define-key projectile-mode-map (kbd "s-F") #'projectile-ripgrep) ; counsel
   (setq projectile-sort-order 'recentf
-        projectile-indexing-method 'hybrid
+        projectile-indexing-method 'alien
         projectile-completion-system 'ivy))
 
 (use-package ace-window
@@ -496,7 +496,7 @@
   (evil-leader/set-key "g" 'counsel-git-grep)
   (evil-leader/set-key "o" 'aw-flip-window)
   (evil-leader/set-key "i" 'window-swap-states)
-  ;; (evil-leader/set-key "x" 'gptel-menu)
+  (evil-leader/set-key "x" 'gptel-menu)
   (evil-leader/set-key "k"
     '(lambda ()
        (interactive)
@@ -679,7 +679,7 @@
   :config
   (defun cody/set-web-mode-indent-width ()
     (message web-mode-content-type)
-    (if (s-equals? web-mode-content-type "json")
+    (if (string-equal-ignore-case web-mode-content-type "json")
         (setq web-mode-code-indent-offset 2)
       (setq web-mode-code-indent-offset 4)))
   (add-hook 'web-mode-hook 'cody/set-web-mode-indent-width))
@@ -738,16 +738,19 @@
 
 ;; Grok
 
-;; (use-package gptel
-;;   :config
-;;   (setq gptel-model 'grok-beta)
-;;   (setq gptel-backend
-;;         (gptel-make-openai "xai"
-;;                            :host "api.x.ai"
-;;                            :key (password-store-get "x.ai/api/emacs/api-key")
-;;                            :endpoint "/v1/chat/completions"
-;;                            :stream t
-;;                            :models '(grok-beta))))
+(use-package gptel
+  :config
+  ; Ollama model
+  (gptel-make-ollama "Ollama"      ;Any name of your choosing
+    :host "localhost:11434"        ;Where it's running
+    :stream t                      ;Stream responses
+    :models '(llama3.1))           ;List of models
+  (setq
+   gptel-model 'llama3.1
+   gptel-backend (gptel-make-ollama "Ollama"
+                   :host "localhost:11434"
+                   :stream t
+                   :models '(llama3.1))))
 
 ;; Miscellaneous
 (use-package diminish

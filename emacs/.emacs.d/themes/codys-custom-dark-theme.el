@@ -28,7 +28,7 @@
       (accent-yellow  "#b0b000") ; Original base0A
       (accent-green   "#00b000") ; Original base0B
       (accent-cyan    "#00b0b0") ; Original base0C
-      (accent-blue    "#0000d1") ; Original base0D
+      (accent-blue    "#2D82FC") ; Original base0D
       (accent-magenta "#b000b0") ; Original base0E
       (accent-brown   "#b55d00")) ; Original base0F
 
@@ -38,7 +38,7 @@
 
    ;; --- Basic Faces ---
    `(default ((t (:background ,bg-base :foreground ,fg-default))))
-   `(cursor ((t (:background ,fg-bright :foreground ,bg-base)))) ; Bright cursor
+   `(cursor ((t (:background ,accent-magenta :foreground ,accent-magenta)))) ; Bright cursor
    `(highlight ((t (:background ,bg-select :foreground ,fg-light :underline nil))))
    `(region ((t (:background ,bg-select :foreground ,fg-light :extend t))))
    `(secondary-selection ((t (:background ,bg-alt :foreground ,fg-light))))

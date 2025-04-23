@@ -15,22 +15,22 @@
       (bg-alt    "#e2e2e2") ; Original base06 - Slightly darker background (UI elements)
       (bg-select "#d3dae3") ; Original base05 - Selection background, slightly darker UI
 
-      ;; Foregrounds (Lightest to Darkest)
-      (fg-comment "#6e7179") ; Original base07 - Comments (contrast checked against new bg-base)
-      (fg-default "#333333") ; Original base03 - Default text foreground
-      (fg-dark    "#000") ; Original base02 - Darker foreground elements
-      (fg-darkest "#000") ; Original base04 - Darkest foreground (UI text)
-      (fg-cursor  "#00b0b0") ; Original base00 - Cursor foreground (contrast checked against new bg-base on cursor bg)
-
       ;; Accent Colors (Same as dark theme, contrast may vary)
       (accent-red     "#b00000") ; Original base08
       (accent-orange  "#e2e200") ; Original base09
       (accent-yellow  "#b0b000") ; Original base0A
       (accent-green   "#00b000") ; Original base0B
       (accent-cyan    "#00b0b0") ; Original base0C
-      (accent-blue    "#0000d1") ; Original base0D
+      (accent-blue    "#2D82FC") ; Original base0D
       (accent-magenta "#b000b0") ; Original base0E
-      (accent-brown   "#b55d00")) ; Original base0F
+      (accent-brown   "#b55d00") ; Original base0F
+
+      ;; Foregrounds (Lightest to Darkest)
+      (fg-comment "#6e7179")  ; Comments (contrast checked against new bg-base)
+      (fg-default "#333333")  ; Default text foreground
+      (fg-dark    "#000")     ; Darker foreground elements
+      (fg-darkest "#000")     ; Darkest foreground (UI text)
+      (fg-cursor  "#00b0b0")) ; Cursor foreground (contrast checked against new bg-base on cursor bg)
 
   ;; Define the core faces using the conventional light mapping
   (custom-theme-set-faces
@@ -38,7 +38,7 @@
 
  ;; --- Basic Faces ---
    `(default ((t (:background ,bg-base :foreground ,fg-default))))
-   `(cursor ((t (:background ,fg-darkest :foreground ,bg-base))))
+   `(cursor ((t (:background ,accent-magenta:foreground ,accent-magenta))))
    `(highlight ((t (:background ,bg-select :foreground ,fg-darkest :underline nil))))
    `(region ((t (:background ,bg-select :foreground ,fg-darkest :extend t))))
    `(secondary-selection ((t (:background ,bg-alt :foreground ,fg-darkest))))
