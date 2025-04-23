@@ -2,8 +2,8 @@
   email = cody@reichertbrothers.com
   name = Cody Reichert
 [core]
-        editor="emacs -nw"
-        excludesfile=~/.gitignore_global
+  editor="emacs -nw"
+  excludesfile=~/.gitignore_global
 [alias]
   s = status
   ss = stash push
