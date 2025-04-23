@@ -157,7 +157,7 @@
   (set-fontset-font t '(#x0000 . #xfffff) "Fira Code" nil '("liga" "dlig" "calt" "smcp" "onum" "tnum" "frac" "zero")))
 
 ;; You may want to set a specific size:
-(set-face-attribute 'default nil :height 100) ; 15 points
+(set-face-attribute 'default nil :height 120) ; 15 points
 
 
 ;; Mark the theme as provided
