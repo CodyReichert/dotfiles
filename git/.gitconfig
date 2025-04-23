@@ -1,6 +1,7 @@
 [user]
   email = cody@reichertbrothers.com
   name = Cody Reichert
+	signingkey = 24DBFCA4FC49847E
 [core]
   editor="emacs -nw"
   excludesfile=~/.gitignore_global
@@ -17,3 +18,5 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+[commit]
+	gpgsign = true
