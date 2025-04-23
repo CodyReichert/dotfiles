@@ -1,21 +1,40 @@
+/* Base 16 theme colors */
+@define-color base00 #0a0a0f;
+@define-color base01 #0a0a0f;
+@define-color base02 #080432;
+@define-color base03 #6e7179;
+@define-color base04 #1e1e23;
+@define-color base05 #d3dae3;
+@define-color base06 #b7b7b2;
+@define-color base07 #d3dae3;
+@define-color base08 #8c6e5c;
+@define-color base09 #467900;
+@define-color base0A #6d7f00;
+@define-color base0B #1e9500;
+@define-color base0C #009b8c;
+@define-color base0D #2285e2;
+@define-color base0E #746ae2;
+@define-color base0F #555f1a;
+@define-color base0G #B000B0;
+
 * {
-  font-size: 1rem;
+  font-size: 12px;
   font-family: monospace;
 }
 
 window#waybar {
-  background: #292b2e;
-  color: #fdf6e3;
+  background: @base04;
+  color: @base05;
 }
 
 #custom-right-arrow-dark,
 #custom-left-arrow-dark {
-  color: #1a1a1a;
+  color: @base00;
 }
 #custom-right-arrow-light,
 #custom-left-arrow-light {
-  color: #292b2e;
-  background: #1a1a1a;
+  color: @base04;
+  background: @base00;
 }
 
 #workspaces,
@@ -26,41 +45,55 @@ window#waybar {
 #memory,
 #cpu,
 #temperature,
-#disk {
-  background: #1a1a1a;
+#disk,
+#custom-gpu,
+#custom-homeassistant,
+#pulseaudio-slider {
+  background: @base00;
+}
+
+/** Application launchers */
+#custom-chrome-launcher,
+#custom-hass-launcher,
+#custom-spotify-launcher,
+#custom-hyprpicker-launcher {
+  background: @base00;
+}
+
+#custom-hyprpicker-launcher {
+    margin-left: -2px;
+    padding-right: 8px;
 }
 
 #workspaces button {
-  padding: 0 2px;
-  color: #fdf6e3;
+  padding: 0 5px 0px 5px;
+  color: @base05;
 }
+#workspaces button.active,
 #workspaces button.focused {
-  color: #268bd2;
+  color: @base0D;
 }
 #workspaces button:hover {
-  box-shadow: inherit;
-  text-shadow: inherit;
-}
-#workspaces button:hover {
-  background: #1a1a1a;
-  border: #1a1a1a;
-  padding: 0 3px;
+  color: @base03;
 }
 
 #pulseaudio {
-  color: #268bd2;
+  color: @base0B;
 }
 #memory {
-  color: #2aa198;
+  color: @base0D;
 }
 #cpu {
-  color: #6c71c4;
+  color: @base0E;
 }
 #temperature {
-  color: #859900;
+  color: @base0A;
 }
 #disk {
-  color: #b58900;
+  color: @base08;
+}
+#custom-gpu {
+  color: @base0G;
 }
 
 #clock,
@@ -68,33 +101,24 @@ window#waybar {
 #memory,
 #cpu,
 #temperature,
-#disk {
-  padding: 0 10px;
-}
-
-#custom-homeassistant,
-#pulseaudio-slider {
-    background-color: #1a1a1a;
+#disk,
+#custom-gpu {
+  padding: 0 8px;
 }
 
 #pulseaudio-slider slider {
-    min-height: 0px;
-    min-width: 0px;
     opacity: 0;
     background-image: none;
-    border: none;
     box-shadow: none;
+    background-color: @base03;
+    min-width: 10px;
 }
 #pulseaudio-slider trough {
-    min-height: 10px;
-    min-width: 80px;
-    background-color: black;
+    min-width: 75px;
+    background-color: @base03;
+    margin-right: 10px;
+    min-height: 2px;
 }
 #pulseaudio-slider highlight {
-    min-width: 10px;
-    background-color: green;
-}
-
-#tray menu {
-    color: white;
+    background-color: @base0B;
 }

@@ -2,12 +2,20 @@
 
 {
   "layer": "top",
-  "position": "top",
+  "position": "bottom",
+  "height": 32,
+  "output": "HDMI-A-1",
   "modules-left": [
     "hyprland/workspaces",
     "custom/right-arrow-dark",
     "custom/right-arrow-light",
     "custom/homeassistant",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "custom/chrome-launcher",
+    "custom/hass-launcher",
+    "custom/spotify-launcher",
+    "custom/hyprpicker-launcher",
     "custom/right-arrow-dark",
   ],
   "modules-center": [
@@ -36,10 +44,10 @@
     "temperature",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
-    "disk",
+    "custom/gpu",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
-    "tray"
+    "disk"
   ],
 
   "custom/left-arrow-dark": {
@@ -66,11 +74,15 @@
   "hyprland/workspaces": {
     "active-only": true,
     "show-special": true,
-    "all-outputs": false,
     "on-click": "activate",
     "disable-scroll": true,
-    "all-outputs": false,
-    "format": "{name}"
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "hello1": "",
+      "magic": "",
+      "vert1": "",
+    }
   },
 
   "clock#1": {
@@ -92,15 +104,11 @@
   },
   "pulseaudio": {
     "format": "{icon} {volume:2}%",
-    "format-bluetooth": "{icon}  {volume}%",
-    "format-muted": "🔇",
+    "format-bluetooth": "{icon} {volume}% ()",
+    "format-muted": "",
     "format-icons": {
-      "headphones": "🎧",
-      "default": [
-        "🔈",
-        "🔉",
-        "🔊"
-      ]
+      "headphones": "",
+      "default": ["", "", ""]
     },
     "scroll-step": 5,
     "on-click": "playerctl play-pause",
@@ -109,37 +117,59 @@
   "temperature": {
     "hwmon-path-abs": "/sys/bus/pci/drivers/k10temp/0000:00:18.3/hwmon",
     "input-filename": "temp1_input",
-    "critical-threshold": 90,
-    "warning-threshold": 65,
+    "critical-threshold": "90",
+    "warning-threshold": "65",
     "format": "{temperatureC}°C {icon}",
-    "format-icons": ["🟢", "🟠" ,"🔴"],
-    "format-warning": "{temperatureC}°C 🟠",
-    "format-critical": "‼ {temperatureC}°C ‼"
+    "format-icons": ["", "", ""],
   },
   "memory": {
     "interval": 5,
-    "format": "🐏 {used:0.1f}G/{total:0.0f}G"
+    "format": " {used:0.1f}G/{total:0.0f}G "
   },
   "cpu": {
     "interval": 5,
-    "format": "🧠 {usage:2}%"
+    "format": " {usage:2}% "
   },
   "disk": {
     "interval": 5,
-    "format": "💾 {percentage_used:2}%",
+    "format": " {percentage_used:2}% ",
     "path": "/"
   },
-  "tray": {
-    "icon-size": 21,
-    "spacing": 10,
-    "show-passive-items": true
-  },
+
   "custom/homeassistant": {
-      "exec": "$HOME/.local/bin/waybarHomeassistant $HOME/.config/hypr/homeassistant-waybar/homeassistant-waybar.toml",
-    "format": " {}  ",
+    "exec": "$HOME/.local/bin/waybarHomeassistant $HOME/.config/hypr/homeassistant-waybar/homeassistant-waybar.toml",
+    "format": " {} ",
     "interval": 30,
     "return-type": "json",
     "max-length": 35,
     "tooltip": true
-  }
+  },
+  "custom/chrome-launcher": {
+    "format": " {}  ",
+    "tooltip": "Google Chrome (unstable)",
+    "on-click": "uwsm app -- google-chrome-unstable"
+  },
+  "custom/hass-launcher": {
+    "format": " {} 󰟐 ",
+    "tooltip": "Home Assistant",
+    "on-click": "uwsm app -- google-chrome-unstable --app-id=jnhlnlkkccahgkedkclnmdiemajmbddg"
+  },
+  "custom/spotify-launcher": {
+    "format": " {}  ",
+    "tooltip": "Spotify",
+    "on-click": "uwsm app -- google-chrome-unstable --app-id=pjibgclleladliembfgfagdaldikeohf"
+  },
+  "custom/hyprpicker-launcher": {
+    "format": "{}   ",
+    "tooltip": "Spotify",
+    "on-click": "uwsm app -- hyprpicker -a"
+  },
+
+  "custom/gpu": {
+    "format": "{text}  ",
+    "interval": 5,
+    "exec": "nvidia-smi --id=0 --query-gpu=utilization.gpu,temperature.gpu,utilization.memory --format=csv,noheader,nounits",
+    // "exec": "nvidia-smi --id=0 --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+    // "exec-if": "[ \"0\" -ne $(nvidia-smi --id=0 --query-gpu=utilization.gpu --format=csv,noheader,nounits) ]"
+  },
 }
