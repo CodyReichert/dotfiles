@@ -48,7 +48,8 @@ window#waybar {
 #disk,
 #custom-gpu,
 #custom-homeassistant,
-#pulseaudio-slider {
+#pulseaudio-slider,
+#custom-notification {
   background: @base00;
 }
 
@@ -102,7 +103,8 @@ window#waybar {
 #cpu,
 #temperature,
 #disk,
-#custom-gpu {
+#custom-gpu,
+#custom-notification {
   padding: 0 8px;
 }
 
@@ -121,4 +123,8 @@ window#waybar {
 }
 #pulseaudio-slider highlight {
     background-color: @base0B;
+}
+
+#custom-notification {
+  font-family: "NotoSansMono Nerd Font";
 }

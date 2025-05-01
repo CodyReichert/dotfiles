@@ -9,6 +9,9 @@
     "hyprland/workspaces",
     "custom/right-arrow-dark",
     "custom/right-arrow-light",
+    "custom/notification",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
     "custom/homeassistant",
     "custom/right-arrow-dark",
     "custom/right-arrow-light",
@@ -79,9 +82,10 @@
     "all-outputs": true,
     "format": "{icon}",
     "format-icons": {
-      "hello1": "",
+      "hello": "",
       "magic": "",
-      "vert1": "",
+      "potion": "",
+      "world": "",
     }
   },
 
@@ -169,7 +173,26 @@
     "format": "{text}  ",
     "interval": 5,
     "exec": "nvidia-smi --id=0 --query-gpu=utilization.gpu,temperature.gpu,utilization.memory --format=csv,noheader,nounits",
-    // "exec": "nvidia-smi --id=0 --query-gpu=utilization.gpu --format=csv,noheader,nounits",
-    // "exec-if": "[ \"0\" -ne $(nvidia-smi --id=0 --query-gpu=utilization.gpu --format=csv,noheader,nounits) ]"
+  },
+
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
   },
 }
