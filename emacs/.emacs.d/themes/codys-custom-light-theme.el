@@ -124,6 +124,8 @@
    ;; ...
    ))
 
+(set-face-attribute 'default nil :height 105) ; 10.5 points
+
 ;; Mark the theme as provided
 (provide-theme 'codys-custom-light)
 
