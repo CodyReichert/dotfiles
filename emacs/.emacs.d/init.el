@@ -28,16 +28,15 @@
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
-(setq package-enable-at-startup nil)
-(package-initialize)
-
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-(eval-and-compile
-  (setq use-package-always-ensure t
-        use-package-expand-minimally t))
+
+(setq package-enable-at-startup nil)
+
+(eval-when-compile
+  (require 'use-package))
 
 ;;; Settings without corresponding packages
 
@@ -234,6 +233,13 @@
          ("\\.prettierrc$" . conf-mode))
   :config (setq js-indent-level cody/indent-width))
 
+(use-package epg
+  :ensure-system-package (gpg2 . gnupg2)
+  :custom
+  (epg-debug t)
+  :config
+  (setq epg-pinentry-mode 'loopback))
+
 ;;; Third-party Packages
 
 (use-package ultra-scroll
@@ -247,22 +253,7 @@
 (use-package mood-line
   ;; Enable mood-line
   :config
-  ;; (setq mood-line-format mood-line-format-default-extended)
-  (setq mood-line-glyph-alist mood-line-glyphs-unicode)
-  (setq mood-line-format
-      (mood-line-defformat
-       :left
-       (((mood-line-segment-buffer-status) . " ")
-        ((mood-line-segment-buffer-name)   . " : (")
-        ((mood-line-segment-modal) . ") ")
-        ((mood-line-segment-scroll)             . " ")
-        ((mood-line-segment-cursor-point)    . "  "))
-       :right
-       (((mood-line-segment-project)    . "  ")
-        ((mood-line-segment-process)    . "  ")
-        ((mood-line-segment-vc)    . "  ")
-        ((when (mood-line-segment-checker) "|") . "  ")
-        ((mood-line-segment-checker)            . "  "))))
+  (setq mood-line-format mood-line-format-default-extended)
   (mood-line-mode))
 
 (use-package dashboard
@@ -280,7 +271,8 @@
          'custom-theme-load-path "~/.emacs.d/themes/")
   :load-path "~/.emacs.d/themes/"
   :demand
-  :config (load-theme 'codys-custom-dark t))
+  :config
+  (load-theme 'codys-custom-dark t))
 
 (use-package all-the-icons
   :config (setq all-the-icons-scale-factor 1.25))
@@ -319,8 +311,7 @@
          (emacs-lisp-mode . rainbow-mode)))
 
 (use-package emojify
-  :config (global-emojify-mode)
-  :hook (after-init . emojify-mode-line-mode))
+  :config (global-emojify-mode))
 
 (use-package emojify-logos)
 
@@ -621,6 +612,8 @@
     (define-key company-active-map (kbd "C-n") #'company-select-next)
     (define-key company-active-map (kbd "C-p") #'company-select-previous)))
 
+(use-package company-emojify)
+
 (use-package org
   :hook ((org-mode . visual-line-mode)
          (org-mode . org-indent-mode))
@@ -767,6 +760,8 @@
   :config (when (memq window-system '(mac ns x))
             (setq exec-path-from-shell-arguments '("-c"))
             (exec-path-from-shell-initialize)))
+
+(setq initial-scratch-message (format ";; startup took %s\n\n" (emacs-init-time)))
 
 (provide 'init)
 ;;; init.el ends here
