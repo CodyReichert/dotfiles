@@ -12,9 +12,6 @@
     "custom/notification",
     "custom/right-arrow-dark",
     "custom/right-arrow-light",
-    "custom/homeassistant",
-    "custom/right-arrow-dark",
-    "custom/right-arrow-light",
     "custom/chrome-launcher",
     "custom/hass-launcher",
     "custom/spotify-launcher",
@@ -41,7 +38,7 @@
     "memory",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
-    "cpu",
+    "custom/cpu",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
     "temperature",
@@ -130,22 +127,16 @@
     "interval": 5,
     "format": " {used:0.1f}G/{total:0.0f}G "
   },
-  "cpu": {
-    "interval": 5,
-    "format": " {usage:2}% "
-  },
   "disk": {
     "interval": 5,
     "format": " {percentage_used:2}% ",
     "path": "/"
   },
-
-  "custom/homeassistant": {
-    "exec": "$HOME/.local/bin/waybarHomeassistant $HOME/.config/hypr/homeassistant-waybar/homeassistant-waybar.toml",
-    "format": " {} ",
-    "interval": 30,
-    "return-type": "json",
-    "max-length": 35,
+  "custom/cpu": {
+    "exec": "top -bn1 | grep \"Cpu(s)\" | tail -n 1 | awk '{print $2 + $4}'",
+    "interval": 5,
+    "format": " {}% ",
+    "min-length": 5,
     "tooltip": true
   },
   "custom/chrome-launcher": {
