@@ -43,7 +43,7 @@ window#waybar {
 #clock.3,
 #pulseaudio,
 #memory,
-#cpu,
+#custom-cpu,
 #temperature,
 #disk,
 #custom-gpu,
@@ -84,7 +84,7 @@ window#waybar {
 #memory {
   color: @base0D;
 }
-#cpu {
+#custom-cpu {
   color: @base0E;
 }
 #temperature {
@@ -100,7 +100,7 @@ window#waybar {
 #clock,
 #pulseaudio,
 #memory,
-#cpu,
+#custom-cpu,
 #temperature,
 #disk,
 #custom-gpu,
