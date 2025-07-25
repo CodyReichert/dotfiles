@@ -20,3 +20,5 @@
   required = true
 [commit]
 	gpgsign = true
+[credential]
+	helper = store
