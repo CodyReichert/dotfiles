@@ -12,6 +12,9 @@
     "custom/notification",
     "custom/right-arrow-dark",
     "custom/right-arrow-light",
+    "custom/hyprwhspr",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
     "custom/chrome-launcher",
     "custom/hass-launcher",
     "custom/spotify-launcher",
@@ -185,5 +188,16 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
+  },
+
+  "custom/hyprwhspr": {
+    "format": "{}",
+    "exec": "/usr/lib/hyprwhspr/config/hyprland/hyprwhspr-tray.sh status",
+    "interval": 1,
+    "return-type": "json",
+    "exec-on-event": true,
+    "on-click": "/usr/lib/hyprwhspr/config/hyprland/hyprwhspr-tray.sh record",
+    "on-click-right": "/usr/lib/hyprwhspr/config/hyprland/hyprwhspr-tray.sh restart",
+    "tooltip": true
   },
 }
