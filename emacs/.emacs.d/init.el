@@ -159,9 +159,8 @@
 
 (use-package eldoc
   :ensure nil
-  :diminish
   :hook (prog-mode . eldoc-mode)
-  :config (setq eldoc-idle-delay 0.4))
+  :config (setq eldoc-idle-delay 0.5))
 
 (use-package xref
   :ensure nil
@@ -176,11 +175,6 @@
   (setq c-default-style '((java-mode . "java")
                           (awk-mode . "awk")
                           (other . "k&r"))))
-
-(use-package prolog
-  :ensure nil
-  :mode (("\\.pl\\'" . prolog-mode))
-  :config (setq prolog-indent-width cody/indent-width))
 
 (use-package python
   :ensure nil
@@ -202,7 +196,6 @@
 
 (use-package flyspell
   :ensure nil
-  :diminish
   :config (setq ispell-program-name "/usr/local/bin/aspell"))
 
 (use-package elec-pair
@@ -233,12 +226,9 @@
          ("\\.prettierrc$" . conf-mode))
   :config (setq js-indent-level cody/indent-width))
 
+(setenv "GPG_TTY" "/dev/tty1")
 (use-package epg
-  :ensure-system-package (gpg2 . gnupg2)
-  :custom
-  (epg-debug t)
-  :config
-  (setq epg-pinentry-mode 'loopback))
+  :config (setq epg-pinentry-mode 'loopback))
 
 ;;; Third-party Packages
 
@@ -256,12 +246,34 @@
   (setq mood-line-format mood-line-format-default-extended)
   (mood-line-mode))
 
-(use-package dashboard
+(use-package dashboard-hackernews
   :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner 'logo
-        dashboard-banner-logo-title "Dangerously powerful"
-        dashboard-items nil))
+  (require 'json))
+
+(use-package dashboard
+  :after dashboard-hackernews
+  :config
+  (setq dashboard-banner-logo-title "Dangerously powerful" ; set the title
+        dashboard-startup-banner 'logo ; show the logo in the banner area
+        dashboard-startupify-list '(dashboard-insert-banner
+                                    dashboard-insert-newline
+                                    dashboard-insert-banner-title
+                                    dashboard-insert-newline
+                                    dashboard-insert-navigator
+                                    dashboard-insert-newline
+                                    dashboard-insert-init-info
+                                    dashboard-insert-items
+                                    dashboard-insert-newline
+                                    dashboard-insert-footer)
+        dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        dashboard-items '((recents . 5) ; this is where the magic happens
+                          (bookmarks . 5)
+                          (hackernews . 5)
+                          (agenda . 5))
+        dashboard-center-content t ; center the dashboard
+        dashboard-week-agenda t) ; set the agenda
+  (dashboard-setup-startup-hook))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
@@ -281,26 +293,83 @@
   :hook (after-init . all-the-icons-ivy-setup))
 
 (use-package centaur-tabs
-  :demand
-  :init (setq centaur-tabs-set-bar 'over)
+  :init
+  (setq centaur-tabs-enable-key-bindings t)
   :config
-  (centaur-tabs-mode t)
-  (centaur-tabs-headline-match)
-  (setq centaur-tabs-set-modified-marker t
-        centaur-tabs-modified-marker " "
-        centaur-tabs-cycle-scope 'tabs
-        centaur-tabs-height 22
+  (setq centaur-tabs-style "bar"
+        centaur-tabs-height 32
         centaur-tabs-set-icons t
-        centaur-tabs-icon-type "all-the-icons"
-        centaur-tabs-close-button " × ")
-  (centaur-tabs-group-by-projectile-project)
+        centaur-tabs-show-new-tab-button t
+        centaur-tabs-set-modified-marker t
+        centaur-tabs-show-navigation-buttons t
+        centaur-tabs-set-bar 'under
+        centaur-tabs-show-count nil
+        ;; centaur-tabs-label-fixed-length 15
+        ;; centaur-tabs-gray-out-icons 'buffer
+        ;; centaur-tabs-plain-icons t
+        x-underline-at-descent-line t
+        centaur-tabs-left-edge-margin nil)
+  (centaur-tabs-change-fonts (face-attribute 'default :font) 100)
+  (centaur-tabs-headline-match)
+  ;; (centaur-tabs-enable-buffer-alphabetical-reordering)
+  ;; (setq centaur-tabs-adjust-buffer-order t)
+  (centaur-tabs-mode t)
+  (setq uniquify-separator "/")
+  (setq uniquify-buffer-name-style 'forward)
+  (defun centaur-tabs-buffer-groups ()
+    "`centaur-tabs-buffer-groups' control buffers' group rules.
+
+Group centaur-tabs with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
+All buffer name start with * will group to \"Emacs\".
+Other buffer group by `centaur-tabs-get-group-name' with project name."
+    (list
+     (cond
+      ;; ((not (eq (file-remote-p (buffer-file-name)) nil))
+      ;; "Remote")
+      ((or (string-equal "*" (substring (buffer-name) 0 1))
+           (memq major-mode '(magit-process-mode
+                              magit-status-mode
+                              magit-diff-mode
+                              magit-log-mode
+                              magit-file-mode
+                              magit-blob-mode
+                              magit-blame-mode
+                              )))
+       "Editing")
+      ((derived-mode-p 'dired-mode)
+       "Dired")
+      ((memq major-mode '(helpful-mode
+                          help-mode))
+       "Help")
+      ((memq major-mode '(org-mode
+                          org-agenda-clockreport-mode
+                          org-src-mode
+                          org-agenda-mode
+                          org-beamer-mode
+                          org-indent-mode
+                          org-bullets-mode
+                          org-cdlatex-mode
+                          org-agenda-log-mode
+                          diary-mode))
+       "OrgMode")
+      (t
+       (centaur-tabs-group-by-projectile-project)))))
+  :hook
+  (dashboard-mode . centaur-tabs-local-mode)
+  (term-mode . centaur-tabs-local-mode)
+  (calendar-mode . centaur-tabs-local-mode)
+  (org-agenda-mode . centaur-tabs-local-mode)
   :bind
-  ("C-S-<tab>" . centaur-tabs-backward)
-  ("C-<tab>" . centaur-tabs-forward))
+  ("C-<prior>" . centaur-tabs-backward)
+  ("C-<next>" . centaur-tabs-forward)
+  ("C-S-<prior>" . centaur-tabs-move-current-tab-to-left)
+  ("C-S-<next>" . centaur-tabs-move-current-tab-to-right)
+  (:map evil-normal-state-map
+        ("g t" . centaur-tabs-forward)
+        ("g T" . centaur-tabs-backward)))
 
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode)
-  :diminish
   :config
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-character 9615) ; left-align vertical bar
@@ -310,10 +379,10 @@
   :hook ((web-mode . rainbow-mode)
          (emacs-lisp-mode . rainbow-mode)))
 
-(use-package emojify
-  :config (global-emojify-mode))
+;; (use-package emojify
+;;   :config (global-emojify-mode))
 
-(use-package emojify-logos)
+;; (use-package emojify-logos)
 
 (use-package undo-fu
   :config
@@ -347,7 +416,6 @@
 
 (use-package evil-commentary
   :after evil
-  :diminish
   :config (evil-commentary-mode +1))
 
 (use-package evil-surround
@@ -405,7 +473,6 @@
   :config (counsel-projectile-mode +1))
 
 (use-package ivy
-  :diminish
   :hook (after-init . ivy-mode)
   :config
   (setq ivy-display-style nil)
@@ -431,7 +498,6 @@
 
 (use-package ivy-posframe
   :after ivy
-  :diminish
   :config
   (setq ivy-posframe-width 70)
   (ivy-posframe-mode +1))
@@ -459,11 +525,10 @@
            (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
 
 (use-package projectile
-  :diminish
   :config
   (projectile-mode +1)
   (define-key projectile-mode-map (kbd "C-c p") #'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-p") #'projectile-find-file) ; counsel
+  (define-key projectile-mode-map (kbd "C-c f") #'projectile-find-file) ; counsel
   (define-key projectile-mode-map (kbd "s-F") #'projectile-ripgrep) ; counsel
   (setq projectile-sort-order 'recentf
         projectile-indexing-method 'alien
@@ -590,7 +655,6 @@
           ) . lsp)
   :commands lsp
   :config
-  (setq lsp-prefer-flymake nil)
   (setq lsp-enable-symbol-highlighting nil)
   (setq lsp-signature-auto-activate nil))
 
@@ -598,11 +662,10 @@
   :after lsp)
 
 (use-package company
-  :diminish
   :hook (prog-mode . company-mode)
   :config
   (setq company-minimum-prefix-length 2
-        company-idle-delay 0
+        company-idle-delay 0.2
         company-selection-wrap-around t
         company-dabbrev-downcase nil
         company-tooltip-align-annotations t
@@ -612,7 +675,7 @@
     (define-key company-active-map (kbd "C-n") #'company-select-next)
     (define-key company-active-map (kbd "C-p") #'company-select-previous)))
 
-(use-package company-emojify)
+;; (use-package company-emojify)
 
 (use-package org
   :hook ((org-mode . visual-line-mode)
@@ -726,10 +789,17 @@
   :ensure t
   :hook haskell-mode)
 
+(use-package arduino-cli-mode)
+
+(use-package tramp
+  :ensure t
+  :config
+  (setq tramp-verbose 10))
+
 ;; Pass integration
 (use-package password-store)
 
-;; Grok
+;; Gptel
 
 (use-package gptel
   :config
@@ -738,19 +808,63 @@
     :host "localhost:11434"        ;Where it's running
     :stream t                      ;Stream responses
     :models '(llama3.1))           ;List of models
+
+  (gptel-make-ollama "Gemma Verbose 7B" ;Any name of your choosing
+    :host "localhost:11434"             ;Where it's running
+    :stream t                           ;Stream responses
+    :models '(gemma-verbose:7b))        ;List of models
+
+  (gptel-make-ollama "gemma-dolly-run2"
+    :host "localhost:11434"             ;Where it's running
+    :stream t                           ;Stream responses
+    :models '(gemma-dolly-run2))        ;List of models
+
   (setq
-   gptel-model 'llama3.1
-   gptel-backend (gptel-make-ollama "Ollama"
+   gptel-model 'gemma-dolly-run2
+   gptel-backend (gptel-make-ollama "gemma-dolly-run2"
                    :host "localhost:11434"
                    :stream t
-                   :models '(llama3.1))))
+                   :models '(gemma-dolly-run2)))
+
+  )
+
+(use-package hass
+  :ensure t
+  :config
+  (setq hass-host "home.codys.club")
+  (setq hass-apikey (getenv "HASSIO_API_KEY"))
+  (setq hass-port 443)
+  (setq hassdash-layouts
+      '((default . ; Key for dashboard. Shows up with completing-read when calling `hass-dash-open'.
+                 ((hass-dash-group                 ; Create a widget group.
+                   :title "Home Assistant - Emacs" ; Give the group a title at the top.
+                   :format "%t\n\n%v"              ; %t is where the title goes and %v is the widget it owns.
+                   (hass-dash-group                ; Create a subgroup of widgets.
+                    :title "My office"
+                    :title-face outline-2   ; Give it a unique face to make it stand out.
+                    (hass-dash-toggle :entity-id "light.office_lamp")
+                    (hass-dash-toggle :entity-id "light.desk_lamp")
+                    (hass-dash-toggle :entity-id "light.office_fan_light")
+                    (hass-dash-toggle :entity-id "light.office_fan_light_2")
+                    (hass-dash-group
+                     :title "Media"
+                     :title-face outline
+                     (hass-dash-toggle :entity-id "media_player.spotify_cody"))
+                    (hass-dash-group
+                     :title "Monitors"
+                     :title-face outline
+                     (hass-dash-toggle :entity-id "media_player.odyssey")
+                     (hass-dash-toggle :entity-id "media_player.m5"))))
+                  (hass-dash-group :title "Bedroom" :format "\n\n%t\n\n%v"
+                                   (hass-dash-toggle :entity-id "light.bedside_table_lamp")
+                                   (hass-dash-toggle :entity-id "light.dresser_lamp"))))
+
+        (simple . ; Declaring a top-level group is optional and implied.
+                ((hass-dash-toggle :entity-id "scene.office_all_on")
+                 (hass-dash-toggle :entity-id "scene.office_all_off"))))))
 
 ;; Miscellaneous
-(use-package diminish
-  :demand t)
-
 (use-package which-key
-  :diminish
   :config
   (which-key-mode +1)
   (setq which-key-idle-delay 0.4
@@ -761,6 +875,13 @@
             (setq exec-path-from-shell-arguments '("-c"))
             (exec-path-from-shell-initialize)))
 
+(use-package persistent-scratch
+  :ensure t
+  :config
+  (persistent-scratch-setup-default))
+
+; The default does not like the ~ before > so do a kludge
+(setq shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>] *")
 (setq initial-scratch-message (format ";; startup took %s\n\n" (emacs-init-time)))
 
 (provide 'init)
