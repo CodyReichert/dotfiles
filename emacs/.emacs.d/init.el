@@ -226,7 +226,6 @@
          ("\\.prettierrc$" . conf-mode))
   :config (setq js-indent-level cody/indent-width))
 
-(setenv "GPG_TTY" "/dev/tty1")
 (use-package epg
   :config (setq epg-pinentry-mode 'loopback))
 
