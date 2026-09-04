@@ -1,8 +1,10 @@
-;;; init.el --- Emacs init file
+;;; init.el --- Emacs init file -*- lexical-binding: t; -*-
 ;;  Author: Cody Reichert
 ;;; Commentary:
 ;;  Personal Emacs configuration
 ;;; Code:
+(setq debug-on-quit t)
+
 (defvar file-name-handler-alist-original file-name-handler-alist)
 
 (setq gc-cons-threshold most-positive-fixnum
@@ -27,9 +29,10 @@
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
 
-(unless (package-installed-p 'use-package)
+(unless (or (package-installed-p 'use-package)
+            (package-built-in-p 'use-package)
+            (featurep 'use-package))
   (package-refresh-contents)
   (package-install 'use-package))
 
@@ -44,6 +47,7 @@
   :preface
   (defvar cody/indent-width 2)
   :config
+  (setq inhibit-startup-screen t)
   (setq confirm-kill-emacs 'y-or-n-p)
   (setq show-trailing-whitespace t)
   (setq ad-redefinition-action 'accept)
@@ -103,10 +107,6 @@
   (global-set-key (kbd "<f5>") #'toggle-custom-themes))
 
 ;;; Built-in packages
-
-(use-package startup
-  :ensure nil
-  :config (setq inhibit-startup-screen t))
 
 (use-package cus-edit
   :ensure nil
