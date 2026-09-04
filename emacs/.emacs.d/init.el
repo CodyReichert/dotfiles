@@ -104,7 +104,7 @@
 
 ;;; Built-in packages
 
-(use-package "startup"
+(use-package startup
   :ensure nil
   :config (setq inhibit-startup-screen t))
 
@@ -121,7 +121,7 @@
   :ensure nil
   :config (column-number-mode +1))
 
-(use-package "window"
+(use-package window
   :ensure nil
   :preface
   (defun cody/split-and-follow-horizontally ()
