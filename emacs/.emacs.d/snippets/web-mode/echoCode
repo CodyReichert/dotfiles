@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: echoCode
+# key:  echoCode
+# --
+echo "<pre><code>";
+var_dump($1);
+echo "</code></pre>";
