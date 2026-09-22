@@ -167,6 +167,7 @@
     "format": "{text}  ",
     "interval": 5,
     "exec": "nvidia-smi --id=0 --query-gpu=utilization.gpu,temperature.gpu,utilization.memory --format=csv,noheader,nounits",
+    "on-click": "ags request -i gpu-popup waybar-click",
   },
 
   "custom/notification": {
