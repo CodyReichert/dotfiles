@@ -1,6 +1,6 @@
 -- #######################################################################################
 -- HYPRLAND CONFIG (LUA)
--- Migrated from hyprland.conf for Hyprland 0.55+
+-- Hyprland 0.55+ Lua configuration
 -- Refer to https://wiki.hypr.land/Configuring/ for more information.
 -- #######################################################################################
 
@@ -67,6 +67,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm app -- " .. terminal)
     -- hl.exec_cmd("uwsm app -- nm-applet")
     hl.exec_cmd("uwsm app -- waybar")
+    hl.exec_cmd("uwsm app -- ags run ~/.config/ags/app.tsx")
     hl.exec_cmd("uwsm app -- swaync -c ~/.config/swaync/config.json -s ~/.config/swaync/styles.css")
 
     -- KDE Connect
@@ -298,6 +299,9 @@ hl.bind(superMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+-- Let AGS dismiss the GPU popup on an outside click without consuming the click.
+hl.bind("mouse:272", hl.dsp.exec_cmd("ags request -i gpu-popup outside-click"), { non_consuming = true, release = true })
 
 -- Laptop multimedia keys for volume and LCD brightness (repeating + locked)
 hl.bind("XF86AudioRaiseVolume",   hl.dsp.exec_cmd("uwsm app -- wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true, locked = true })
