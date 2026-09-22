@@ -1,0 +1,66 @@
+window.gpu-window {
+  background: transparent;
+  color: #d3dae3;
+  font-family: monospace;
+}
+
+.panel {
+  min-width: 360px;
+  padding: 22px;
+  background: #101019;
+  border: 1px solid #b000b0;
+  border-radius: 14px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
+}
+
+.eyebrow, .stat-label, .footer {
+  color: #9293a7;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.eyebrow { color: #d759d7; }
+.gpu-name { font-size: 17px; font-weight: bold; }
+
+.close-button {
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0;
+  border-radius: 8px;
+  background: #252535;
+  color: #d3dae3;
+  font-size: 22px;
+}
+.close-button:hover { background: #56305b; }
+
+.error {
+  padding: 9px 11px;
+  background: #49232c;
+  border-radius: 7px;
+  color: #ffd2d2;
+}
+
+.metric-label { color: #b9bfd0; }
+.metric-value { color: #f4e8f4; font-weight: bold; }
+
+levelbar { min-height: 9px; }
+levelbar trough {
+  min-height: 9px;
+  border-radius: 6px;
+  background: #292938;
+}
+levelbar block.filled {
+  min-height: 9px;
+  border-radius: 6px;
+  background: #b000b0;
+}
+.vram-meter block.filled { background: #746ae2; }
+
+.stat {
+  padding: 12px;
+  background: #1c1c28;
+  border: 1px solid #303044;
+  border-radius: 9px;
+}
+.stat-value { margin-top: 5px; font-size: 15px; font-weight: bold; }
+.footer { margin-top: 1px; }
