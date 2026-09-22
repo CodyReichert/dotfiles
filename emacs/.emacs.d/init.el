@@ -3,7 +3,6 @@
 ;;; Commentary:
 ;;  Personal Emacs configuration
 ;;; Code:
-(setq debug-on-quit t)
 
 (defvar file-name-handler-alist-original file-name-handler-alist)
 
