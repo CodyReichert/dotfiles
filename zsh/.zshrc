@@ -137,3 +137,4 @@ set -o vi
 
 PS1='$ '
 export PATH="$HOME/.npm-global/bin:$PATH"
+eval "$(fnm env --use-on-cd)"
