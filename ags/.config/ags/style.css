@@ -1,4 +1,4 @@
-window.gpu-window {
+window.popup-window {
   background: transparent;
   color: #d3dae3;
   font-family: monospace;
@@ -13,14 +13,38 @@ window.gpu-window {
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
 }
 
+.disk-panel {
+  min-width: 390px;
+  border-color: #8c6e5c;
+}
+
+.temperature-panel {
+  min-width: 410px;
+  border-color: #6d7f00;
+}
+
+.cpu-panel {
+  min-width: 420px;
+  border-color: #746ae2;
+}
+
+.memory-panel {
+  min-width: 420px;
+  border-color: #2285e2;
+}
+
 .eyebrow, .stat-label, .footer {
   color: #9293a7;
   font-size: 10px;
   letter-spacing: 1px;
 }
 
-.eyebrow { color: #d759d7; }
-.gpu-name { font-size: 17px; font-weight: bold; }
+.gpu-accent { color: #d759d7; }
+.disk-accent { color: #c69c82; }
+.temperature-accent { color: #b8cb36; }
+.cpu-accent { color: #a49cff; }
+.memory-accent { color: #5eafff; }
+.popup-title { font-size: 17px; font-weight: bold; }
 
 .close-button {
   min-width: 30px;
@@ -32,6 +56,10 @@ window.gpu-window {
   font-size: 22px;
 }
 .close-button:hover { background: #56305b; }
+.disk-close-button:hover { background: #514038; }
+.temperature-close-button:hover { background: #3e461d; }
+.cpu-close-button:hover { background: #393660; }
+.memory-close-button:hover { background: #25476a; }
 
 .error {
   padding: 9px 11px;
@@ -55,6 +83,9 @@ levelbar block.filled {
   background: #b000b0;
 }
 .vram-meter block.filled { background: #746ae2; }
+.disk-meter block.filled { background: #8c6e5c; }
+.temperature-meter block.filled { background: #8ea315; }
+.core-meter block.filled { background: #746ae2; }
 
 .stat {
   padding: 12px;
@@ -64,3 +95,174 @@ levelbar block.filled {
 }
 .stat-value { margin-top: 5px; font-size: 15px; font-weight: bold; }
 .footer { margin-top: 1px; }
+
+.disk-card {
+  padding: 13px 14px;
+  background: #1c1c28;
+  border: 1px solid #303044;
+  border-radius: 9px;
+}
+
+.disk-name { font-size: 15px; font-weight: bold; }
+.disk-mount, .disk-source {
+  color: #9293a7;
+  font-size: 10px;
+}
+.disk-percent {
+  color: #d7b49f;
+  font-size: 18px;
+  font-weight: bold;
+}
+.disk-values { margin-top: 1px; }
+.disk-value { margin-top: 4px; font-size: 13px; font-weight: bold; }
+.disk-source { margin-top: 1px; }
+
+.temperature-current {
+  color: #d7e878;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.chart-card {
+  padding: 12px;
+  background: #171722;
+  border: 1px solid #303044;
+  border-radius: 9px;
+}
+.temperature-chart { background: #171722; }
+.chart-range, .chart-scale {
+  color: #9293a7;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+}
+
+.sensor-list {
+  padding: 12px 14px;
+  background: #1c1c28;
+  border: 1px solid #303044;
+  border-radius: 9px;
+}
+.sensor-row { min-height: 20px; }
+.sensor-name {
+  min-width: 125px;
+  color: #b9bfd0;
+  font-size: 11px;
+}
+.sensor-value {
+  min-width: 54px;
+  color: #eef3c8;
+  font-size: 11px;
+  font-weight: bold;
+}
+.temperature-meter,
+.temperature-meter trough,
+.temperature-meter block.filled {
+  min-height: 6px;
+}
+
+.cpu-current {
+  color: #b9b3ff;
+  font-size: 20px;
+  font-weight: bold;
+}
+.cpu-chart { background: #171722; }
+
+.core-card {
+  padding: 12px 14px;
+  background: #1c1c28;
+  border: 1px solid #303044;
+  border-radius: 9px;
+}
+.core-tile {
+  min-width: 48px;
+  padding: 6px 4px;
+  background: #171722;
+  border-radius: 7px;
+}
+.core-name, .core-value {
+  color: #9293a7;
+  font-size: 9px;
+}
+.core-value { color: #dedbff; font-weight: bold; }
+.core-meter,
+.core-meter trough {
+  min-width: 9px;
+  min-height: 34px;
+}
+.core-meter block.filled {
+  min-width: 9px;
+  border-radius: 5px;
+}
+
+.cpu-stat {
+  padding: 10px;
+  background: #1c1c28;
+  border: 1px solid #303044;
+  border-radius: 9px;
+}
+.cpu-stat-value {
+  margin-top: 5px;
+  color: #dedbff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.memory-current {
+  color: #82c2ff;
+  font-size: 20px;
+  font-weight: bold;
+}
+.memory-chart { background: #171722; }
+
+.memory-composition-card,
+.memory-process-card {
+  padding: 12px 14px;
+  background: #1c1c28;
+  border: 1px solid #303044;
+  border-radius: 9px;
+}
+.memory-composition { border-radius: 7px; }
+.memory-legend {
+  color: #9293a7;
+  font-size: 9px;
+}
+.memory-in-use { color: #4aa6ff; }
+.memory-cache { color: #36c7bc; }
+.memory-free { color: #9293a7; }
+
+.memory-stat {
+  padding: 10px;
+  background: #1c1c28;
+  border: 1px solid #303044;
+  border-radius: 9px;
+}
+.memory-stat-value {
+  margin-top: 5px;
+  color: #d7ebff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.memory-pressure {
+  color: #9293a7;
+  font-size: 9px;
+}
+.memory-process-row {
+  min-height: 19px;
+  padding: 1px 3px;
+}
+.memory-process-rank {
+  min-width: 20px;
+  color: #5eafff;
+  font-size: 9px;
+}
+.memory-process-name {
+  color: #b9bfd0;
+  font-size: 11px;
+}
+.memory-process-value {
+  min-width: 65px;
+  color: #d7ebff;
+  font-size: 11px;
+  font-weight: bold;
+}

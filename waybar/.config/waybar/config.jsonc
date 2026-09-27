@@ -125,22 +125,26 @@
     "warning-threshold": "65",
     "format": "{temperatureC}°C {icon}",
     "format-icons": ["", "", ""],
+    "on-click": "ags request -i desktop-shell toggle temperature",
   },
   "memory": {
     "interval": 5,
-    "format": " {used:0.1f}G/{total:0.0f}G "
+    "format": " {used:0.1f}G/{total:0.0f}G ",
+    "on-click": "ags request -i desktop-shell toggle memory"
   },
   "disk": {
     "interval": 5,
     "format": " {percentage_used:2}% ",
-    "path": "/"
+    "path": "/",
+    "on-click": "ags request -i desktop-shell toggle disk"
   },
   "custom/cpu": {
     "exec": "top -bn1 | grep \"Cpu(s)\" | tail -n 1 | awk '{print $2 + $4}'",
     "interval": 5,
     "format": " {}% ",
     "min-length": 5,
-    "tooltip": true
+    "tooltip": true,
+    "on-click": "ags request -i desktop-shell toggle cpu"
   },
   "custom/chrome-launcher": {
     "format": " {}  ",
@@ -167,7 +171,7 @@
     "format": "{text}  ",
     "interval": 5,
     "exec": "nvidia-smi --id=0 --query-gpu=utilization.gpu,temperature.gpu,utilization.memory --format=csv,noheader,nounits",
-    "on-click": "ags request -i gpu-popup waybar-click",
+    "on-click": "ags request -i desktop-shell toggle gpu",
   },
 
   "custom/notification": {

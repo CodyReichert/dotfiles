@@ -253,8 +253,9 @@ hl.bind(mainMod .. " + space", hl.dsp.exec_cmd("uwsm app " .. menu))
 hl.bind(mainMod .. " + Y",     hl.dsp.window.float({ action = "toggle" }))
 
 -- Screenshot utilities
-local ss = 'uwsm app -- grim -g "$(uwsm app slurp)" - | uwsm app -- swappy -f -'
-hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- " .. ss))
+local ss = "~/.config/hypr/scripts/screenshot-region"
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(ss))
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd(ss .. " --delay 3"))
 
 -- swaync
 hl.bind(ctrlMod .. " + SHIFT + F", hl.dsp.exec_cmd("uwsm app -- swaync-client -t"))
@@ -300,8 +301,8 @@ hl.bind(superMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- Let AGS dismiss the GPU popup on an outside click without consuming the click.
-hl.bind("mouse:272", hl.dsp.exec_cmd("ags request -i gpu-popup outside-click"), { non_consuming = true, release = true })
+-- Let AGS dismiss the visible popup on an outside click without consuming the click.
+hl.bind("mouse:272", hl.dsp.exec_cmd("ags request -i desktop-shell outside-click"), { non_consuming = true, release = true })
 
 -- Laptop multimedia keys for volume and LCD brightness (repeating + locked)
 hl.bind("XF86AudioRaiseVolume",   hl.dsp.exec_cmd("uwsm app -- wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true, locked = true })
