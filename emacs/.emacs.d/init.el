@@ -390,27 +390,90 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 ;; Vi keybindings
 
+(setq evil-want-integration t
+      evil-want-keybinding nil)
+
+(use-package evil-leader
+  :ensure t
+  :config
+  (setq evil-leader/in-all-states t)
+  (evil-leader/set-leader "SPC")
+  (global-evil-leader-mode 1)
+
+  ; global
+  (evil-leader/set-key "w" 'save-buffer)
+  (evil-leader/set-key "j" 'Control-X-prefix)
+  (evil-leader/set-key "b" 'counsel-switch-buffer)
+  (evil-leader/set-key "f" 'counsel-projectile-find-file)
+  (evil-leader/set-key "g" 'counsel-git-grep)
+  (evil-leader/set-key "o" 'aw-flip-window)
+  (evil-leader/set-key "i" 'window-swap-states)
+  (evil-leader/set-key "x" 'gptel-menu)
+  (evil-leader/set-key "k"
+    '(lambda ()
+       (interactive)
+       (kill-current-buffer)
+       (previous-buffer)))
+
+  ; flycheck-*
+  (evil-leader/set-key "e n" 'flycheck-next-error)
+  (evil-leader/set-key "e p" 'flycheck-previous-error)
+
+  ; flowmacs/*
+  (evil-leader/set-key "j r" 'flowmacs-mode)
+  (evil-leader/set-key "j f" 'flowmacs/find-refs)
+  (evil-leader/set-key "j t" 'flowmacs/type-at-pos)
+  (evil-leader/set-key "j d" 'flowmacs/jump-to-def)
+  (evil-leader/set-key "j s" 'flowmacs/suggest-types)
+  (evil-leader/set-key "j RET" 'flowmacs/status)
+
+  ; web-mode-*
+  (evil-leader/set-key "r r" 'web-mode)
+  (evil-leader/set-key "r a k" 'web-mode-attribute-kill)
+  (evil-leader/set-key "r a t" 'web-mode-attribute-transpose)
+  (evil-leader/set-key "r a s" 'web-mode-attribute-select)
+  (evil-leader/set-key "r a k" 'web-mode-attribute-kill)
+  (evil-leader/set-key "r a t" 'web-mode-attribute-transpose)
+  (evil-leader/set-key "r a s" 'web-mode-attribute-select)
+  (evil-leader/set-key "r t a" 'web-mode-tag-attributes-sort)
+  (evil-leader/set-key "r t m" 'web-mode-tag-match)
+  (evil-leader/set-key "r t s" 'web-mode-tag-select)
+  (evil-leader/set-key "r e w" 'web-mode-element-wrap)
+  (evil-leader/set-key "r e c" 'web-mode-element-clone)
+  (evil-leader/set-key "r e r" 'web-mode-element-rename)
+  (evil-leader/set-key "r e v" 'web-mode-element-vanish)
+  (evil-leader/set-key "r e u" 'web-mode-element-parent)
+
+  ;; evil commands
+  ;; (evil-leader/set-key "n" 'evil-search-word-backward)
+  ;; (evil-leader/set-key "m" 'evil-search-word-forward)
+  ;;
+  ;; web-mode (legacy)
+  ;; (evil-leader/set-key "a k" 'web-mode-attribute-kill)
+  ;; (evil-leader/set-key "e w" 'web-mode-element-wrap)
+  ;; (evil-leader/set-key "e r" 'web-mode-element-rename)
+  ;; (evil-leader/set-key "e v" 'web-mode-element-vanish)
+  )
+
 (use-package evil
   :init
   (setq evil-shift-width cody/indent-width)
   (setq-default evil-kill-on-visual-paste nil)
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
   (setq evil-undo-system 'undo-fu)
   :hook (after-init . evil-mode)
   :preface
-  (defun cody/save-and-kill-this-buffer ()
+  (defun cody/save-and-kill-current-buffer ()
     (interactive)
     (save-buffer)
-    (kill-this-buffer))
+    (kill-current-buffer))
   :config
   (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
     (define-key evil-insert-state-map (kbd "C-n") nil)
     (define-key evil-insert-state-map (kbd "C-p") nil))
   (evil-set-initial-state 'term-mode 'emacs)
   (define-key evil-normal-state-map (kbd "x") 'gptel-menu)
-  (evil-ex-define-cmd "q" #'kill-this-buffer)
-  (evil-ex-define-cmd "wq" #'cody/save-and-kill-this-buffer))
+  (evil-ex-define-cmd "q" #'kill-current-buffer)
+  (evil-ex-define-cmd "wq" #'cody/save-and-kill-current-buffer))
 
 (use-package evil-commentary
   :after evil
@@ -534,68 +597,6 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
 (use-package ace-window
   :ensure t)
-
-(use-package evil-leader
-  :ensure t
-  :config
-  (global-evil-leader-mode 1)
-  (setq evil-leader/in-all-states t)
-  (evil-leader/set-leader "SPC")
-
-  ; global
-  (evil-leader/set-key "w" 'save-buffer)
-  (evil-leader/set-key "j" 'Control-X-prefix)
-  (evil-leader/set-key "b" 'counsel-switch-buffer)
-  (evil-leader/set-key "f" 'counsel-projectile-find-file)
-  (evil-leader/set-key "g" 'counsel-git-grep)
-  (evil-leader/set-key "o" 'aw-flip-window)
-  (evil-leader/set-key "i" 'window-swap-states)
-  (evil-leader/set-key "x" 'gptel-menu)
-  (evil-leader/set-key "k"
-    '(lambda ()
-       (interactive)
-       (kill-this-buffer)
-       (previous-buffer)))
-
-  ; flycheck-*
-  (evil-leader/set-key "e n" 'flycheck-next-error)
-  (evil-leader/set-key "e p" 'flycheck-previous-error)
-
-  ; flowmacs/*
-  (evil-leader/set-key "j r" 'flowmacs-mode)
-  (evil-leader/set-key "j f" 'flowmacs/find-refs)
-  (evil-leader/set-key "j t" 'flowmacs/type-at-pos)
-  (evil-leader/set-key "j d" 'flowmacs/jump-to-def)
-  (evil-leader/set-key "j s" 'flowmacs/suggest-types)
-  (evil-leader/set-key "j RET" 'flowmacs/status)
-
-  ; web-mode-*
-  (evil-leader/set-key "r r" 'web-mode)
-  (evil-leader/set-key "r a k" 'web-mode-attribute-kill)
-  (evil-leader/set-key "r a t" 'web-mode-attribute-transpose)
-  (evil-leader/set-key "r a s" 'web-mode-attribute-select)
-  (evil-leader/set-key "r a k" 'web-mode-attribute-kill)
-  (evil-leader/set-key "r a t" 'web-mode-attribute-transpose)
-  (evil-leader/set-key "r a s" 'web-mode-attribute-select)
-  (evil-leader/set-key "r t a" 'web-mode-tag-attributes-sort)
-  (evil-leader/set-key "r t m" 'web-mode-tag-match)
-  (evil-leader/set-key "r t s" 'web-mode-tag-select)
-  (evil-leader/set-key "r e w" 'web-mode-element-wrap)
-  (evil-leader/set-key "r e c" 'web-mode-element-clone)
-  (evil-leader/set-key "r e r" 'web-mode-element-rename)
-  (evil-leader/set-key "r e v" 'web-mode-element-vanish)
-  (evil-leader/set-key "r e u" 'web-mode-element-parent)
-
-  ;; evil commands
-  ;; (evil-leader/set-key "n" 'evil-search-word-backward)
-  ;; (evil-leader/set-key "m" 'evil-search-word-forward)
-  ;;
-  ;; web-mode (legacy)
-  ;; (evil-leader/set-key "a k" 'web-mode-attribute-kill)
-  ;; (evil-leader/set-key "e w" 'web-mode-element-wrap)
-  ;; (evil-leader/set-key "e r" 'web-mode-element-rename)
-  ;; (evil-leader/set-key "e v" 'web-mode-element-vanish)
-  )
 
 (use-package haskell-mode
   :ensure t
