@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+delay=""
+if (( $# )); then
+    if (( $# != 2 )) || [[ $1 != --delay || ! $2 =~ ^[0-9]+$ ]]; then
+        printf 'Usage: %s [--delay SECONDS]\n' "$0" >&2
+        exit 2
+    fi
+    delay=$2
+fi
+
+# Selecting a region ends with an outside click. Keep that click from dismissing
+# a popup before grim captures it, then restore normal popup behavior.
+ags request -i desktop-shell pause-outside-clicks >/dev/null 2>&1 || true
+trap 'ags request -i desktop-shell resume-outside-clicks >/dev/null 2>&1 || true' EXIT
+
+geometry="$(uwsm app -- slurp)" || exit
+[[ -n "$geometry" ]] || exit
+
+if [[ -n $delay ]]; then
+    sleep "$delay" || exit
+fi
+
+uwsm app -- grim -g "$geometry" - | uwsm app -- swappy -f -
