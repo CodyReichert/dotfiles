@@ -35,24 +35,27 @@ hl.monitor({
     transform = 3,
 })
 
--- Default workspaces per monitor
-hl.workspace_rule({
-    workspace = "name:hello",
-    monitor   = "HDMI-A-1",
-    default   = true,
-})
-
-hl.workspace_rule({
-    workspace = "name:world",
-    monitor   = "DP-1",
-    default   = true,
-})
+-- Four paired views: 1-4 on the wide monitor, 5-8 on the vertical monitor.
+for pair = 1, 4 do
+    hl.workspace_rule({
+        workspace = tostring(pair),
+        monitor   = "HDMI-A-1",
+        default   = pair == 1,
+        persistent = true,
+    })
+    hl.workspace_rule({
+        workspace = tostring(pair + 4),
+        monitor   = "DP-1",
+        default   = pair == 1,
+        persistent = true,
+    })
+end
 
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
 
--- See https://wiki.hypr.land/Configuring/Keywords/
+-- Se://wiki.hypr.land/Configuring/Keywords/
 local terminal = "kitty"
 local editor   = "emacs"
 local browser  = "google-chrome-unstable"
@@ -140,9 +143,10 @@ hl.config({
     },
 
     misc = {
-        force_default_wallpaper = 0,
-        disable_hyprland_logo   = true,
-        vrr                     = 2,
+        force_default_wallpaper  = 0,
+        disable_hyprland_logo    = true,
+        disable_splash_rendering = true,
+        vrr                      = 2,
     },
 
     render = {
@@ -281,21 +285,16 @@ hl.bind(mainMod .. " + J",     hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
 hl.bind(mainMod .. " + K",     hl.dsp.focus({ direction = "down" }))
 
--- Switch workspaces with mainMod + [0-9]
-hl.bind(mainMod .. " + 0", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + 9", hl.dsp.workspace.toggle_special("potion"))
-hl.bind(mainMod .. " + 1", hl.dsp.focus({ workspace = "hello" }))
-hl.bind(mainMod .. " + 2", hl.dsp.focus({ workspace = "world" }))
+-- Switch both monitors together; move a window within its current monitor.
+local workspace_pair = "~/.config/hypr/scripts/workspace-pair"
+for pair = 1, 4 do
+    hl.bind(mainMod .. " + " .. pair, hl.dsp.exec_cmd(workspace_pair .. " switch " .. pair))
+    hl.bind(mainMod .. " + SHIFT + " .. pair, hl.dsp.exec_cmd(workspace_pair .. " move " .. pair))
+end
 
--- Move active window to a workspace with mainMod + SHIFT + [0-9]
-hl.bind(mainMod .. " + SHIFT + 0", hl.dsp.window.move({ workspace = "special:magic" }))
-hl.bind(mainMod .. " + SHIFT + 9", hl.dsp.window.move({ workspace = "special:potion" }))
-hl.bind(mainMod .. " + SHIFT + 1", hl.dsp.window.move({ workspace = "hello" }))
-hl.bind(mainMod .. " + SHIFT + 2", hl.dsp.window.move({ workspace = "world" }))
-
--- Scroll through existing workspaces with superMod + scroll
-hl.bind(superMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(superMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+-- Scroll through the four paired views, wrapping at either end.
+hl.bind(superMod .. " + mouse_down", hl.dsp.exec_cmd(workspace_pair .. " cycle next"))
+hl.bind(superMod .. " + mouse_up",   hl.dsp.exec_cmd(workspace_pair .. " cycle prev"))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })

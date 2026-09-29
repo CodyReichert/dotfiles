@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+main_monitor=HDMI-A-1
+side_monitor=DP-1
+
+usage() {
+    echo "usage: workspace-pair {switch|move|status} {1|2|3|4} | cycle {next|prev}" >&2
+    exit 2
+}
+
+valid_pair() {
+    [[ ${1:-} =~ ^[1-4]$ ]] || usage
+}
+
+monitors() {
+    hyprctl -j monitors
+}
+
+focused_monitor() {
+    jq -r '.[] | select(.focused == true) | .name' <<< "$1" | head -n 1
+}
+
+switch_pair() {
+    local pair=$1 state=$2 focused code='' side
+    local main_present side_present
+    side=$((pair + 4))
+    focused=$(focused_monitor "$state")
+    main_present=$(jq -r --arg name "$main_monitor" '.[] | select(.name == $name) | .name' <<< "$state")
+    side_present=$(jq -r --arg name "$side_monitor" '.[] | select(.name == $name) | .name' <<< "$state")
+
+    if [[ -n $main_present ]]; then
+        code="hl.dispatch(hl.dsp.focus({ workspace = \"$pair\" }))"
+    fi
+    if [[ -n $side_present ]]; then
+        [[ -n $code ]] && code+='; '
+        code+="hl.dispatch(hl.dsp.focus({ workspace = \"$side\" }))"
+    fi
+    [[ -n $code ]] || { echo "Neither configured monitor is connected" >&2; exit 1; }
+
+    # Switching the second monitor changes focus. Return it to the starting monitor.
+    if [[ $focused == "$main_monitor" || $focused == "$side_monitor" ]]; then
+        code+="; hl.dispatch(hl.dsp.focus({ monitor = \"$focused\" }))"
+    fi
+    hyprctl eval "$code" >/dev/null
+}
+
+command=${1:-}
+case $command in
+    switch)
+        valid_pair "${2:-}"
+        switch_pair "$2" "$(monitors)"
+        ;;
+    move)
+        valid_pair "${2:-}"
+        state=$(monitors)
+        focused=$(focused_monitor "$state")
+        case $focused in
+            "$main_monitor") target=$2 ;;
+            "$side_monitor") target=$(($2 + 4)) ;;
+            *) echo "Focused monitor is not in a workspace pair" >&2; exit 1 ;;
+        esac
+        hyprctl dispatch "hl.dsp.window.move({ workspace = \"$target\" })" >/dev/null
+        ;;
+    cycle)
+        case ${2:-} in next) delta=1 ;; prev) delta=-1 ;; *) usage ;; esac
+        state=$(monitors)
+        current=$(jq -r '.[] | select(.focused == true) | .activeWorkspace.id' <<< "$state" | head -n 1)
+        if [[ $current =~ ^[1-8]$ ]]; then
+            pair=$(( (current - 1) % 4 + 1 ))
+        else
+            pair=1
+        fi
+        next=$(( (pair - 1 + delta + 4) % 4 + 1 ))
+        switch_pair "$next" "$state"
+        ;;
+    status)
+        valid_pair "${2:-}"
+        state=$(monitors)
+        side=$(($2 + 4))
+        jq -nc --argjson pair "$2" --argjson side "$side" \
+            --arg main "$main_monitor" --arg vertical "$side_monitor" \
+            --argjson monitors "$state" '
+              ($monitors | map(select(.name == $main)) | .[0].activeWorkspace.id) as $main_id |
+              ($monitors | map(select(.name == $vertical)) | .[0].activeWorkspace.id) as $side_id |
+              {text: ($pair | tostring), tooltip: "Workspace \($pair): wide \($pair), vertical \($side)",
+               class: (if (($main_id == null or $main_id == $pair) and
+                          ($side_id == null or $side_id == $side) and
+                          ($main_id != null or $side_id != null)) then "active"
+                       elif ($main_id == $pair or $side_id == $side) then "partial"
+                       else "" end)}'
+        ;;
+    *) usage ;;
+esac

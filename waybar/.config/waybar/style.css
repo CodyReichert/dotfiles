@@ -37,7 +37,10 @@ window#waybar {
   background: @base00;
 }
 
-#workspaces,
+#custom-workspace-1,
+#custom-workspace-2,
+#custom-workspace-3,
+#custom-workspace-4,
 #clock.1,
 #clock.2,
 #clock.3,
@@ -67,15 +70,29 @@ window#waybar {
     padding-right: 8px;
 }
 
-#workspaces button {
-  padding: 0 5px 0px 5px;
+#custom-workspace-1,
+#custom-workspace-2,
+#custom-workspace-3,
+#custom-workspace-4 {
+  padding: 0 10px;
   color: @base05;
 }
-#workspaces button.active,
-#workspaces button.focused {
+#custom-workspace-1.active,
+#custom-workspace-2.active,
+#custom-workspace-3.active,
+#custom-workspace-4.active {
   color: @base0D;
 }
-#workspaces button:hover {
+#custom-workspace-1.partial,
+#custom-workspace-2.partial,
+#custom-workspace-3.partial,
+#custom-workspace-4.partial {
+  color: @base0A;
+}
+#custom-workspace-1:hover,
+#custom-workspace-2:hover,
+#custom-workspace-3:hover,
+#custom-workspace-4:hover {
   color: @base03;
 }
 

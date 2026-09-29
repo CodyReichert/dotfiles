@@ -6,7 +6,10 @@
   "height": 32,
   "output": "HDMI-A-1",
   "modules-left": [
-    "hyprland/workspaces",
+    "custom/workspace-1",
+    "custom/workspace-2",
+    "custom/workspace-3",
+    "custom/workspace-4",
     "custom/right-arrow-dark",
     "custom/right-arrow-light",
     "custom/notification",
@@ -74,19 +77,29 @@
       "separate-outputs": true
   },
 
-  "hyprland/workspaces": {
-    "active-only": true,
-    "show-special": true,
-    "on-click": "activate",
-    "disable-scroll": true,
-    "all-outputs": true,
-    "format": "{icon}",
-    "format-icons": {
-      "hello": "",
-      "magic": "",
-      "potion": "",
-      "world": "",
-    }
+  "custom/workspace-1": {
+    "exec": "~/.config/hypr/scripts/workspace-pair status 1",
+    "interval": 1,
+    "return-type": "json",
+    "on-click": "~/.config/hypr/scripts/workspace-pair switch 1"
+  },
+  "custom/workspace-2": {
+    "exec": "~/.config/hypr/scripts/workspace-pair status 2",
+    "interval": 1,
+    "return-type": "json",
+    "on-click": "~/.config/hypr/scripts/workspace-pair switch 2"
+  },
+  "custom/workspace-3": {
+    "exec": "~/.config/hypr/scripts/workspace-pair status 3",
+    "interval": 1,
+    "return-type": "json",
+    "on-click": "~/.config/hypr/scripts/workspace-pair switch 3"
+  },
+  "custom/workspace-4": {
+    "exec": "~/.config/hypr/scripts/workspace-pair status 4",
+    "interval": 1,
+    "return-type": "json",
+    "on-click": "~/.config/hypr/scripts/workspace-pair switch 4"
   },
 
   "clock#1": {
