@@ -402,7 +402,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
   ; global
   (evil-leader/set-key "w" 'save-buffer)
-  (evil-leader/set-key "j" 'Control-X-prefix)
+  ;; Keep leader overrides from changing Emacs's C-x bindings.
+  (evil-leader/set-key "j" (copy-keymap ctl-x-map))
   (evil-leader/set-key "b" 'counsel-switch-buffer)
   (evil-leader/set-key "f" 'counsel-projectile-find-file)
   (evil-leader/set-key "g" 'counsel-git-grep)
