@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+umask 077
+
+notify() {
+    notify-send --app-name='Screen recording' "$@" >/dev/null 2>&1 || true
+}
+
+# Check the process birth time as well as its PID so stale state cannot stop
+# an unrelated process after the kernel reuses a PID.
+birth_time() {
+    local stat fields
+    [[ $1 =~ ^[0-9]+$ ]] || return 1
+    IFS= read -r stat 2>/dev/null < "/proc/$1/stat" || return 1
+    read -r -a fields <<< "${stat##*) }"
+    printf '%s\n' "${fields[19]}"
+}
+
+if (( $# )); then
+    printf 'Usage: %s\n' "$0" >&2
+    exit 2
+fi
+
+if [[ -z ${XDG_RUNTIME_DIR:-} || ! -d $XDG_RUNTIME_DIR ]]; then
+    notify 'Recording failed' 'No desktop session runtime directory is available.'
+    exit 1
+fi
+
+state_dir="$XDG_RUNTIME_DIR/hypr-screen-record"
+mkdir -p "$state_dir" || exit 1
+state="$state_dir/recording"
+exec 9>"$state_dir/lock" || exit 1
+# Ignore extra presses while the selector is open or startup is in progress.
+flock -n 9 || exit 0
+
+if [[ -f $state ]]; then
+    mapfile -t saved < "$state"
+    if [[ ${saved[1]:-} =~ ^[0-9]+$ ]] &&
+       [[ $(birth_time "${saved[0]:-}") == "${saved[1]}" ]]; then
+        kill -INT "${saved[0]}"
+        exit $?
+    fi
+    rm -f "$state"
+fi
+
+for dependency in wf-recorder slurp; do
+    if ! command -v "$dependency" >/dev/null 2>&1; then
+        notify 'Recording failed' "Missing dependency: $dependency"
+        exit 1
+    fi
+done
+
+ags request -i desktop-shell pause-outside-clicks >/dev/null 2>&1 || true
+trap 'ags request -i desktop-shell resume-outside-clicks >/dev/null 2>&1 || true' EXIT
+geometry="$(slurp 9>&-)" || exit 0
+[[ -n $geometry ]] || exit 0
+ags request -i desktop-shell resume-outside-clicks >/dev/null 2>&1 || true
+trap - EXIT
+
+output_dir="$HOME/Videos/Recordings"
+mkdir -p "$output_dir" || {
+    notify 'Recording failed' "Cannot create $output_dir"
+    exit 1
+}
+output="$output_dir/recording-$(date +%Y-%m-%d_%H-%M-%S-%N).mp4"
+
+# Close the lock FD in the child, otherwise it would keep the toggle locked.
+# No audio flag: silent video. Cursor capture is enabled by default.
+wf-recorder -g "$geometry" -c libx264 -x yuv420p \
+    -F 'crop=trunc(iw/2)*2:trunc(ih/2)*2' -f "$output" \
+    >"$state_dir/recorder.log" 2>&1 9>&- &
+recorder_pid=$!
+recorder_birth=$(birth_time "$recorder_pid")
+
+cleanup() {
+    flock 9
+    if [[ -f $state ]]; then
+        mapfile -t current < "$state"
+        if [[ ${current[0]:-} == "$recorder_pid" && ${current[1]:-} == "$recorder_birth" ]]; then
+            rm -f "$state"
+        fi
+    fi
+    flock -u 9
+}
+trap cleanup EXIT
+trap 'kill -INT "$recorder_pid" 2>/dev/null; wait "$recorder_pid"' INT TERM HUP
+
+printf '%s\n%s\n' "$recorder_pid" "$recorder_birth" > "$state"
+flock -u 9
+wait "$recorder_pid"
+result=$?
+cleanup
+trap - EXIT
+if (( result == 0 )) && [[ -s $output ]]; then
+    notify 'Recording saved' "$output"
+else
+    notify 'Recording failed' "See $state_dir/recorder.log for details."
+    exit 1
+fi

@@ -256,10 +256,11 @@ hl.bind(mainMod .. " + E",     hl.dsp.exec_cmd("uwsm app " .. editor))
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd("uwsm app " .. menu))
 hl.bind(mainMod .. " + Y",     hl.dsp.window.float({ action = "toggle" }))
 
--- Screenshot utilities
+-- Screenshot and recording utilities
 local ss = "~/.config/hypr/scripts/screenshot-region"
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(ss))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd(ss .. " --delay 3"))
+hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("uwsm app -- ~/.config/hypr/scripts/screen-record"))
 
 -- swaync
 hl.bind(ctrlMod .. " + SHIFT + F", hl.dsp.exec_cmd("uwsm app -- swaync-client -t"))
