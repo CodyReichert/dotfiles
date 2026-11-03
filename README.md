@@ -25,6 +25,21 @@ $ stow emacs
 
 # Software and scripts
 
+## Hyprland screen capture
+
+- **Alt+Shift+V** selects an area for an immediate screenshot.
+- **Alt+Shift+B** selects an area, then waits three seconds for a screenshot.
+- **Alt+Shift+C** selects an area and starts recording; press it again to stop.
+  Escape cancels area selection. Clips include the cursor and have no audio.
+  Timestamped H.264 MP4 files are saved in `~/Videos/Recordings/`, with a
+  notification after saving. Odd-sized selections are cropped by at most one
+  pixel per dimension for compatible video encoding.
+
+Recording requires `wf-recorder` (`sudo pacman -S --needed wf-recorder`) and
+`slurp`. Install the configuration with `stow --restow hyprland`, then reload
+Hyprland. The helper stores temporary process state and its latest recorder
+log in `$XDG_RUNTIME_DIR/hypr-screen-record/`.
+
 Although I don't use _all_ of these programs anymore, I find it useful
 to keep them around to help myself (and others) searching for specific
 configuration options find an example.
