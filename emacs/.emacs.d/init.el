@@ -712,6 +712,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
          ("\\.env.sample\\'" . dotenv-mode)))
 
 (use-package markdown-mode
+  :init (setq initial-major-mode 'markdown-mode)
   :hook (markdown-mode . visual-line-mode))
 
 (use-package wp-readme
@@ -878,11 +879,15 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 (use-package persistent-scratch
   :ensure t
   :config
-  (persistent-scratch-setup-default))
+  (persistent-scratch-setup-default)
+  ;; Use Markdown even when the saved scratch buffer had another mode.
+  (with-current-buffer (get-buffer-create "*scratch*")
+    (unless (derived-mode-p 'markdown-mode)
+      (markdown-mode))))
 
 ; The default does not like the ~ before > so do a kludge
 (setq shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>] *")
-(setq initial-scratch-message (format ";; startup took %s\n\n" (emacs-init-time)))
+(setq initial-scratch-message (format "<!-- startup took %s -->\n\n" (emacs-init-time)))
 
 (provide 'init)
 ;;; init.el ends here
